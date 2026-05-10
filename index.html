@@ -1462,12 +1462,11 @@
         }
       })();
 
-      // favicon fallback chain: DuckDuckGo -> direct -> letter (no Google to avoid 3rd-party cookies)
+      // favicon fallback chain: DuckDuckGo -> letter chip (no Google to avoid 3rd-party cookies, no direct to avoid 404 noise)
       document.querySelectorAll('.fav-img').forEach(function(img) {
         var domain = img.getAttribute('data-domain');
         var sources = [
-          'https://icons.duckduckgo.com/ip3/' + domain + '.ico',
-          'https://' + domain + '/favicon.ico'
+          'https://icons.duckduckgo.com/ip3/' + domain + '.ico'
         ];
         var idx = 0;
         img.src = sources[0];

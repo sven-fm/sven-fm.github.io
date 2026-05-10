@@ -50,9 +50,8 @@
   <meta name="twitter:description" content="Europe's leading consumer subscription and growth expert. 8 years at Spotify during hyper-growth. Ex-CEO Yousician. Founder of Newconic Ventures." />
   <meta name="twitter:image" content="https://sven.fm/assets/og.png" />
   <meta name="twitter:image:alt" content="Sven Ahrens. Consumer subscription and growth expert." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
+  <link rel="preload" href="/assets/fonts/fraunces-v38-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/fraunces-v38-latin-500.woff2" as="font" type="font/woff2" crossorigin />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -229,11 +228,54 @@
   }
   </script>
   <style>
+    @font-face {
+      font-family: 'Fraunces';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url('/assets/fonts/fraunces-v38-latin-regular.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Fraunces';
+      font-style: italic;
+      font-weight: 400;
+      font-display: swap;
+      src: url('/assets/fonts/fraunces-v38-latin-italic.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Fraunces';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url('/assets/fonts/fraunces-v38-latin-500.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Fraunces';
+      font-style: italic;
+      font-weight: 500;
+      font-display: swap;
+      src: url('/assets/fonts/fraunces-v38-latin-500italic.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Fraunces';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('/assets/fonts/fraunces-v38-latin-600.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Fraunces';
+      font-style: italic;
+      font-weight: 600;
+      font-display: swap;
+      src: url('/assets/fonts/fraunces-v38-latin-600italic.woff2') format('woff2');
+    }
+
     :root {
       --bg: #050505;
       --page-bg: #0e0e0e;
       --fg: #f2f2f2;
-      --muted: #7a7a7a;
+      --muted: #939393;
       --rule: #1c1c1c;
       --rule-strong: #2a2a2a;
       --chip-bg: #ffffff;
@@ -247,7 +289,7 @@
       --bg: #ececec;
       --page-bg: #fdfdfd;
       --fg: #0e0e0e;
-      --muted: #6f6f6f;
+      --muted: #5a5a5a;
       --rule: #e8e8e8;
       --rule-strong: #d2d2d2;
       --chip-bg: #ffffff;
@@ -1003,7 +1045,7 @@
 
         <li>
           <span class="name">
-            <span class="fav" data-letter="L"><img class="fav-img" data-domain="litona.de" src="https://icon.horse/icon/litona.de" alt="" loading="lazy"/></span>
+            <span class="fav" data-letter="L"><img class="fav-img" data-domain="litona.de" src="https://icons.duckduckgo.com/ip3/litona.de.ico" alt="" loading="lazy"/></span>
             <a href="https://litona.de" target="_blank" rel="noopener">Litona</a>
           </span>
           <span class="desc">Sodium-ion battery cells from abundant local materials.</span>
@@ -1420,11 +1462,10 @@
         }
       })();
 
-      // favicon fallback chain: Google -> DDG -> direct -> letter
+      // favicon fallback chain: DuckDuckGo -> direct -> letter (no Google to avoid 3rd-party cookies)
       document.querySelectorAll('.fav-img').forEach(function(img) {
         var domain = img.getAttribute('data-domain');
         var sources = [
-          'https://www.google.com/s2/favicons?domain=' + domain + '&sz=64',
           'https://icons.duckduckgo.com/ip3/' + domain + '.ico',
           'https://' + domain + '/favicon.ico'
         ];

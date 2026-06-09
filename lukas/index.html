@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lukas' Countdown! 🎈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --sky-top:  #8ad7ff;
+    --sky-mid:  #b6e3ff;
+    --sky-bot:  #ffe2f3;
+    --ink:      #3a2a5d;
+    --ink-soft: #6b5a8e;
+    --card-bg:  #fffdf7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Baloo 2', system-ui, sans-serif;
+    color: var(--ink);
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 45%, var(--sky-bot) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: -180px; right: -180px;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle at center, rgba(255,247,200,.95), transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ---- balloon sky ---- */
+  #sky {
+    position: fixed; inset: 0;
+    overflow: hidden; pointer-events: none; z-index: 1;
+  }
+  .balloon {
+    position: absolute; bottom: -240px;
+    will-change: transform;
+    animation: float-up linear infinite;
+  }
+  .balloon .body {
+    position: relative;
+    border-radius: 50% 50% 48% 48%;
+    box-shadow:
+      inset -10px -14px 26px rgba(0,0,0,.18),
+      inset 14px 12px 24px rgba(255,255,255,.55),
+      0 14px 26px rgba(58,42,93,.18);
+  }
+  .balloon .body::before {
+    content: "";
+    position: absolute;
+    top: 14%; left: 22%;
+    width: 26%; height: 32%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.92), transparent 70%);
+    filter: blur(1px);
+  }
+  .balloon .body::after {
+    content: "";
+    position: absolute;
+    left: 50%; bottom: -7px;
+    width: 12px; height: 12px;
+    transform: translateX(-50%) rotate(45deg);
+    background: inherit;
+    border-radius: 3px;
+    filter: brightness(.82);
+  }
+  .balloon .string {
+    position: absolute;
+    left: 50%; top: 100%;
+    width: 2px; height: 70px;
+    background: linear-gradient(180deg, rgba(58,42,93,.45), rgba(58,42,93,.05));
+    transform-origin: top center;
+    animation: sway 4s ease-in-out infinite;
+  }
+  @keyframes float-up {
+    0%   { transform: translateY(0)     translateX(0)    rotate(0deg); }
+    50%  { transform: translateY(-55vh) translateX(40px) rotate(8deg); }
+    100% { transform: translateY(-118vh)translateX(-20px) rotate(-6deg); }
+  }
+  @keyframes sway {
+    0%,100% { transform: rotate(-6deg); }
+    50%     { transform: rotate(6deg); }
+  }
+
+  /* ---- layout ---- */
+  .wrap {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto;
+    padding: 28px 20px 80px;
+  }
+
+  header { text-align: center; margin: 12px 0 34px; }
+  .hello {
+    font-weight: 600;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--ink-soft);
+  }
+  h1 {
+    font-family: 'Fredoka';
+    font-weight: 700;
+    font-size: clamp(2.6rem, 9vw, 5.2rem);
+    line-height: 1; letter-spacing: -1px;
+    margin: 6px 0 4px;
+    background: linear-gradient(90deg, #ff5fa2,#ff9f43,#ffd23f,#4ecb71,#4d9bff,#a86bff);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 4px 0 rgba(255,255,255,.6));
+    animation: rainbow-shift 9s linear infinite;
+    background-size: 200% auto;
+  }
+  @keyframes rainbow-shift { to { background-position: 200% center; } }
+  .subtitle {
+    font-weight: 600;
+    font-size: clamp(1rem, 3vw, 1.35rem);
+    color: var(--ink-soft);
+  }
+
+  .cards {
+    display: grid; gap: 26px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  /* ---- card ---- */
+  .card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 32px;
+    border: 4px solid #fff;
+    box-shadow: 0 18px 0 -2px var(--cd-shadow), 0 26px 44px rgba(58,42,93,.22);
+    transition: transform .18s cubic-bezier(.34,1.56,.64,1);
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .card::after {
+    content: "";
+    position: absolute; inset: 0 0 auto 0;
+    height: 90px;
+    background: var(--cd-color);
+    opacity: .13;
+    pointer-events: none;
+  }
+  .card:hover:not(.editing) { transform: translateY(-6px) rotate(-.6deg); }
+  .card.wiggle { animation: wiggle .5s ease; }
+  @keyframes wiggle {
+    0%,100% { transform: rotate(0); }
+    25% { transform: rotate(-2.5deg) scale(1.02); }
+    75% { transform: rotate( 2.5deg) scale(1.02); }
+  }
+
+  /* ---- card display face ---- */
+  .card-display { padding: 26px 24px 24px; }
+  .card-head {
+    display: flex; align-items: center; gap: 12px;
+    position: relative; z-index: 1; margin-bottom: 16px;
+  }
+  .emoji-show {
+    font-size: 2.6rem; line-height: 1;
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,.18));
+    animation: bob 3s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  .card-title {
+    font-family: 'Fredoka';
+    font-weight: 600;
+    font-size: clamp(1.4rem, 4vw, 1.9rem);
+    color: var(--cd-color);
+    line-height: 1.05;
+  }
+  .card-date {
+    font-weight: 600; font-size: .9rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---- edit pencil button ---- */
+  .edit-btn {
+    position: absolute; top: 18px; right: 18px;
+    z-index: 10;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(58,42,93,.12);
+    background: #fff;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: 0 3px 8px rgba(58,42,93,.12);
+    transition: transform .15s, box-shadow .15s, background .15s;
+  }
+  .edit-btn:hover {
+    transform: scale(1.12) rotate(-8deg);
+    background: var(--cd-color);
+    box-shadow: 0 5px 12px rgba(58,42,93,.18);
+  }
+
+  /* ---- breakdown grid ---- */
+  .breakdown {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px; margin: 6px 0 18px;
+  }
+  .unit {
+    text-align: center;
+    background: #fff;
+    border-radius: 18px;
+    padding: 12px 4px 9px;
+    box-shadow: inset 0 0 0 2px rgba(58,42,93,.06), 0 6px 0 -1px rgba(58,42,93,.08);
+  }
+  .unit .num {
+    font-family: 'Fredoka';
+    font-weight: 700;
+    font-size: clamp(1.5rem, 5vw, 2.3rem);
+    color: var(--cd-color);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .unit .lbl {
+    font-weight: 600; font-size: .68rem;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--ink-soft); margin-top: 4px;
+  }
+
+  /* ---- single big number ---- */
+  .bignum { text-align: center; padding: 10px 0 20px; display: none; }
+  .bignum .big {
+    font-family: 'Fredoka';
+    font-weight: 700;
+    font-size: 5rem; /* overridden by JS fitBigNum() */
+    color: var(--cd-color); line-height: .95;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 4px 0 rgba(255,255,255,.7);
+    white-space: nowrap;
+    display: block;
+    transition: font-size .15s;
+  }
+  .bignum .big-lbl {
+    font-weight: 700;
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--ink-soft); margin-top: 6px;
+  }
+  .card.single .breakdown { display: none; }
+  .card.single .bignum    { display: block; }
+
+  /* ---- view toggles ---- */
+  .toggles {
+    display: flex; flex-wrap: wrap;
+    gap: 7px; justify-content: center;
+  }
+  .toggles button {
+    font-family: 'Baloo 2';
+    font-weight: 700; font-size: .88rem;
+    border: none; border-radius: 999px;
+    padding: 8px 13px; cursor: pointer;
+    background: #fff; color: var(--ink-soft);
+    box-shadow: inset 0 0 0 2px rgba(58,42,93,.10), 0 4px 0 -1px rgba(58,42,93,.12);
+    transition: transform .12s, background .12s, color .12s;
+  }
+  .toggles button:hover  { transform: translateY(-2px); }
+  .toggles button:active { transform: translateY(1px); }
+  .toggles button.active {
+    background: var(--cd-color); color: #fff;
+    box-shadow: 0 4px 0 -1px var(--cd-shadow);
+  }
+
+  /* ---- done banner ---- */
+  .done-banner {
+    display: none; text-align: center;
+    font-family: 'Fredoka'; font-weight: 700;
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+    color: var(--cd-color);
+    padding: 8px 0 16px;
+  }
+  .card.done .breakdown,
+  .card.done .bignum,
+  .card.done .toggles { display: none; }
+  .card.done .done-banner { display: block; animation: pop .6s ease; }
+  @keyframes pop { 0%{transform:scale(.6);opacity:0} 60%{transform:scale(1.15)} 100%{transform:scale(1);opacity:1} }
+
+  /* ---- EDIT FORM ---- */
+  .card-edit {
+    display: none;
+    padding: 22px 22px 20px;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .card.editing .card-display { display: none; }
+  .card.editing .card-edit    { display: flex; }
+  .card.editing               { cursor: default; }
+
+  .edit-title {
+    font-family: 'Fredoka';
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--cd-color);
+    margin-bottom: -4px;
+  }
+
+  .field-label {
+    font-weight: 700; font-size: .8rem;
+    text-transform: uppercase; letter-spacing: .6px;
+    color: var(--ink-soft);
+    margin-bottom: 5px;
+  }
+
+  .edit-name-input,
+  .edit-date-input {
+    font-family: 'Baloo 2';
+    font-weight: 600; font-size: 1.15rem;
+    width: 100%;
+    border: 2.5px solid rgba(58,42,93,.14);
+    border-radius: 14px;
+    padding: 10px 14px;
+    color: var(--ink);
+    background: #fff;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+    box-shadow: 0 3px 0 rgba(58,42,93,.07);
+  }
+  .edit-name-input:focus,
+  .edit-date-input:focus {
+    border-color: var(--cd-color);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--cd-color) 18%, transparent);
+  }
+
+  /* emoji picker */
+  .emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 7px;
+  }
+  .emoji-btn {
+    font-size: 1.55rem;
+    line-height: 1;
+    width: 100%; aspect-ratio: 1;
+    border: 2.5px solid transparent;
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    transition: transform .12s, border-color .12s, background .12s;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 5px rgba(58,42,93,.08);
+  }
+  .emoji-btn:hover { transform: scale(1.18) rotate(-4deg); }
+  .emoji-btn.selected {
+    border-color: var(--cd-color);
+    background: color-mix(in srgb, var(--cd-color) 12%, white);
+    transform: scale(1.1);
+  }
+
+  /* edit action buttons */
+  .edit-actions {
+    display: flex; gap: 10px;
+  }
+  .save-btn, .cancel-btn {
+    font-family: 'Baloo 2';
+    font-weight: 700; font-size: 1rem;
+    flex: 1; padding: 11px;
+    border: none; border-radius: 14px;
+    cursor: pointer;
+    transition: transform .12s, box-shadow .12s;
+  }
+  .save-btn {
+    background: var(--cd-color); color: #fff;
+    box-shadow: 0 5px 0 -1px var(--cd-shadow);
+  }
+  .save-btn:hover   { transform: translateY(-2px); box-shadow: 0 7px 0 -1px var(--cd-shadow); }
+  .save-btn:active  { transform: translateY(2px);  box-shadow: 0 2px 0 -1px var(--cd-shadow); }
+  .cancel-btn {
+    background: #fff; color: var(--ink-soft);
+    box-shadow: inset 0 0 0 2.5px rgba(58,42,93,.14), 0 4px 0 -1px rgba(58,42,93,.10);
+  }
+  .cancel-btn:hover  { transform: translateY(-2px); }
+  .cancel-btn:active { transform: translateY(2px); }
+
+  footer {
+    text-align: center; margin-top: 46px;
+    color: var(--ink-soft);
+    font-weight: 600; font-size: .95rem;
+  }
+
+  /* confetti */
+  .confetti {
+    position: fixed; top: -20px;
+    width: 12px; height: 16px;
+    z-index: 50; pointer-events: none;
+    border-radius: 3px;
+    animation: fall linear forwards;
+  }
+  @keyframes fall { to { transform: translateY(110vh) rotate(720deg); opacity: .9; } }
+</style>
+</head>
+<body>
+
+<div id="sky"></div>
+
+<div class="wrap">
+  <header>
+    <div class="hello">Hey Lukas! 👋</div>
+    <h1>Noch wie lange bis…?</h1>
+    <p class="subtitle">Tipp auf die Buttons und zähl in Sekunden, Minuten oder Wochen! ⏰</p>
+  </header>
+  <div class="cards" id="cards"></div>
+  <footer>Mit 🎈 nur für Lukas gemacht</footer>
+</div>
+
+<script>
+/* ---- emoji palette (20 symbols) ---- */
+const EMOJIS = ['🎂','🎄','🏖️','🎃','🚀','⚽','🎮','🦄','🌟','🎡',
+                '🎢','🏄','🎪','🦕','🎈','🍕','🎯','🏆','🎠','🎭'];
+
+/* ---- default events (edit in-browser, saved to localStorage) ---- */
+const DEFAULTS = [
+  { name: "Sommerferien",       emoji: "🏖️", color: "#ff8a3d", shadow: "#e06d1f", date: "2026-07-20T09:00" },
+  { name: "Lukas' Geburtstag",  emoji: "🎂", color: "#ff4f9a", shadow: "#d92e7c", date: "2026-09-15T08:00" },
+  { name: "Heiligabend",        emoji: "🎄", color: "#34b86a", shadow: "#208c4d", date: "2026-12-24T17:00" },
+];
+
+/* ---- view toggles ---- */
+const VIEWS = [
+  { key: "all",      label: "Alles"     },
+  { key: "wochen",   label: "Wochen"    },
+  { key: "tage",     label: "Tage"      },
+  { key: "stunden",  label: "Stunden"   },
+  { key: "minuten",  label: "Minuten"   },
+  { key: "sekunden", label: "Sekunden"  },
+];
+
+const SECOND = 1000, MINUTE = 60*SECOND, HOUR = 60*MINUTE, DAY = 24*HOUR, WEEK = 7*DAY;
+const fmt = n => Math.floor(n).toLocaleString('de-DE');
+
+/* shrink the big single-unit number to fit its container — no line breaks */
+function fitBigNum(el) {
+  const text = el.textContent;
+  const len  = text.replace(/\s/g, '').length;
+  // 5rem comfortably fits ~7 chars; shrink ~0.45rem per extra char
+  const rem  = Math.max(1.6, 5 - Math.max(0, len - 7) * 0.45);
+  el.style.fontSize = rem + 'rem';
+}
+
+/* ---- persist / load ---- */
+const STORAGE_KEY = 'lucas-countdowns-v2';
+function load() {
+  try { const s = localStorage.getItem(STORAGE_KEY); return s ? JSON.parse(s) : DEFAULTS; }
+  catch { return DEFAULTS; }
+}
+function save(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+/* ---- build cards ---- */
+const cardsEl = document.getElementById('cards');
+const state = [];
+
+load().slice(0, 3).forEach((cd, i) => {
+  const colors = [
+    { color: "#ff8a3d", shadow: "#e06d1f" },
+    { color: "#ff4f9a", shadow: "#d92e7c" },
+    { color: "#34b86a", shadow: "#208c4d" },
+  ];
+  const { color, shadow } = colors[i];
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.style.setProperty('--cd-color',  color);
+  card.style.setProperty('--cd-shadow', shadow);
+
+  card.innerHTML = `
+    <button class="edit-btn" title="Bearbeiten">✏️</button>
+
+    <div class="card-display">
+      <div class="card-head">
+        <div class="emoji-show">${cd.emoji}</div>
+        <div>
+          <div class="card-title">${cd.name}</div>
+          <div class="card-date"></div>
+        </div>
+      </div>
+
+      <div class="breakdown">
+        <div class="unit"><div class="num" data-u="w">0</div><div class="lbl">Wo.</div></div>
+        <div class="unit"><div class="num" data-u="d">0</div><div class="lbl">Tage</div></div>
+        <div class="unit"><div class="num" data-u="h">0</div><div class="lbl">Std.</div></div>
+        <div class="unit"><div class="num" data-u="m">0</div><div class="lbl">Min.</div></div>
+        <div class="unit"><div class="num" data-u="s">0</div><div class="lbl">Sek.</div></div>
+      </div>
+
+      <div class="bignum">
+        <div class="big" data-big>0</div>
+        <div class="big-lbl" data-biglbl>Sekunden</div>
+      </div>
+
+      <div class="done-banner">🎉 Heute ist es so weit! 🎉</div>
+
+      <div class="toggles">
+        ${VIEWS.map(v => `<button data-view="${v.key}">${v.label}</button>`).join('')}
+      </div>
+    </div>
+
+    <div class="card-edit">
+      <div class="edit-title">Ereignis bearbeiten</div>
+
+      <div>
+        <div class="field-label">Name</div>
+        <input class="edit-name-input" type="text" maxlength="40" placeholder="z.B. Sommerferien" />
+      </div>
+
+      <div>
+        <div class="field-label">Datum &amp; Uhrzeit</div>
+        <input class="edit-date-input" type="datetime-local" />
+      </div>
+
+      <div>
+        <div class="field-label">Symbol</div>
+        <div class="emoji-grid">
+          ${EMOJIS.map(e => `<button class="emoji-btn" data-emoji="${e}">${e}</button>`).join('')}
+        </div>
+      </div>
+
+      <div class="edit-actions">
+        <button class="save-btn">Speichern</button>
+        <button class="cancel-btn">Abbrechen</button>
+      </div>
+    </div>
+  `;
+
+  const entry = {
+    card,
+    color, shadow,
+    name:  cd.name,
+    emoji: cd.emoji,
+    date:  cd.date,
+    view:  'all',
+    firedConfetti: false,
+  };
+
+  /* wiggle on card body click (not buttons) */
+  card.addEventListener('click', e => {
+    if (e.target.closest('button')) return;
+    if (card.classList.contains('editing')) return;
+    card.classList.remove('wiggle');
+    void card.offsetWidth;
+    card.classList.add('wiggle');
+  });
+
+  /* view toggles */
+  card.querySelectorAll('button[data-view]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      entry.view = btn.dataset.view;
+      card.querySelectorAll('button[data-view]').forEach(b => b.classList.toggle('active', b === btn));
+      card.classList.toggle('single', entry.view !== 'all');
+      render(entry);
+    });
+  });
+  card.querySelector('button[data-view="all"]').classList.add('active');
+
+  /* ---- edit flow ---- */
+  const editBtn    = card.querySelector('.edit-btn');
+  const nameInput  = card.querySelector('.edit-name-input');
+  const dateInput  = card.querySelector('.edit-date-input');
+  const emojiBtns  = card.querySelectorAll('.emoji-btn');
+  const saveBtn    = card.querySelector('.save-btn');
+  const cancelBtn  = card.querySelector('.cancel-btn');
+
+  function openEdit() {
+    nameInput.value = entry.name;
+    dateInput.value = entry.date;
+    emojiBtns.forEach(b => b.classList.toggle('selected', b.dataset.emoji === entry.emoji));
+    card.classList.add('editing');
+  }
+
+  function closeEdit() {
+    card.classList.remove('editing');
+  }
+
+  editBtn.addEventListener('click', e => { e.stopPropagation(); openEdit(); });
+
+  emojiBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      emojiBtns.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    });
+  });
+
+  saveBtn.addEventListener('click', () => {
+    const newName  = nameInput.value.trim() || entry.name;
+    const newDate  = dateInput.value || entry.date;
+    const selEmoji = card.querySelector('.emoji-btn.selected');
+    const newEmoji = selEmoji ? selEmoji.dataset.emoji : entry.emoji;
+
+    entry.name  = newName;
+    entry.date  = newDate;
+    entry.emoji = newEmoji;
+    entry.firedConfetti = false;
+    card.classList.remove('done');
+
+    card.querySelector('.card-title').textContent  = newName;
+    card.querySelector('.emoji-show').textContent  = newEmoji;
+    updateDateLabel(entry);
+    closeEdit();
+    persistAll();
+  });
+
+  cancelBtn.addEventListener('click', closeEdit);
+
+  cardsEl.appendChild(card);
+  state.push(entry);
+  updateDateLabel(entry);
+});
+
+/* ---- helpers ---- */
+function updateDateLabel(e) {
+  const d = new Date(e.date);
+  e.card.querySelector('.card-date').textContent =
+    d.toLocaleDateString('de-DE', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+}
+
+function persistAll() {
+  save(state.map(e => ({ name: e.name, emoji: e.emoji, color: e.color, shadow: e.shadow, date: e.date })));
+}
+
+/* ---- countdown renderer ---- */
+function render(e) {
+  const diff = new Date(e.date).getTime() - Date.now();
+
+  if (diff <= 0) {
+    e.card.classList.add('done');
+    if (!e.firedConfetti) { e.firedConfetti = true; burst(e.color); }
+    return;
+  }
+
+  let r = diff;
+  const w = Math.floor(r / WEEK);   r -= w * WEEK;
+  const d = Math.floor(r / DAY);    r -= d * DAY;
+  const h = Math.floor(r / HOUR);   r -= h * HOUR;
+  const m = Math.floor(r / MINUTE); r -= m * MINUTE;
+  const s = Math.floor(r / SECOND);
+
+  const q = sel => e.card.querySelector(sel);
+  q('[data-u="w"]').textContent = w;
+  q('[data-u="d"]').textContent = d;
+  q('[data-u="h"]').textContent = h;
+  q('[data-u="m"]').textContent = m;
+  q('[data-u="s"]').textContent = s;
+
+  if (e.view !== 'all') {
+    const MAP = {
+      wochen:   [diff / WEEK,   'Wochen'],
+      tage:     [diff / DAY,    'Tage'],
+      stunden:  [diff / HOUR,   'Stunden'],
+      minuten:  [diff / MINUTE, 'Minuten'],
+      sekunden: [diff / SECOND, 'Sekunden'],
+    };
+    const [val, lbl] = MAP[e.view];
+    const bigEl = q('[data-big]');
+    bigEl.textContent              = fmt(val);
+    fitBigNum(bigEl);
+    q('[data-biglbl]').textContent = lbl + ' noch!';
+  }
+}
+
+function tick() {
+  state.forEach(render);
+  requestAnimationFrame(() => setTimeout(tick, 250));
+}
+tick();
+
+/* ---- balloon sky ---- */
+const BALLOON_COLORS = [
+  ['#ff6b9d','#ff3d7f'],['#ffd23f','#ffab00'],['#4ecb71','#2ba84a'],
+  ['#4d9bff','#1f6fe0'],['#a86bff','#7d3ff0'],['#ff8a3d','#e06d1f'],
+  ['#5ad1d1','#22a8a8'],['#ff5fa2','#e23a82'],
+];
+const sky = document.getElementById('sky');
+
+function makeBalloon() {
+  const [c1, c2] = BALLOON_COLORS[Math.floor(Math.random() * BALLOON_COLORS.length)];
+  const size   = 42 + Math.random() * 78;
+  const squash = 0.86 + Math.random() * 0.28;
+  const left   = Math.random() * 100;
+  const dur    = 16 + Math.random() * 20;
+  const delay  = -Math.random() * dur;
+
+  const b    = document.createElement('div');
+  b.className = 'balloon';
+  b.style.left = left + 'vw';
+  b.style.animationDuration = dur + 's';
+  b.style.animationDelay    = delay + 's';
+
+  const body = document.createElement('div');
+  body.className = 'body';
+  body.style.width  = size + 'px';
+  body.style.height = (size / squash) + 'px';
+  body.style.background = `radial-gradient(circle at 34% 30%, ${c1}, ${c2} 78%)`;
+
+  const string = document.createElement('div');
+  string.className = 'string';
+  string.style.animationDelay = (Math.random() * -4) + 's';
+
+  body.appendChild(string);
+  b.appendChild(body);
+  sky.appendChild(b);
+}
+for (let i = 0; i < 18; i++) makeBalloon();
+
+/* ---- confetti burst on countdown done ---- */
+function burst(baseColor) {
+  const colors = [baseColor, '#ffd23f', '#4d9bff', '#ff6b9d', '#4ecb71', '#a86bff'];
+  for (let i = 0; i < 90; i++) {
+    const p   = document.createElement('div');
+    p.className = 'confetti';
+    p.style.left              = Math.random() * 100 + 'vw';
+    p.style.background        = colors[Math.floor(Math.random() * colors.length)];
+    p.style.animationDuration = (2 + Math.random() * 2.5) + 's';
+    p.style.animationDelay    = (Math.random() * 0.8) + 's';
+    p.style.transform         = `rotate(${Math.random() * 360}deg)`;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 5500);
+  }
+}
+</script>
+</body>
+</html>

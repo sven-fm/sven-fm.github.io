@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Set theme before first paint (no flash). Falls back to OS preference. -->
   <script>
     (function () {
       try {
-        var stored = localStorage.getItem('sa-theme');
+        var stored = localStorage.getItem('fm-theme');
         var t = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
         document.documentElement.setAttribute('data-theme', t);
       } catch (e) {
@@ -14,15 +16,17 @@
       }
     })();
   </script>
-  <title>Sven Ahrens. Consumer subscription and growth expert. Ex-Spotify. Ex-CEO Yousician.</title>
-  <meta name="description" content="Sven Ahrens is one of Europe's leading consumer subscription and growth experts. Eight years at Spotify during the hyper-growth era. Until recently CEO at Yousician. Founder of Newconic Ventures. Active angel investor and board member across consumer, AI and subscription companies." />
+
+  <title>Sven Ahrens — fractional growth &amp; product leader. Ex-Spotify, ex-CEO Yousician.</title>
+  <meta name="description" content="I help consumer and subscription companies grow. Fractional or interim Head of Growth or Product, board member, advisor. Eight years scaling Spotify, ex-CEO of Yousician, angel in 18+ startups. Book a call." />
   <meta name="author" content="Sven Ahrens" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="keywords" content="Sven Ahrens, consumer subscription, growth, retention, Spotify, Yousician, GuitarTuna, Newconic Ventures, angel investor, Berlin, Europe, monetization, hyper-growth, product-market fit, internationalization" />
+  <meta name="keywords" content="Sven Ahrens, fractional Head of Growth, interim Head of Product, consumer subscription, growth operator, retention, monetization, Spotify, Yousician, GuitarTuna, Newconic Ventures, angel investor, board member, advisor, Berlin" />
   <link rel="canonical" href="https://sven.fm" />
   <link rel="me" href="https://linkedin.com/in/svenahrens" />
   <link rel="me" href="https://svenahrens.com" />
-  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="theme-color" content="#0A0F0D" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#F4F8F5" media="(prefers-color-scheme: light)" />
 
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
@@ -31,27 +35,39 @@
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/icon-512.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
+  <!-- Open Graph -->
   <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://sven.fm" />
   <meta property="og:site_name" content="Sven Ahrens" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:title" content="Sven Ahrens. Consumer subscription and growth, ex-Spotify, ex-CEO Yousician" />
-  <meta property="og:description" content="One of Europe's leading consumer subscription and growth experts. Eight years at Spotify during hyper-growth. Until recently CEO at Yousician. Founder of Newconic Ventures." />
+  <meta property="og:title" content="Sven Ahrens — fractional growth &amp; product leader. Ex-Spotify, ex-CEO Yousician." />
+  <meta property="og:description" content="I help consumer and subscription companies grow. Fractional or interim Head of Growth or Product, board member, advisor. Book a call." />
   <meta property="og:image" content="https://sven.fm/assets/og.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Sven Ahrens. Consumer subscription and growth expert." />
+  <meta property="og:image:alt" content="Sven Ahrens — consumer subscription and growth operator." />
   <meta property="profile:first_name" content="Sven" />
   <meta property="profile:last_name" content="Ahrens" />
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Sven Ahrens. Consumer subscription and growth, ex-Spotify, ex-CEO Yousician" />
-  <meta name="twitter:description" content="Europe's leading consumer subscription and growth expert. 8 years at Spotify during hyper-growth. Ex-CEO Yousician. Founder of Newconic Ventures." />
+  <meta name="twitter:title" content="Sven Ahrens — fractional growth &amp; product leader. Ex-Spotify, ex-CEO Yousician." />
+  <meta name="twitter:description" content="I help consumer and subscription companies grow. Fractional or interim Head of Growth or Product, board member, advisor. Book a call." />
   <meta name="twitter:image" content="https://sven.fm/assets/og.png" />
-  <meta name="twitter:image:alt" content="Sven Ahrens. Consumer subscription and growth expert." />
-  <link rel="preload" href="/assets/fonts/fraunces-v38-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/fraunces-v38-latin-500.woff2" as="font" type="font/woff2" crossorigin />
+  <meta name="twitter:image:alt" content="Sven Ahrens — consumer subscription and growth operator." />
+
+  <!-- Preload the above-the-fold display face only -->
+  <link rel="preload" href="/assets/fonts/newsreader-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="/main.js" defer></script>
+
+  <!-- ===================================================================
+       Structured data. Visible copy is first person; Person.description
+       stays third person for entity SEO. FAQPage mirrors the visible
+       first-person FAQ verbatim (incl. the full-time-role question).
+       =================================================================== -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -61,7 +77,7 @@
         "@id": "https://sven.fm/#website",
         "url": "https://sven.fm",
         "name": "Sven Ahrens",
-        "description": "Personal site of Sven Ahrens. Consumer subscription and growth expert.",
+        "description": "Sven Ahrens helps consumer and subscription companies grow, as a fractional or interim growth and product leader, board member and advisor.",
         "inLanguage": "en",
         "publisher": { "@id": "https://sven.fm/#sven" }
       },
@@ -69,7 +85,7 @@
         "@type": "ProfilePage",
         "@id": "https://sven.fm/#profilepage",
         "url": "https://sven.fm",
-        "name": "About Sven Ahrens",
+        "name": "Sven Ahrens",
         "isPartOf": { "@id": "https://sven.fm/#website" },
         "mainEntity": { "@id": "https://sven.fm/#sven" },
         "inLanguage": "en"
@@ -79,8 +95,8 @@
         "@id": "https://sven.fm/#sven",
         "name": "Sven Ahrens",
         "url": "https://sven.fm",
-        "jobTitle": "Founder, Newconic Ventures",
-        "description": "Sven Ahrens is one of Europe's leading consumer subscription and growth experts. Eight years at Spotify (2016 to 2024), most recently Director of Global Growth where his team drove 60+% of Spotify's subscriber growth. From 2025 to 2026 CEO at Yousician (20M+ MAU). Founder of Newconic Ventures. Active board member, angel investor and advisor across consumer, AI and subscription companies.",
+        "jobTitle": "Fractional and interim growth & product leader",
+        "description": "Sven Ahrens is one of Europe's leading consumer subscription and growth operators. He spent eight years at Spotify (2016 to 2024), most recently Director of Global Growth, where his team drove 60+% of Spotify's subscriber growth. From 2025 to 2026 he was CEO at Yousician (20M+ MAU). He is the founder of Newconic Ventures and works as a fractional or interim Head of Growth or Product, board member and advisor to consumer and subscription companies.",
         "image": "https://sven.fm/assets/sven.jpg",
         "nationality": { "@type": "Country", "name": "Germany" },
         "homeLocation": { "@type": "City", "name": "Berlin" },
@@ -152,22 +168,15 @@
       },
       {
         "@type": "ItemList",
-        "name": "12 things to know about Sven Ahrens",
+        "name": "Ways to engage Sven Ahrens",
         "itemListOrder": "https://schema.org/ItemListOrderAscending",
-        "numberOfItems": 12,
+        "numberOfItems": 5,
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Until recently CEO of Yousician (2025 to 2026), the music app developer behind Yousician and GuitarTuna with 20+ million monthly active users globally." },
-          { "@type": "ListItem", "position": 2, "name": "Spent eight years at Spotify (2016 to 2024) during the platform's hyper-growth era." },
-          { "@type": "ListItem", "position": 3, "name": "His Spotify Global Growth team drove 60+% of Spotify's subscriber acquisition and engagement." },
-          { "@type": "ListItem", "position": 4, "name": "Briefly served as Chief Growth Officer at Muse Group in 2024." },
-          { "@type": "ListItem", "position": 5, "name": "Founder of Newconic Ventures, his angel investing and advisory vehicle since 2019." },
-          { "@type": "ListItem", "position": 6, "name": "Two angel exits to date: Butter (acquired by Miro) and Petli (acquired by Agria)." },
-          { "@type": "ListItem", "position": 7, "name": "Board and advisory engagements include Peloton, Knowunity and Kittl. Board observer at Female Invest since 2024." },
-          { "@type": "ListItem", "position": 8, "name": "Considered one of Europe's leading consumer subscription and growth operators." },
-          { "@type": "ListItem", "position": 9, "name": "Spotify-era retention and growth playbook: lifecycle, habit, pricing power, multi-channel conversion at hundred-million-subscriber scale." },
-          { "@type": "ListItem", "position": 10, "name": "Worked on Spotify's global rollout until 2018, then ran the premium subscription business across Germany, Russia and Eastern Europe." },
-          { "@type": "ListItem", "position": 11, "name": "Double degree: MSc Marketing and Media Management from Stockholm School of Economics, and CEMS Master in International Management from ESADE Business School Barcelona." },
-          { "@type": "ListItem", "position": 12, "name": "Native German. Fluent English, Spanish and Portuguese. Dabbles in Russian, Swedish, Italian and French. Has traveled to 75 countries." }
+          { "@type": "ListItem", "position": 1, "name": "Lead it: full-time, interim, or fractional Head of Growth or Product." },
+          { "@type": "ListItem", "position": 2, "name": "Run the team: take an existing growth or product team and get it shipping, focused and accountable." },
+          { "@type": "ListItem", "position": 3, "name": "Fire-fighter: drop in where it's burning, stop the bleeding, leave a plan the team can run." },
+          { "@type": "ListItem", "position": 4, "name": "Board member or observer: the consumer subscription and growth lens on decisions that compound." },
+          { "@type": "ListItem", "position": 5, "name": "Advisor or sounding board: candid, fast, biased toward action for founders and seasoned leaders." }
         ]
       },
       {
@@ -176,18 +185,34 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Who is Sven Ahrens?",
+            "name": "What do you actually do?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Sven Ahrens is one of Europe's leading consumer subscription and growth experts. He spent eight years at Spotify (2016 to 2024) during the platform's hyper-growth era, most recently as Director of Global Growth, where his team drove 60+% of Spotify's subscriber growth. From 2025 to 2026 he was CEO at Yousician, the music app developer behind Yousician and GuitarTuna with 20+ million monthly active users. He is the founder of Newconic Ventures, his angel investing and advisory vehicle, and a board observer at Female Invest."
+              "text": "I come in as a fractional or interim Head of Growth or Product, I run growth and product teams, I sit on boards, and I advise founders and leaders making hard calls. Operating-heavy or advisory-light, whichever the situation needs. The common thread is consumer subscription growth and a bias for action."
             }
           },
           {
             "@type": "Question",
-            "name": "Where did Sven Ahrens work?",
+            "name": "What are you best at?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Sven Ahrens started his career as a management consultant at Bain & Company in Munich (2012 to 2016). He then spent eight years at Spotify (2016 to 2024) across four roles, ending as Director of Global Growth. He briefly served as Chief Growth Officer at Muse Group in 2024 before becoming CEO at Yousician from 2025 to 2026. He has founded and run Newconic Ventures, his angel investing and advisory vehicle, since 2019."
+              "text": "Turning early consumer traction into durable, compounding subscription revenue: lifecycle and habit, pricing and monetization, multi-channel conversion, retention cohorts, internationalization. I learned it at hundred-million-subscriber scale at Spotify, and I've applied it from a standing start ever since."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Who do you work with?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Consumer, prosumer, and subscription companies, from pre-seed founders to seasoned leadership teams. If your growth depends on people choosing to pay you again and again, that's my world."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are you open to a full-time role?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, for the right company. I'm selective, but the right mission, team, and mandate would win, and I'd go all in. The rest of the time I run a few fractional, board, and advisory engagements at once. Either way, book a call and make the case."
             }
           },
           {
@@ -195,31 +220,23 @@
             "name": "What is Newconic Ventures?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Newconic Ventures is Sven Ahrens's angel investing and advisory vehicle, active since 2019. It backs pre-seed and seed-stage consumer, prosumer, AI and subscription companies across the EU and US. The portfolio includes 18+ companies; notable exits to date are Butter (acquired by Miro) and Petli (acquired by Agria). Advisory engagements include Peloton, Knowunity and Kittl."
+              "text": "My angel investing and advisory vehicle, running since 2019. I back pre-seed and seed consumer, prosumer, AI, and subscription startups across the EU and US, 18+ to date. Two exits so far: Butter to Miro, and Petli to Agria. Advisory work includes Peloton, Knowunity, and Kittl."
             }
           },
           {
             "@type": "Question",
-            "name": "What is Sven Ahrens known for?",
+            "name": "Where are you based?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Subscriber growth, retention, monetization, pricing, and internationalization at scale. Sven is widely considered one of Europe's leading authorities on consumer subscription and growth, drawing on the Spotify-era retention and growth playbook applied at hundred-million-subscriber scale. His specialty is turning early consumer-product traction into durable, compounding subscription revenue."
+              "text": "Berlin. Native German, fluent in English, Spanish, and Portuguese, and I've worked across Berlin, Stockholm, New York, and Munich. I travel a lot; 75 countries so far."
             }
           },
           {
             "@type": "Question",
-            "name": "Where is Sven Ahrens based?",
+            "name": "How do we start?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Sven Ahrens is based in Berlin, Germany. He is a native German speaker, fluent in English, Spanish and Portuguese, and has lived and worked across Berlin, Stockholm, New York and Munich. He has traveled to more than 75 countries."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How can I contact Sven Ahrens?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The best entry point for founders, operators, journalists and investors is via LinkedIn at https://linkedin.com/in/svenahrens."
+              "text": "Book a call. Bring the hard question; I'll bring an honest answer and a view on what to do next."
             }
           }
         ]
@@ -227,1265 +244,487 @@
     ]
   }
   </script>
-  <style>
-    @font-face {
-      font-family: 'Fraunces';
-      font-style: normal;
-      font-weight: 400;
-      font-display: swap;
-      src: url('/assets/fonts/fraunces-v38-latin-regular.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Fraunces';
-      font-style: italic;
-      font-weight: 400;
-      font-display: swap;
-      src: url('/assets/fonts/fraunces-v38-latin-italic.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Fraunces';
-      font-style: normal;
-      font-weight: 500;
-      font-display: swap;
-      src: url('/assets/fonts/fraunces-v38-latin-500.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Fraunces';
-      font-style: italic;
-      font-weight: 500;
-      font-display: swap;
-      src: url('/assets/fonts/fraunces-v38-latin-500italic.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Fraunces';
-      font-style: normal;
-      font-weight: 600;
-      font-display: swap;
-      src: url('/assets/fonts/fraunces-v38-latin-600.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Fraunces';
-      font-style: italic;
-      font-weight: 600;
-      font-display: swap;
-      src: url('/assets/fonts/fraunces-v38-latin-600italic.woff2') format('woff2');
-    }
-
-    :root {
-      --bg: #050505;
-      --page-bg: #0e0e0e;
-      --fg: #f2f2f2;
-      --muted: #939393;
-      --rule: #1c1c1c;
-      --rule-strong: #2a2a2a;
-      --chip-bg: #ffffff;
-      --page-shadow:
-        0 0 0 1px var(--rule-strong),
-        0 50px 120px -30px rgba(0, 0, 0, 0.85),
-        0 0 80px rgba(255, 255, 255, 0.02);
-      --page-glow: linear-gradient(180deg, rgba(255,255,255,0.022) 0%, rgba(255,255,255,0) 480px);
-    }
-    [data-theme="light"] {
-      --bg: #ececec;
-      --page-bg: #fdfdfd;
-      --fg: #0e0e0e;
-      --muted: #5a5a5a;
-      --rule: #e8e8e8;
-      --rule-strong: #d2d2d2;
-      --chip-bg: #ffffff;
-      --page-shadow:
-        0 0 0 1px var(--rule-strong),
-        0 50px 120px -30px rgba(0, 0, 0, 0.18),
-        0 8px 30px -8px rgba(0, 0, 0, 0.08);
-      --page-glow: linear-gradient(180deg, rgba(0,0,0,0.018) 0%, rgba(0,0,0,0) 480px);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: 'Fraunces', 'Iowan Old Style', 'Charter', Georgia, 'Times New Roman', serif;
-      font-weight: 400;
-      font-variation-settings: "opsz" 14, "SOFT" 50;
-      line-height: 1.6;
-      font-size: 17px;
-      font-feature-settings: "ss01", "calt", "liga", "kern";
-      -webkit-font-smoothing: antialiased;
-      transition: background .25s ease, color .25s ease, border-color .25s ease;
-      min-height: 100vh;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-    }
-    main {
-      width: 100%;
-      max-width: 880px;
-      padding: 64px 60px 96px;
-      background: var(--page-glow), var(--page-bg);
-      box-shadow: var(--page-shadow);
-      animation: fade-in 0.6s ease-out both;
-      position: relative;
-    }
-    .bg-network {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.9;
-      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 95%);
-      mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 95%);
-    }
-    main > header,
-    main > h1,
-    main > .lede,
-    main > ul.bullets,
-    main > .cta-row,
-    main > .portfolio,
-    main > footer {
-      position: relative;
-      z-index: 1;
-    }
-    @keyframes fade-in {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* top bar */
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 88px;
-      font-variation-settings: "opsz" 9;
-    }
-    .top button {
-      background: transparent;
-      border: 1px solid var(--rule-strong);
-      color: var(--muted);
-      font: inherit;
-      font-size: 11px;
-      padding: 7px 12px;
-      cursor: pointer;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      transition: all .15s ease;
-    }
-    .top button:hover {
-      color: var(--bg);
-      background: var(--fg);
-      border-color: var(--fg);
-    }
-
-    /* hero */
-    h1 {
-      font-weight: 500;
-      font-variation-settings: "opsz" 144, "SOFT" 50;
-      font-size: clamp(48px, 8vw, 84px);
-      line-height: 1.02;
-      letter-spacing: -0.02em;
-      margin-bottom: 28px;
-    }
-    h1 em {
-      font-style: italic;
-      font-weight: 500;
-      font-variation-settings: "opsz" 144, "SOFT" 100;
-    }
-    .cursor {
-      display: inline-block;
-      width: 0.18em;
-      height: 0.85em;
-      background: var(--fg);
-      margin-left: 8px;
-      vertical-align: -0.05em;
-      animation: blink 1.4s ease-in-out infinite;
-      border-radius: 1px;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.05; }
-    }
-
-    .lede {
-      color: var(--muted);
-      font-size: 18px;
-      max-width: 56ch;
-      margin-bottom: 32px;
-      font-variation-settings: "opsz" 14, "SOFT" 50;
-    }
-
-    /* bullets */
-    ul.bullets { list-style: none; margin-bottom: 56px; }
-    ul.bullets li {
-      padding: 6px 0;
-      display: flex;
-      gap: 18px;
-      font-size: 17px;
-    }
-    ul.bullets li::before {
-      content: "→";
-      color: var(--muted);
-      width: 1.4ch;
-      flex-shrink: 0;
-      font-style: normal;
-    }
-
-    /* CTA */
-    .cta-row { margin-bottom: 112px; }
-    .cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--fg);
-      color: var(--bg);
-      padding: 18px 28px;
-      border: 1px solid var(--fg);
-      font-family: inherit;
-      font-weight: 600;
-      font-size: 13px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all .18s ease;
-      border-radius: 2px;
-      font-variation-settings: "opsz" 9;
-    }
-    .cta:hover {
-      background: transparent;
-      color: var(--fg);
-    }
-    .cta svg { width: 16px; height: 16px; flex-shrink: 0; }
-    .cta-arrow {
-      font-size: 14px;
-      margin-left: 4px;
-      transition: transform .18s ease;
-      display: inline-block;
-    }
-    .cta:hover .cta-arrow {
-      transform: translate(3px, -3px);
-    }
-
-    /* generic links */
-    a {
-      color: var(--fg);
-      text-decoration: none;
-      border-bottom: 1px solid var(--rule-strong);
-      padding-bottom: 1px;
-      transition: background .15s ease, color .15s ease, border-color .15s ease;
-    }
-    a:hover {
-      background: var(--fg);
-      color: var(--bg);
-      border-color: var(--fg);
-    }
-
-    /* portfolio */
-    .portfolio {
-      border-top: 1px solid var(--rule);
-      padding-top: 64px;
-    }
-    .section-label {
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.24em;
-      color: var(--muted);
-      margin: 0 0 40px 0;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-variation-settings: "opsz" 9;
-    }
-    .section-label::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--rule);
-    }
-
-    .holdings { list-style: none; }
-    .holdings li {
-      padding: 20px 0;
-      border-bottom: 1px solid var(--rule);
-      display: grid;
-      grid-template-columns: minmax(220px, 270px) 1fr;
-      gap: 32px;
-      align-items: baseline;
-      transition: padding-left .2s ease;
-    }
-    .holdings li:hover { padding-left: 8px; }
-    .holdings li:last-child { border-bottom: none; }
-
-    .holdings .name {
-      font-weight: 600;
-      font-size: 17px;
-      letter-spacing: -0.005em;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .holdings .name a {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-    .holdings .name a:hover {
-      background: transparent;
-      color: var(--fg);
-      text-decoration: underline;
-      text-underline-offset: 5px;
-      text-decoration-thickness: 1px;
-    }
-    .holdings .desc {
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.5;
-      font-variation-settings: "opsz" 14, "SOFT" 50;
-    }
-
-    /* favicon chip */
-    .fav {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 22px;
-      height: 22px;
-      border-radius: 4px;
-      background: var(--chip-bg);
-      flex-shrink: 0;
-      box-shadow: 0 0 0 1px var(--rule-strong);
-      overflow: hidden;
-      position: relative;
-    }
-    .fav .fav-img {
-      width: 16px;
-      height: 16px;
-      display: block;
-      object-fit: contain;
-      image-rendering: -webkit-optimize-contrast;
-    }
-    .fav.dual {
-      width: auto;
-      padding: 0 4px;
-      gap: 3px;
-    }
-    .fav.dual .fav-img { width: 14px; height: 14px; }
-    .fav.fav-fallback {
-      background: var(--fg);
-      box-shadow: 0 0 0 1px var(--fg);
-    }
-    .fav.fav-fallback::before {
-      content: attr(data-letter);
-      font-family: inherit;
-      font-weight: 700;
-      font-size: 12px;
-      color: var(--bg);
-      line-height: 1;
-      font-variation-settings: "opsz" 9;
-    }
-    .fav.fav-fallback .fav-img { display: none; }
-
-    /* tags */
-    .tag {
-      display: inline-block;
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: var(--fg);
-      border: 1px solid var(--fg);
-      padding: 3px 8px;
-      vertical-align: 2px;
-      border-radius: 2px;
-      line-height: 1.3;
-      font-variation-settings: "opsz" 9;
-    }
-
-    /* profile / about section */
-    .profile {
-      border-top: 1px solid var(--rule);
-      padding-top: 64px;
-    }
-    .profile .section-label + .section-label,
-    .profile .bio + .section-label,
-    .profile .bio-wrap + .section-label,
-    .profile .career-list + .section-label,
-    .profile .things-list + .section-label,
-    .profile .press-list + .section-label,
-    .profile .faq-list + .section-label,
-    .profile .contact-line + .section-label {
-      margin-top: 88px;
-    }
-    .bio-wrap {
-      display: flex;
-      gap: 56px;
-      align-items: flex-start;
-    }
-    .bio {
-      font-size: 19px;
-      line-height: 1.55;
-      max-width: 62ch;
-      color: var(--fg);
-      font-variation-settings: "opsz" 16, "SOFT" 50;
-      flex: 1;
-    }
-    .portrait {
-      flex-shrink: 0;
-      width: 220px;
-      margin: 0;
-    }
-    .portrait img {
-      width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
-      object-position: center 22%;
-      border-radius: 14px;
-      display: block;
-      box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.5),
-                  0 0 0 1px var(--rule-strong);
-    }
-
-    .press-list {
-      list-style: none;
-      margin: 0;
-    }
-    .press-list li {
-      padding: 18px 0;
-      border-top: 1px solid var(--rule);
-    }
-    .press-list li:first-child {
-      border-top: none;
-      padding-top: 0;
-    }
-    .press-list li:last-child {
-      padding-bottom: 0;
-    }
-    .press-list a {
-      display: grid;
-      grid-template-columns: minmax(170px, 200px) 1fr;
-      gap: 28px;
-      align-items: baseline;
-      border-bottom: none;
-      padding-bottom: 0;
-      transition: padding-left .2s ease;
-    }
-    .press-list a:hover {
-      background: transparent;
-      color: var(--fg);
-      padding-left: 8px;
-    }
-    .press-pub {
-      font-weight: 600;
-      color: var(--fg);
-      letter-spacing: -0.01em;
-      font-size: 16px;
-    }
-    .press-title {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.5;
-    }
-    .press-list a:hover .press-pub {
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-    .career-list {
-      list-style: none;
-    }
-    .career-list > li {
-      padding: 20px 0;
-      border-top: 1px solid var(--rule);
-      display: grid;
-      grid-template-columns: minmax(200px, 260px) 1fr;
-      gap: 28px;
-      align-items: baseline;
-    }
-    .career-list > li:first-child {
-      border-top: none;
-      padding-top: 0;
-    }
-    .career-list > li:last-child {
-      padding-bottom: 0;
-    }
-    .career-role {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .career-title {
-      font-weight: 600;
-      font-size: 16px;
-      color: var(--fg);
-      line-height: 1.3;
-    }
-    .career-meta {
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-variation-settings: "opsz" 9;
-    }
-    .career-desc {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.55;
-    }
-    .career-desc em {
-      font-style: normal;
-      color: var(--fg);
-      font-weight: 500;
-    }
-    .career-sub {
-      list-style: none;
-      margin-top: 10px;
-      padding-left: 0;
-    }
-    .career-sub li {
-      font-size: 13px;
-      color: var(--muted);
-      padding: 2px 0;
-      letter-spacing: 0.01em;
-      position: relative;
-      padding-left: 14px;
-    }
-    .career-sub li::before {
-      content: "·";
-      position: absolute;
-      left: 2px;
-      color: var(--muted);
-    }
-
-    .things-list {
-      list-style: none;
-      counter-reset: things;
-    }
-    .things-list li {
-      counter-increment: things;
-      position: relative;
-      padding-left: 60px;
-      margin-bottom: 24px;
-      font-size: 16px;
-      line-height: 1.55;
-      color: var(--muted);
-      max-width: 64ch;
-    }
-    .things-list li::before {
-      content: counter(things, decimal-leading-zero);
-      position: absolute;
-      left: 0;
-      top: 4px;
-      font-weight: 600;
-      color: var(--fg);
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      font-variation-settings: "opsz" 9;
-    }
-    .things-list li strong {
-      color: var(--fg);
-      font-weight: 600;
-    }
-    .contact-line {
-      font-size: 16px;
-      color: var(--muted);
-      max-width: 62ch;
-    }
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-    .faq-list { margin: 0; }
-    .faq-item {
-      padding: 28px 0;
-      border-top: 1px solid var(--rule);
-    }
-    .faq-item:first-child { border-top: none; padding-top: 0; }
-    .faq-list dt {
-      font-weight: 600;
-      font-size: 18px;
-      color: var(--fg);
-      margin-bottom: 12px;
-      letter-spacing: -0.01em;
-    }
-    .faq-list dd {
-      margin: 0;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.6;
-      max-width: 64ch;
-    }
-    .faq-list dd a { color: var(--fg); }
-
-    /* footer */
-    footer {
-      margin-top: 96px;
-      padding-top: 28px;
-      border-top: 1px solid var(--rule);
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-variation-settings: "opsz" 9;
-    }
-    footer a {
-      color: var(--muted);
-      border-bottom: none;
-    }
-    footer a:hover {
-      color: var(--fg);
-      background: transparent;
-    }
-
-    @media (max-width: 920px) {
-      main {
-        padding: 56px 40px 80px;
-        background: var(--page-bg);
-        box-shadow: none;
-      }
-    }
-    @media (max-width: 600px) {
-      body { font-size: 16px; }
-      main { padding: 40px 22px 64px; }
-      .top { margin-bottom: 56px; }
-      .cta-row { margin-bottom: 80px; }
-      .cta { padding: 14px 22px; font-size: 12px; }
-      .portfolio { padding-top: 44px; }
-      .profile { padding-top: 48px; }
-      .section-label { margin-bottom: 28px; }
-      .holdings li {
-        grid-template-columns: 1fr;
-        gap: 6px;
-        padding: 16px 0;
-      }
-      .holdings li:hover { padding-left: 0; }
-      .holdings .desc { font-size: 15px; }
-      .bio-wrap {
-        flex-direction: column-reverse;
-        gap: 28px;
-      }
-      .portrait {
-        width: 160px;
-      }
-      .bio { font-size: 17px; }
-      .press-list a {
-        grid-template-columns: 1fr;
-        gap: 6px;
-      }
-      .press-list a:hover { padding-left: 0; }
-      .career-list > li {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 16px 0;
-      }
-      .things-list li { padding-left: 44px; font-size: 15px; }
-      footer { flex-direction: column; gap: 10px; align-items: flex-start; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
-  </style>
 </head>
+
 <body>
-  <main>
-    <canvas id="bg-network" class="bg-network" aria-hidden="true"></canvas>
-    <header class="top">
-      <span class="domain">Sven Ahrens</span>
-      <button id="theme-toggle" aria-label="Toggle theme">Light</button>
-    </header>
+  <a class="fm-skip" href="#main">Skip to content</a>
 
-    <h1>Hi, I&rsquo;m <em>Sven</em><span class="visually-hidden"> Ahrens, consumer subscription and growth expert</span><span class="cursor" aria-hidden="true"></span></h1>
+  <!-- ── Header ──────────────────────────────────────────────────────── -->
+  <header class="fm-header">
+    <a class="fm-wordmark" href="#main" aria-label="sven.fm — home">
+      <span class="fm-wordmark__dot" aria-hidden="true"></span>sven<span class="fm-wordmark__tld">.fm</span>
+    </a>
+    <span class="fm-header__spacer"></span>
+    <button id="theme-toggle" class="fm-theme-toggle" type="button" aria-label="Toggle light or dark theme">Light</button>
+    <a class="fm-btn" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">Book a call</a>
+  </header>
 
-    <p class="lede">...and I might know a thing or two about:</p>
+  <main id="main">
 
-    <ul class="bullets">
-      <li>Leading (hyper) growth companies</li>
-      <li>Scaling consumer subscription and transactional businesses</li>
-      <li>Driving go-to-market, internationalization and localization</li>
-      <li>Building high-performance teams</li>
-      <li>Nailing product-market-fit</li>
-      <li>Understanding customers across cultures</li>
-    </ul>
+    <!-- ── Hero ──────────────────────────────────────────────────────── -->
+    <section class="fm-section fm-hero" aria-labelledby="hero-title">
+      <fm-waveform aria-hidden="true"></fm-waveform>
 
-    <div class="cta-row">
-      <a class="cta" href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/>
-        </svg>
-        Find me on LinkedIn
-        <span class="cta-arrow">↗</span>
-      </a>
-    </div>
+      <div class="fm-container fm-container--hero fm-hero__grid">
+        <div class="fm-hero__col">
+          <p class="fm-eyebrow" style="margin:0 0 var(--space-6);">Consumer subscription &amp; growth operator</p>
 
-    <section class="portfolio">
-      <h2 class="section-label">Angel portfolio</h2>
-      <ul class="holdings">
+          <h1 id="hero-title" class="fm-h1 fm-hero__headline">I help consumer and subscription companies grow.</h1>
 
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="A"><img class="fav-img" data-domain="alba.tech" src="https://icons.duckduckgo.com/ip3/alba.tech.ico" alt="" loading="lazy"/></span>
-            <a href="https://alba.tech" target="_blank" rel="noopener">Alba</a>
-          </span>
-          <span class="desc">Next-gen consumer app factory.</span>
-        </li>
+          <p class="fm-roleline">As your
+            <span class="fm-role" data-roles='["fractional Head of Growth","interim Head of Product","operator who runs your team","board member","fire-fighter","sounding board"]'>fractional Head of Growth</span>.
+          </p>
 
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="A"><img class="fav-img" data-domain="amie.so" src="https://icons.duckduckgo.com/ip3/amie.so.ico" alt="" loading="lazy"/></span>
-            <a href="https://amie.so" target="_blank" rel="noopener">Amie</a>
-            <span class="tag">💀 Dead</span>
-          </span>
-          <span class="desc">Joyful productivity app for desktop and phone.</span>
-        </li>
+          <p class="fm-body fm-hero__body">
+            I'm Sven Ahrens. Eight years scaling Spotify, CEO of Yousician, angel in 18+ consumer and subscription
+            startups. Seasoned enough to know what works, hands-on enough to build it with you. Strong bias for
+            action: I help you make the hard call, then I help you move it.
+          </p>
 
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="A"><img class="fav-img" data-domain="aminocollective.com" src="https://icons.duckduckgo.com/ip3/aminocollective.com.ico" alt="" loading="lazy"/></span>
-            <a href="https://aminocollective.com" target="_blank" rel="noopener">Amino Collective</a>
-          </span>
-          <span class="desc">LP in a friendly early-stage biotech fund.</span>
-        </li>
+          <div class="fm-cta-row">
+            <a class="fm-btn" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">
+              Book a call <span class="fm-btn__arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="fm-btn--ghost fm-btn" href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener" style="background:transparent;">LinkedIn</a>
+          </div>
 
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="A"><img class="fav-img" data-domain="animocabrands.com" src="https://icons.duckduckgo.com/ip3/animocabrands.com.ico" alt="" loading="lazy"/></span>
-            <a href="https://animocabrands.com" target="_blank" rel="noopener">Animoca Brands</a>
-          </span>
-          <span class="desc">NFTs and games at scale (don't ask).</span>
-        </li>
+          <p class="fm-availability">
+            <span class="fm-availability__dot fm-availability__dot--pulse" aria-hidden="true"></span>
+            Open to new work now: fractional, board, advisory, or the right full-time seat.
+          </p>
+        </div>
 
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="B"><img class="fav-img" data-domain="born.com" src="https://icons.duckduckgo.com/ip3/born.com.ico" alt="" loading="lazy"/></span>
-            <a href="https://born.com" target="_blank" rel="noopener">Born</a>
-          </span>
-          <span class="desc">Social, reinvented. Home of Slay, W App, FRFR and more.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="B"><img class="fav-img" data-domain="miro.com" src="https://icons.duckduckgo.com/ip3/miro.com.ico" alt="" loading="lazy"/></span>
-            <a href="https://miro.com" target="_blank" rel="noopener">Butter</a>
-            <span class="tag">↗ Exit</span>
-          </span>
-          <span class="desc">All meeting tools in one joyful place. Exited to Miro.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="C"><img class="fav-img" data-domain="careeros.com" src="https://icons.duckduckgo.com/ip3/careeros.com.ico" alt="" loading="lazy"/></span>
-            <a href="https://careeros.com" target="_blank" rel="noopener">CareerOS</a>
-          </span>
-          <span class="desc">Career platform for advising, employer relations and outcomes.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="D"><img class="fav-img" data-domain="dirigent.ai" src="https://icons.duckduckgo.com/ip3/dirigent.ai.ico" alt="" loading="lazy"/></span>
-            <a href="https://dirigent.ai" target="_blank" rel="noopener">Dirigent</a>
-          </span>
-          <span class="desc">Orchestrating defense in the AI era.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="F"><img class="fav-img" data-domain="flow-ai.com" src="https://icons.duckduckgo.com/ip3/flow-ai.com.ico" alt="" loading="lazy"/></span>
-            <a href="https://flow-ai.com" target="_blank" rel="noopener">Flow AI</a>
-          </span>
-          <span class="desc">Customer-facing data agents inside your product.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav dual" data-letter="H">
-              <img class="fav-img" data-domain="heat.io" src="https://icons.duckduckgo.com/ip3/heat.io.ico" alt="" loading="lazy"/>
-              <img class="fav-img" data-domain="mile.club" src="https://icons.duckduckgo.com/ip3/mile.club.ico" alt="" loading="lazy"/>
-            </span>
-            <a href="https://heat.io" target="_blank" rel="noopener">Heat</a>
-            &amp;
-            <a href="https://mile.club" target="_blank" rel="noopener">Mile</a>
-          </span>
-          <span class="desc">Luxury fashion retail, reinvented.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="I"><img class="fav-img" data-domain="informed.so" src="https://icons.duckduckgo.com/ip3/informed.so.ico" alt="" loading="lazy"/></span>
-            <a href="https://informed.so" target="_blank" rel="noopener">Informed</a>
-            <span class="tag">💀 Dead</span>
-          </span>
-          <span class="desc">News, reinvented.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="K"><img class="fav-img" data-domain="komi.io" src="https://icons.duckduckgo.com/ip3/komi.io.ico" alt="" loading="lazy"/></span>
-            <a href="https://komi.io" target="_blank" rel="noopener">Komi</a>
-          </span>
-          <span class="desc">End-to-end workflow for brands and creators.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="L"><img class="fav-img" data-domain="litona.de" src="https://icons.duckduckgo.com/ip3/litona.de.ico" alt="" loading="lazy"/></span>
-            <a href="https://litona.de" target="_blank" rel="noopener">Litona</a>
-          </span>
-          <span class="desc">Sodium-ion battery cells from abundant local materials.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="M"><img class="fav-img" data-domain="melotech.ai" src="https://icons.duckduckgo.com/ip3/melotech.ai.ico" alt="" loading="lazy"/></span>
-            <a href="https://melotech.ai" target="_blank" rel="noopener">Melotech</a>
-          </span>
-          <span class="desc">Real AI artists, real music.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="N"><img class="fav-img" data-domain="ship-nemox.com" src="https://icons.duckduckgo.com/ip3/ship-nemox.com.ico" alt="" loading="lazy"/></span>
-            <a href="https://ship-nemox.com" target="_blank" rel="noopener">Nemox</a>
-          </span>
-          <span class="desc">AI assistant for freight forwarders.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="P"><img class="fav-img" data-domain="peec.ai" src="https://icons.duckduckgo.com/ip3/peec.ai.ico" alt="" loading="lazy"/></span>
-            <a href="https://peec.ai" target="_blank" rel="noopener">Peec</a>
-          </span>
-          <span class="desc">AI search analytics for marketing teams.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="P"><img class="fav-img" data-domain="petli.app" src="https://icons.duckduckgo.com/ip3/petli.app.ico" alt="" loading="lazy"/></span>
-            <a href="https://petli.app" target="_blank" rel="noopener">Petli</a>
-            <span class="tag">↗ Exit</span>
-          </span>
-          <span class="desc">Dog training and community. Exited to Agria.</span>
-        </li>
-
-        <li>
-          <span class="name">
-            <span class="fav" data-letter="V"><img class="fav-img" data-domain="voicy.network" src="https://icons.duckduckgo.com/ip3/voicy.network.ico" alt="" loading="lazy"/></span>
-            <a href="https://voicy.network" target="_blank" rel="noopener">Voicy</a>
-            <span class="tag">💀 Dead</span>
-          </span>
-          <span class="desc">The Giphy of sounds, integrating everywhere.</span>
-        </li>
-
-      </ul>
-    </section>
-
-    <section class="profile" itemscope itemtype="https://schema.org/Person">
-      <h2 class="section-label">About</h2>
-      <div class="bio-wrap">
-        <p class="bio">
-          <strong itemprop="name">Sven Ahrens</strong> is one of Europe's leading consumer subscription and growth experts. He spent eight years at Spotify during the hyper-growth era, most recently as Director of Global Growth, where his team drove 60+% of Spotify's subscriber growth. From 2025 to 2026 he was CEO at <a href="https://yousician.com" target="_blank" rel="noopener">Yousician</a>, the music app developer behind Yousician and GuitarTuna with 20+ million monthly active users worldwide. He is the founder of Newconic Ventures, his angel investing and advisory vehicle backing consumer, AI and subscription companies across Europe and the US.
-        </p>
-        <figure class="portrait">
-          <img src="/assets/sven.jpg" alt="Portrait of Sven Ahrens" width="220" height="220" loading="lazy" itemprop="image" />
-        </figure>
+        <div class="fm-hero__aside">
+          <figure class="fm-portrait">
+            <img src="/assets/sven.jpg" alt="Sven Ahrens" width="320" height="400" />
+            <figcaption class="fm-portrait__caption">Sven Ahrens · Berlin</figcaption>
+          </figure>
+        </div>
       </div>
-
-      <h3 class="section-label">Career</h3>
-      <ul class="career-list">
-        <li>
-          <div class="career-role">
-            <span class="career-title">CEO, Yousician</span>
-            <span class="career-meta">Berlin &amp; Helsinki · 2025 to 2026</span>
-          </div>
-          <div class="career-desc">
-            Music app developer with 20+ million MAU globally. Yousician and GuitarTuna are category leaders in guitar and piano learning, play-along and music theory.
-          </div>
-        </li>
-        <li>
-          <div class="career-role">
-            <span class="career-title">Founder, Newconic Ventures</span>
-            <span class="career-meta">Berlin · 2019 to present</span>
-          </div>
-          <div class="career-desc">
-            Angel investing and advisory vehicle. Pre-seed and seed investments in consumer, prosumer and subscription startups across the EU and US. Advisory engagements include Peloton, Knowunity, Kittl, and others.
-          </div>
-        </li>
-        <li>
-          <div class="career-role">
-            <span class="career-title">Board Observer, Female Invest</span>
-            <span class="career-meta">Copenhagen · 2024 to present</span>
-          </div>
-          <div class="career-desc">
-            Fintech building financial education and investing for women.
-          </div>
-        </li>
-        <li>
-          <div class="career-role">
-            <span class="career-title">Chief Growth Officer, Muse Group</span>
-            <span class="career-meta">Berlin · 2024</span>
-          </div>
-          <div class="career-desc">
-            Initiated the company-wide pivot toward an LTV-driven subscription model.
-          </div>
-        </li>
-        <li>
-          <div class="career-role">
-            <span class="career-title">Spotify</span>
-            <span class="career-meta">Berlin, Stockholm, New York · 2016 to 2024</span>
-          </div>
-          <div class="career-desc">
-            Spent the platform's hyper-growth era inside Spotify across global rollout, regional subscription growth in Europe, and ultimately leading global subscriber acquisition and engagement as <em>Director of Global Growth</em>, where his team drove 60+% of Spotify's subscriber growth.
-            <ul class="career-sub">
-              <li>Director, Global Growth (2021 to 2024)</li>
-              <li>Associate Director, Subscriptions Europe (2018 to 2021)</li>
-              <li>Head of Market Strategy and Operations (2017 to 2018)</li>
-              <li>Global Market Operations Lead (2016)</li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="career-role">
-            <span class="career-title">Consultant, Bain &amp; Company</span>
-            <span class="career-meta">Munich · 2012 to 2016</span>
-          </div>
-          <div class="career-desc">
-            Management consulting across tech and automotive industries, plus private equity due diligence. Strategy, operations and transformation work.
-          </div>
-        </li>
-      </ul>
-
-      <h3 class="section-label">12 things to know</h3>
-      <ol class="things-list">
-        <li><strong>Until recently CEO of Yousician (2025 to 2026).</strong> Led the music app developer behind Yousician and GuitarTuna. 20+ million monthly active users globally. Category leaders for guitar and piano learning.</li>
-        <li><strong>Eight years at Spotify (2016 to 2024).</strong> Spent the entire run inside the platform's hyper-growth era. Worked across global rollout, regional subscription growth, and global acquisition and engagement.</li>
-        <li><strong>His Spotify Global Growth team drove 60+% of Spotify's subscriber growth.</strong> Global acquisition and engagement programs across the entire user funnel.</li>
-        <li><strong>Briefly Chief Growth Officer at Muse Group (2024).</strong> Initiated the pivot to an LTV-driven subscription model.</li>
-        <li><strong>Founder of Newconic Ventures.</strong> Active angel investor and advisor since 2019. Pre-seed and seed investments in consumer, prosumer and subscription startups across the EU and US.</li>
-        <li><strong>Two angel exits to date.</strong> Butter (acquired by Miro) and Petli (acquired by Agria).</li>
-        <li><strong>Advisory engagements</strong> include Peloton, Knowunity and Kittl. Board Observer at Female Invest since 2024.</li>
-        <li><strong>One of Europe's leading consumer subscription and growth operators.</strong> Specializes in turning early traction into durable, compounding subscription revenue.</li>
-        <li><strong>Spotify-era retention and growth playbook in his bones.</strong> Lifecycle architecture, habit formation, pricing power, multi-channel conversion and cohort-driven growth, applied at hundred-million-subscriber scale.</li>
-        <li><strong>Internationalization specialist.</strong> Worked on Spotify's global rollout until 2018, then ran the premium subscription business across Germany, Russia and Eastern Europe.</li>
-        <li><strong>Double degree.</strong> MSc Marketing and Media Management from Stockholm School of Economics, plus CEMS Master in International Management from ESADE Business School Barcelona.</li>
-        <li><strong>Polyglot and traveler.</strong> Native German. Fluent English, Spanish and Portuguese. Dabbles in Russian, Swedish, Italian and French. Has traveled to 75 countries. Loves humans of all kinds.</li>
-      </ol>
-
-      <h3 class="section-label">As featured in</h3>
-      <ul class="press-list">
-        <li>
-          <a href="https://www.vogue.com/article/mystery-box-heat-raises-dollar5million-from-antler-lvmh-luxury-ventures" target="_blank" rel="noopener">
-            <span class="press-pub">Vogue</span>
-            <span class="press-title">Mystery box Heat raises $5 million from Antler, LVMH Luxury Ventures</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.crunchbase.com/person/sven-ahrens-235f" target="_blank" rel="noopener">
-            <span class="press-pub">Crunchbase</span>
-            <span class="press-title">Investor profile and portfolio history</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.startupmag.co.uk/investors/sven-ahrens/" target="_blank" rel="noopener">
-            <span class="press-pub">StartupMag</span>
-            <span class="press-title">Investor profile</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.thesaasnews.com/news/komi-raises-5-million-in-seed-round" target="_blank" rel="noopener">
-            <span class="press-pub">The SaaS News</span>
-            <span class="press-title">Komi raises $5 million in seed round</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.teosto.fi/teostory/talouskasvua-musiikkialalta-yousician-ja-vandall-tahtaavat-kansainvaliseen-menestykseen/" target="_blank" rel="noopener">
-            <span class="press-pub">Teosto</span>
-            <span class="press-title">Talouskasvua musiikkialalta: Yousician ja Vandall tähtäävät kansainväliseen menestykseen</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://medieninsider.com/informed-spotify-fuer-journalismus/6567/" target="_blank" rel="noopener">
-            <span class="press-pub">Medieninsider</span>
-            <span class="press-title">Informed: Spotify für Journalismus</span>
-          </a>
-        </li>
-      </ul>
-
-      <h3 class="section-label">Common questions</h3>
-      <dl class="faq-list">
-        <div class="faq-item">
-          <dt>Who is Sven Ahrens?</dt>
-          <dd>Sven Ahrens is one of Europe's leading consumer subscription and growth experts. He spent eight years at Spotify (2016 to 2024) during the platform's hyper-growth era, most recently as Director of Global Growth, where his team drove 60+% of Spotify's subscriber growth. From 2025 to 2026 he was CEO at Yousician, the music app developer behind Yousician and GuitarTuna with 20+ million monthly active users. He is the founder of Newconic Ventures and a board observer at Female Invest.</dd>
-        </div>
-        <div class="faq-item">
-          <dt>Where did Sven Ahrens work?</dt>
-          <dd>Sven started his career as a management consultant at Bain &amp; Company in Munich (2012 to 2016). He then spent eight years at Spotify (2016 to 2024) across four roles, ending as Director of Global Growth. He briefly served as Chief Growth Officer at Muse Group in 2024 before becoming CEO at Yousician from 2025 to 2026. He has founded and run Newconic Ventures, his angel investing and advisory vehicle, since 2019.</dd>
-        </div>
-        <div class="faq-item">
-          <dt>What is Newconic Ventures?</dt>
-          <dd>Newconic Ventures is Sven Ahrens's angel investing and advisory vehicle, active since 2019. It backs pre-seed and seed-stage consumer, prosumer, AI and subscription companies across the EU and US. The portfolio includes 18+ companies; notable exits to date are Butter (acquired by Miro) and Petli (acquired by Agria). Advisory engagements include Peloton, Knowunity and Kittl.</dd>
-        </div>
-        <div class="faq-item">
-          <dt>What is Sven Ahrens known for?</dt>
-          <dd>Subscriber growth, retention, monetization, pricing, and internationalization at scale. Sven is widely considered one of Europe's leading authorities on consumer subscription and growth, drawing on the Spotify-era retention and growth playbook applied at hundred-million-subscriber scale. His specialty is turning early consumer-product traction into durable, compounding subscription revenue.</dd>
-        </div>
-        <div class="faq-item">
-          <dt>Where is Sven Ahrens based?</dt>
-          <dd>Sven Ahrens is based in Berlin, Germany. He is a native German speaker, fluent in English, Spanish and Portuguese, and has lived and worked across Berlin, Stockholm, New York and Munich. He has traveled to more than 75 countries.</dd>
-        </div>
-        <div class="faq-item">
-          <dt>How can I contact Sven Ahrens?</dt>
-          <dd>The best entry point for founders, operators, journalists and investors is via <a href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener">LinkedIn</a>.</dd>
-        </div>
-      </dl>
-
-      <h3 class="section-label">Find Sven</h3>
-      <p class="contact-line">
-        Best entry point for founders, operators, journalists and investors:
-        <a href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener">LinkedIn</a>.
-      </p>
     </section>
 
-    <footer>
-      <span>© <span id="year"></span> Sven Ahrens</span>
-      <span><a href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener">LinkedIn</a></span>
+    <!-- ── Metrics ───────────────────────────────────────────────────── -->
+    <section class="fm-section" aria-label="Proof in numbers">
+      <div class="fm-container">
+        <div class="fm-ledger">
+          <div class="fm-metric"><div class="fm-metric__value" data-count="8"  data-suffix=" yrs">8 yrs</div><p class="fm-metric__label">at Spotify, through the hyper-growth years</p></div>
+          <div class="fm-metric"><div class="fm-metric__value" data-count="60" data-suffix="%+">60%+</div><p class="fm-metric__label">of Spotify's subscriber growth, my team's work</p></div>
+          <div class="fm-metric"><div class="fm-metric__value" data-count="20" data-suffix="M+">20M+</div><p class="fm-metric__label">MAU, led as CEO of Yousician</p></div>
+          <div class="fm-metric"><div class="fm-metric__value" data-count="18" data-suffix="+">18+</div><p class="fm-metric__label">startups backed as an angel</p></div>
+          <div class="fm-metric"><div class="fm-metric__value" data-count="2">2</div><p class="fm-metric__label">exits: Butter to Miro, Petli to Agria</p></div>
+          <div class="fm-metric"><div class="fm-metric__value" data-count="75">75</div><p class="fm-metric__label">countries, and counting</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── What I do ─────────────────────────────────────────────────── -->
+    <section class="fm-section" aria-labelledby="what-title">
+      <div class="fm-container">
+        <div class="fm-section__head">
+          <h2 id="what-title" class="fm-h2" data-reveal>What I do</h2>
+          <span class="fm-eyebrow">Five ways to engage</span>
+        </div>
+
+        <p class="fm-modes__intro" data-reveal>However you need me, from one honest conversation to a full-time seat. Pick the shape that fits.</p>
+
+        <div class="fm-mode" data-reveal>
+          <div class="fm-mode__num" aria-hidden="true">1</div>
+          <div>
+            <h3 class="fm-h3 fm-mode__title">Lead it: full-time, interim, or fractional</h3>
+            <p class="fm-body fm-muted fm-mode__desc">I step in as your Head of Growth or Head of Product and run it. For the right company I'll do it full-time; short of that, interim while you hire, or fractional for as long as it keeps working. Either way you get a senior operator on day one, not a six-month search.</p>
+          </div>
+        </div>
+
+        <div class="fm-mode" data-reveal>
+          <div class="fm-mode__num" aria-hidden="true">2</div>
+          <div>
+            <h3 class="fm-h3 fm-mode__title">Run the team</h3>
+            <p class="fm-body fm-muted fm-mode__desc">I take the growth or product team you already have and get it shipping again: focused, accountable, clear on what actually moves the business. I rally your people around the goals that matter.</p>
+          </div>
+        </div>
+
+        <div class="fm-mode" data-reveal>
+          <div class="fm-mode__num" aria-hidden="true">3</div>
+          <div>
+            <h3 class="fm-h3 fm-mode__title">Fire-fighter</h3>
+            <p class="fm-body fm-muted fm-mode__desc">Something is burning and you need it handled now. I drop in, diagnose fast, stop the bleeding, and leave you a plan your team can run once I'm gone.</p>
+          </div>
+        </div>
+
+        <div class="fm-mode" data-reveal>
+          <div class="fm-mode__num" aria-hidden="true">4</div>
+          <div>
+            <h3 class="fm-h3 fm-mode__title">Board member or observer</h3>
+            <p class="fm-body fm-muted fm-mode__desc">A seat at the table for the long game. I bring the consumer subscription and growth lens to the decisions that compound: pricing, retention, monetization, the moves you only get to make once.</p>
+          </div>
+        </div>
+
+        <div class="fm-mode" data-reveal>
+          <div class="fm-mode__num" aria-hidden="true">5</div>
+          <div>
+            <h3 class="fm-h3 fm-mode__title">Advisor or sounding board</h3>
+            <p class="fm-body fm-muted fm-mode__desc">For founders and seasoned leaders facing the calls that keep them up at night. Candid, fast, biased toward action. No deck required, just the hard question and an honest answer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── About ─────────────────────────────────────────────────────── -->
+    <section class="fm-section" aria-labelledby="about-title">
+      <div class="fm-container">
+        <div class="fm-section__head">
+          <h2 id="about-title" class="fm-h2" data-reveal>About</h2>
+        </div>
+        <div class="fm-about" data-reveal>
+          <p class="fm-about__bio">
+            I'm one of Europe's leading consumer subscription and growth operators, and I still roll up my sleeves.
+            I spent eight years inside Spotify through its hyper-growth era, most recently as Director of Global Growth,
+            where my team drove more than 60% of Spotify's subscriber growth. From 2025 to 2026 I was CEO of
+            <a class="fm-link" href="https://yousician.com" target="_blank" rel="noopener">Yousician</a>, the company behind
+            the music apps Yousician and GuitarTuna, with 20+ million monthly active users. Through Newconic Ventures
+            I back consumer, prosumer, AI, and subscription startups across Europe and the US. I've grown products at
+            hundred-million-subscriber scale and from a standing start, so I know which playbook applies when.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Career ────────────────────────────────────────────────────── -->
+    <section class="fm-section" aria-labelledby="career-title">
+      <div class="fm-container">
+        <div class="fm-section__head">
+          <h2 id="career-title" class="fm-h2" data-reveal>Career</h2>
+        </div>
+        <ul class="fm-career">
+          <li class="fm-career__item" data-reveal>
+            <div class="fm-career__role">
+              <span class="fm-career__title">CEO, Yousician</span>
+              <span class="fm-career__meta">Berlin and Helsinki · 2025 to 2026</span>
+            </div>
+            <p class="fm-career__desc">Led the music app developer behind Yousician and GuitarTuna; 20+ million MAU globally, and the category leaders in guitar and piano learning, play-along, and theory.</p>
+          </li>
+          <li class="fm-career__item" data-reveal>
+            <div class="fm-career__role">
+              <span class="fm-career__title">Founder, Newconic Ventures</span>
+              <span class="fm-career__meta">Berlin · 2019 to present</span>
+            </div>
+            <p class="fm-career__desc">My angel investing and advisory vehicle. Pre-seed and seed checks into consumer, prosumer, AI, and subscription startups across the EU and US. Advisory work with Peloton, Knowunity, Kittl, and others.</p>
+          </li>
+          <li class="fm-career__item" data-reveal>
+            <div class="fm-career__role">
+              <span class="fm-career__title">Board Observer, Female Invest</span>
+              <span class="fm-career__meta">Copenhagen · 2024 to present</span>
+            </div>
+            <p class="fm-career__desc">Fintech building financial education and investing for women.</p>
+          </li>
+          <li class="fm-career__item" data-reveal>
+            <div class="fm-career__role">
+              <span class="fm-career__title">Chief Growth Officer, Muse Group</span>
+              <span class="fm-career__meta">Berlin · 2024</span>
+            </div>
+            <p class="fm-career__desc">Brought in to initiate the company-wide pivot to an LTV-driven subscription model.</p>
+          </li>
+          <li class="fm-career__item" data-reveal>
+            <div class="fm-career__role">
+              <span class="fm-career__title">Spotify</span>
+              <span class="fm-career__meta">Berlin, Stockholm, New York · 2016 to 2024</span>
+            </div>
+            <div class="fm-career__desc">
+              Eight years through the hyper-growth era, across global rollout, regional subscription growth in Europe, and finally global subscriber acquisition and engagement. My Global Growth team drove 60%+ of Spotify's subscriber growth.
+              <ul class="fm-career__sub">
+                <li>Director, Global Growth (2021 to 2024)</li>
+                <li>Associate Director, Subscriptions Europe (2018 to 2021)</li>
+                <li>Head of Market Strategy and Operations (2017 to 2018)</li>
+                <li>Global Market Operations Lead (2016)</li>
+              </ul>
+            </div>
+          </li>
+          <li class="fm-career__item" data-reveal>
+            <div class="fm-career__role">
+              <span class="fm-career__title">Consultant, Bain &amp; Company</span>
+              <span class="fm-career__meta">Munich · 2012 to 2016</span>
+            </div>
+            <p class="fm-career__desc">Strategy, operations, and transformation across tech and automotive, plus private equity due diligence.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── Angel portfolio ───────────────────────────────────────────── -->
+    <section class="fm-section" aria-labelledby="portfolio-title">
+      <div class="fm-container">
+        <div class="fm-section__head">
+          <h2 id="portfolio-title" class="fm-h2" data-reveal>Angel portfolio</h2>
+          <span class="fm-eyebrow">Newconic Ventures</span>
+        </div>
+        <ul class="fm-holdings">
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="A"><img class="fm-fav__img" data-domain="alba.tech" alt="" loading="lazy" /></span>
+              <a href="https://alba.tech" target="_blank" rel="noopener">Alba</a>
+            </span>
+            <span class="fm-hold__desc">Next-gen consumer app factory.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="A"><img class="fm-fav__img" data-domain="amie.so" alt="" loading="lazy" /></span>
+              <a href="https://amie.so" target="_blank" rel="noopener">Amie</a>
+              <span class="fm-tag fm-tag--dead">Dead</span>
+            </span>
+            <span class="fm-hold__desc">Joyful productivity app for desktop and phone.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="A"><img class="fm-fav__img" data-domain="aminocollective.com" alt="" loading="lazy" /></span>
+              <a href="https://aminocollective.com" target="_blank" rel="noopener">Amino Collective</a>
+            </span>
+            <span class="fm-hold__desc">LP in a friendly early-stage biotech fund.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="A"><img class="fm-fav__img" data-domain="animocabrands.com" alt="" loading="lazy" /></span>
+              <a href="https://animocabrands.com" target="_blank" rel="noopener">Animoca Brands</a>
+            </span>
+            <span class="fm-hold__desc">NFTs and games at scale (don't ask).</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="B"><img class="fm-fav__img" data-domain="born.com" alt="" loading="lazy" /></span>
+              <a href="https://born.com" target="_blank" rel="noopener">Born</a>
+            </span>
+            <span class="fm-hold__desc">Social, reinvented. Home of Slay, W App, FRFR and more.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="B"><img class="fm-fav__img" data-domain="miro.com" alt="" loading="lazy" /></span>
+              <a href="https://miro.com" target="_blank" rel="noopener">Butter</a>
+              <span class="fm-tag fm-tag--exit">Exit</span>
+            </span>
+            <span class="fm-hold__desc">All meeting tools in one joyful place. Exited to Miro.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="C"><img class="fm-fav__img" data-domain="careeros.com" alt="" loading="lazy" /></span>
+              <a href="https://careeros.com" target="_blank" rel="noopener">CareerOS</a>
+            </span>
+            <span class="fm-hold__desc">Career platform for advising, employer relations and outcomes.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="D"><img class="fm-fav__img" data-domain="dirigent.ai" alt="" loading="lazy" /></span>
+              <a href="https://dirigent.ai" target="_blank" rel="noopener">Dirigent</a>
+            </span>
+            <span class="fm-hold__desc">Orchestrating defense in the AI era.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="F"><img class="fm-fav__img" data-domain="flow-ai.com" alt="" loading="lazy" /></span>
+              <a href="https://flow-ai.com" target="_blank" rel="noopener">Flow AI</a>
+            </span>
+            <span class="fm-hold__desc">Customer-facing data agents inside your product.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav is-dual" data-letter="H">
+                <img class="fm-fav__img" data-domain="heat.io" alt="" loading="lazy" />
+                <img class="fm-fav__img" data-domain="mile.club" alt="" loading="lazy" />
+              </span>
+              <a href="https://heat.io" target="_blank" rel="noopener">Heat</a>
+              &amp;
+              <a href="https://mile.club" target="_blank" rel="noopener">Mile</a>
+            </span>
+            <span class="fm-hold__desc">Luxury fashion retail, reinvented.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="I"><img class="fm-fav__img" data-domain="informed.so" alt="" loading="lazy" /></span>
+              <a href="https://informed.so" target="_blank" rel="noopener">Informed</a>
+              <span class="fm-tag fm-tag--dead">Dead</span>
+            </span>
+            <span class="fm-hold__desc">News, reinvented.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="K"><img class="fm-fav__img" data-domain="komi.io" alt="" loading="lazy" /></span>
+              <a href="https://komi.io" target="_blank" rel="noopener">Komi</a>
+            </span>
+            <span class="fm-hold__desc">End-to-end workflow for brands and creators.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="L"><img class="fm-fav__img" data-domain="litona.de" alt="" loading="lazy" /></span>
+              <a href="https://litona.de" target="_blank" rel="noopener">Litona</a>
+            </span>
+            <span class="fm-hold__desc">Sodium-ion battery cells from abundant local materials.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="M"><img class="fm-fav__img" data-domain="melotech.ai" alt="" loading="lazy" /></span>
+              <a href="https://melotech.ai" target="_blank" rel="noopener">Melotech</a>
+            </span>
+            <span class="fm-hold__desc">Real AI artists, real music.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="N"><img class="fm-fav__img" data-domain="ship-nemox.com" alt="" loading="lazy" /></span>
+              <a href="https://ship-nemox.com" target="_blank" rel="noopener">Nemox</a>
+            </span>
+            <span class="fm-hold__desc">AI assistant for freight forwarders.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="P"><img class="fm-fav__img" data-domain="peec.ai" alt="" loading="lazy" /></span>
+              <a href="https://peec.ai" target="_blank" rel="noopener">Peec</a>
+            </span>
+            <span class="fm-hold__desc">AI search analytics for marketing teams.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="P"><img class="fm-fav__img" data-domain="petli.app" alt="" loading="lazy" /></span>
+              <a href="https://petli.app" target="_blank" rel="noopener">Petli</a>
+              <span class="fm-tag fm-tag--exit">Exit</span>
+            </span>
+            <span class="fm-hold__desc">Dog training and community. Exited to Agria.</span>
+          </li>
+          <li>
+            <span class="fm-hold__name">
+              <span class="fm-fav" data-letter="V"><img class="fm-fav__img" data-domain="voicy.network" alt="" loading="lazy" /></span>
+              <a href="https://voicy.network" target="_blank" rel="noopener">Voicy</a>
+              <span class="fm-tag fm-tag--dead">Dead</span>
+            </span>
+            <span class="fm-hold__desc">The Giphy of sounds, integrating everywhere.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── As featured in ────────────────────────────────────────────── -->
+    <section class="fm-section" aria-labelledby="press-title">
+      <div class="fm-container">
+        <div class="fm-section__head">
+          <h2 id="press-title" class="fm-h2" data-reveal>As featured in</h2>
+        </div>
+        <ul class="fm-press">
+          <li>
+            <a href="https://www.vogue.com/article/mystery-box-heat-raises-dollar5million-from-antler-lvmh-luxury-ventures" target="_blank" rel="noopener">
+              <span class="fm-press__pub">Vogue</span>
+              <span class="fm-press__title">Mystery box Heat raises $5 million from Antler, LVMH Luxury Ventures</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.crunchbase.com/person/sven-ahrens-235f" target="_blank" rel="noopener">
+              <span class="fm-press__pub">Crunchbase</span>
+              <span class="fm-press__title">Investor profile and portfolio history</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.startupmag.co.uk/investors/sven-ahrens/" target="_blank" rel="noopener">
+              <span class="fm-press__pub">StartupMag</span>
+              <span class="fm-press__title">Investor profile</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.thesaasnews.com/news/komi-raises-5-million-in-seed-round" target="_blank" rel="noopener">
+              <span class="fm-press__pub">The SaaS News</span>
+              <span class="fm-press__title">Komi raises $5 million in seed round</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.teosto.fi/teostory/talouskasvua-musiikkialalta-yousician-ja-vandall-tahtaavat-kansainvaliseen-menestykseen/" target="_blank" rel="noopener">
+              <span class="fm-press__pub">Teosto</span>
+              <span class="fm-press__title">Talouskasvua musiikkialalta: Yousician ja Vandall tähtäävät kansainväliseen menestykseen</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://medieninsider.com/informed-spotify-fuer-journalismus/6567/" target="_blank" rel="noopener">
+              <span class="fm-press__pub">Medieninsider</span>
+              <span class="fm-press__title">Informed: Spotify für Journalismus</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── Common questions ──────────────────────────────────────────── -->
+    <section class="fm-section" aria-labelledby="faq-title">
+      <div class="fm-container">
+        <div class="fm-section__head">
+          <h2 id="faq-title" class="fm-h2" data-reveal>Common questions</h2>
+        </div>
+        <dl class="fm-faq">
+          <div class="fm-faq__item" data-reveal>
+            <dt>What do you actually do?</dt>
+            <dd>I come in as a fractional or interim Head of Growth or Product, I run growth and product teams, I sit on boards, and I advise founders and leaders making hard calls. Operating-heavy or advisory-light, whichever the situation needs. The common thread is consumer subscription growth and a bias for action.</dd>
+          </div>
+          <div class="fm-faq__item" data-reveal>
+            <dt>What are you best at?</dt>
+            <dd>Turning early consumer traction into durable, compounding subscription revenue: lifecycle and habit, pricing and monetization, multi-channel conversion, retention cohorts, internationalization. I learned it at hundred-million-subscriber scale at Spotify, and I've applied it from a standing start ever since.</dd>
+          </div>
+          <div class="fm-faq__item" data-reveal>
+            <dt>Who do you work with?</dt>
+            <dd>Consumer, prosumer, and subscription companies, from pre-seed founders to seasoned leadership teams. If your growth depends on people choosing to pay you again and again, that's my world.</dd>
+          </div>
+          <div class="fm-faq__item" data-reveal>
+            <dt>Are you open to a full-time role?</dt>
+            <dd>Yes, for the right company. I'm selective, but the right mission, team, and mandate would win, and I'd go all in. The rest of the time I run a few fractional, board, and advisory engagements at once. Either way, <a href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">book a call</a> and make the case.</dd>
+          </div>
+          <div class="fm-faq__item" data-reveal>
+            <dt>What is Newconic Ventures?</dt>
+            <dd>My angel investing and advisory vehicle, running since 2019. I back pre-seed and seed consumer, prosumer, AI, and subscription startups across the EU and US, 18+ to date. Two exits so far: Butter to Miro, and Petli to Agria. Advisory work includes Peloton, Knowunity, and Kittl.</dd>
+          </div>
+          <div class="fm-faq__item" data-reveal>
+            <dt>Where are you based?</dt>
+            <dd>Berlin. Native German, fluent in English, Spanish, and Portuguese, and I've worked across Berlin, Stockholm, New York, and Munich. I travel a lot; 75 countries so far.</dd>
+          </div>
+          <div class="fm-faq__item" data-reveal>
+            <dt>How do we start?</dt>
+            <dd>Book a call. Bring the hard question; I'll bring an honest answer and a view on what to do next.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ── Closing CTA ───────────────────────────────────────────────── -->
+    <section id="book" class="fm-section fm-close" aria-labelledby="close-title">
+      <fm-waveform style="height:60%;" aria-hidden="true"></fm-waveform>
+      <div class="fm-container fm-close__inner">
+        <h2 id="close-title" class="fm-h2" data-reveal style="font-size:var(--fs-display);">Let's talk.</h2>
+        <p class="fm-body fm-muted fm-close__body" data-reveal>
+          Whether you're hiring a full-time leader, need an operator for the next six months, want a board member
+          for the next six years, or just one honest conversation this week, the door is open. Founders, operators,
+          investors, recruiters, and journalists all start the same way.
+        </p>
+        <div class="fm-cta-row" data-reveal>
+          <a class="fm-btn" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">
+            Book a call <span class="fm-btn__arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="fm-btn--ghost fm-btn" href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener" style="background:transparent;">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Footer ────────────────────────────────────────────────────── -->
+    <footer class="fm-footer">
+      <span class="fm-wordmark">
+        <span class="fm-wordmark__dot" aria-hidden="true"></span>sven<span class="fm-wordmark__tld">.fm</span>
+      </span>
+      <span>© <span id="year"></span> Sven Ahrens · Berlin</span>
+      <span class="fm-footer__links">
+        <a href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">Book a call</a>
+        <a href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener">LinkedIn</a>
+      </span>
     </footer>
   </main>
 
-  <script>
-    (function() {
-      var root = document.documentElement;
-      var btn = document.getElementById('theme-toggle');
-      function syncBtn() {
-        var t = root.getAttribute('data-theme');
-        btn.textContent = t === 'dark' ? 'Light' : 'Dark';
-      }
-      syncBtn();
-      btn.addEventListener('click', function() {
-        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        try { localStorage.setItem('sa-theme', next); } catch (e) {}
-        syncBtn();
-      });
-      // follow system theme changes when user has not manually overridden
-      try {
-        var mq = window.matchMedia('(prefers-color-scheme: light)');
-        var handler = function(e) {
-          var stored = null;
-          try { stored = localStorage.getItem('sa-theme'); } catch (err) {}
-          if (!stored) {
-            root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
-            syncBtn();
-          }
-        };
-        if (mq.addEventListener) mq.addEventListener('change', handler);
-        else if (mq.addListener) mq.addListener(handler);
-      } catch (e) {}
-      document.getElementById('year').textContent = new Date().getFullYear();
+  <!-- Sticky CTA (revealed after the hero by main.js) -->
+  <a class="fm-btn fm-sticky fm-sticky--pill" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener" data-sticky-cta>
+    Book a call <span class="fm-btn__arrow" aria-hidden="true">→</span>
+  </a>
+  <div class="fm-sticky fm-sticky--bar" data-sticky-cta>
+    <a class="fm-btn" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">
+      Book a call <span class="fm-btn__arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
 
-      // background network animation
-      (function() {
-        var canvas = document.getElementById('bg-network');
-        if (!canvas) return;
-        var ctx = canvas.getContext('2d');
-        var W = 0, H = 0, dpr = 1;
-        var nodes = [];
-        var pulses = [];
-        var NUM = window.innerWidth < 700 ? 18 : 32;
-        var MAX_DIST = window.innerWidth < 700 ? 130 : 170;
-        var lastPulse = 0;
-        var running = true;
-        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        function getColors() {
-          var theme = root.getAttribute('data-theme') || 'dark';
-          return theme === 'dark'
-            ? { node: '255, 255, 255', glow: '255, 255, 255' }
-            : { node: '20, 20, 20', glow: '40, 40, 40' };
-        }
-
-        function setHeight() {
-          var portfolio = document.querySelector('.portfolio');
-          if (!portfolio) return;
-          canvas.style.height = portfolio.offsetTop + 'px';
-        }
-
-        function sizeCanvas() {
-          dpr = window.devicePixelRatio || 1;
-          var rect = canvas.getBoundingClientRect();
-          W = rect.width;
-          H = rect.height;
-          if (W === 0 || H === 0) return;
-          canvas.width = Math.round(W * dpr);
-          canvas.height = Math.round(H * dpr);
-          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-
-        function init() {
-          setHeight();
-          sizeCanvas();
-          nodes = [];
-          for (var i = 0; i < NUM; i++) {
-            nodes.push({
-              x: Math.random() * W,
-              y: Math.random() * H,
-              vx: (Math.random() - 0.5) * 0.18,
-              vy: (Math.random() - 0.5) * 0.18,
-              r: Math.random() * 1.4 + 0.6
-            });
-          }
-        }
-
-        function emitPulse() {
-          if (nodes.length < 2) return;
-          var a = nodes[Math.floor(Math.random() * nodes.length)];
-          var candidates = [];
-          for (var i = 0; i < nodes.length; i++) {
-            var n = nodes[i];
-            if (n === a) continue;
-            var dx = n.x - a.x, dy = n.y - a.y;
-            if (dx * dx + dy * dy < MAX_DIST * MAX_DIST) candidates.push(n);
-          }
-          if (candidates.length === 0) return;
-          var b = candidates[Math.floor(Math.random() * candidates.length)];
-          pulses.push({ from: a, to: b, t: 0 });
-        }
-
-        function drawFrame(now) {
-          var c = getColors();
-          ctx.clearRect(0, 0, W, H);
-
-          for (var i = 0; i < nodes.length; i++) {
-            var n = nodes[i];
-            n.x += n.vx;
-            n.y += n.vy;
-            if (n.x < 0) { n.x = 0; n.vx = -n.vx; }
-            else if (n.x > W) { n.x = W; n.vx = -n.vx; }
-            if (n.y < 0) { n.y = 0; n.vy = -n.vy; }
-            else if (n.y > H) { n.y = H; n.vy = -n.vy; }
-          }
-
-          ctx.lineWidth = 1;
-          for (var i = 0; i < nodes.length; i++) {
-            for (var j = i + 1; j < nodes.length; j++) {
-              var dx = nodes[i].x - nodes[j].x;
-              var dy = nodes[i].y - nodes[j].y;
-              var d2 = dx * dx + dy * dy;
-              if (d2 < MAX_DIST * MAX_DIST) {
-                var alpha = (1 - Math.sqrt(d2) / MAX_DIST) * 0.18;
-                ctx.strokeStyle = 'rgba(' + c.node + ',' + alpha + ')';
-                ctx.beginPath();
-                ctx.moveTo(nodes[i].x, nodes[i].y);
-                ctx.lineTo(nodes[j].x, nodes[j].y);
-                ctx.stroke();
-              }
-            }
-          }
-
-          for (var i = 0; i < nodes.length; i++) {
-            var n = nodes[i];
-            ctx.beginPath();
-            ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(' + c.node + ', 0.55)';
-            ctx.fill();
-          }
-
-          if (!reducedMotion && now - lastPulse > 1500) {
-            lastPulse = now;
-            emitPulse();
-          }
-
-          var remaining = [];
-          for (var k = 0; k < pulses.length; k++) {
-            var p = pulses[k];
-            p.t += 0.012;
-            if (p.t >= 1) continue;
-            var x = p.from.x + (p.to.x - p.from.x) * p.t;
-            var y = p.from.y + (p.to.y - p.from.y) * p.t;
-            var a = Math.sin(p.t * Math.PI) * 0.85;
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = 'rgba(' + c.glow + ',' + (a * 0.6) + ')';
-            ctx.beginPath();
-            ctx.arc(x, y, 2.2, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(' + c.glow + ',' + a + ')';
-            ctx.fill();
-            ctx.shadowBlur = 0;
-            remaining.push(p);
-          }
-          pulses = remaining;
-        }
-
-        function tick(now) {
-          if (running) drawFrame(now || 0);
-          requestAnimationFrame(tick);
-        }
-
-        if ('IntersectionObserver' in window) {
-          var io = new IntersectionObserver(function(entries) {
-            running = entries[0].isIntersecting;
-          }, { threshold: 0 });
-          io.observe(canvas);
-        }
-
-        var resizeTimer;
-        window.addEventListener('resize', function() {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(init, 150);
-        });
-
-        // re-init after fonts load (layout may shift)
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(function() { init(); });
-        }
-
-        init();
-        if (reducedMotion) {
-          drawFrame(0);
-        } else {
-          requestAnimationFrame(tick);
-        }
-      })();
-
-      // favicon fallback chain: DuckDuckGo -> letter chip (no Google to avoid 3rd-party cookies, no direct to avoid 404 noise)
-      document.querySelectorAll('.fav-img').forEach(function(img) {
-        var domain = img.getAttribute('data-domain');
-        var sources = [
-          'https://icons.duckduckgo.com/ip3/' + domain + '.ico'
-        ];
-        var idx = 0;
-        img.src = sources[0];
-        img.addEventListener('error', function() {
-          idx++;
-          if (idx < sources.length) {
-            img.src = sources[idx];
-          } else {
-            var parent = img.closest('.fav');
-            if (parent) parent.classList.add('fav-fallback');
-          }
-        });
-        img.addEventListener('load', function() {
-          if (img.naturalWidth < 8 || img.naturalHeight < 8) {
-            img.dispatchEvent(new Event('error'));
-          }
-        });
-      });
-    })();
-  </script>
 </body>
 </html>

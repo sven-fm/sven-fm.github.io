@@ -1,0 +1,7 @@
+# OS noise
+.DS_Store
+
+# Planning / source-of-truth working docs (not for the public deploy)
+BUILD-PLAN.md
+COPY.md
+design-system/

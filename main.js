@@ -102,7 +102,10 @@
         ctx.beginPath();
         for (var x = 0; x <= w; x += 2) {
           var env = 0.5 + 0.5 * Math.sin(x * 0.004 + t * 0.4); // slow modulation
-          var y = base + Math.sin(x * freq + t * sp + phase) * a * env;
+          // two counter-travelling components so the line morphs over time
+          // (interference), not just slides — keeps every wave visibly alive.
+          var y = base + (Math.sin(x * freq + t * sp + phase) * 0.68
+                        + Math.sin(x * freq * 1.9 - t * sp * 0.5 + phase * 1.3) * 0.32) * a * env;
           x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
         }
         ctx.stroke(); ctx.shadowBlur = 0;

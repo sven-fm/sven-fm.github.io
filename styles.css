@@ -131,6 +131,7 @@
   --rule:  rgba(255, 255, 255, 0.11);
   --rule-strong: rgba(255, 255, 255, 0.18);
   --chip-bg: #FFFFFF;
+  --linkedin: #4F9CEB;   /* brightened LinkedIn blue for dark backgrounds */
 
   color-scheme: dark;
 }
@@ -150,6 +151,7 @@
   --rule:  rgba(8, 24, 18, 0.12);
   --rule-strong: rgba(8, 24, 18, 0.22);
   --chip-bg: #FFFFFF;
+  --linkedin: #0A66C2;   /* official LinkedIn blue */
 
   color-scheme: light;
 }
@@ -168,6 +170,7 @@
     --rule:  rgba(8, 24, 18, 0.12);
     --rule-strong: rgba(8, 24, 18, 0.22);
     --chip-bg: #FFFFFF;
+    --linkedin: #0A66C2;
     color-scheme: light;
   }
 }
@@ -317,6 +320,14 @@ img, canvas, svg { display: block; max-width: 100%; }
               color var(--dur-fast) var(--ease-out);
 }
 .fm-btn--ghost:hover { border-color: var(--accent-text); color: var(--accent-text); filter: none; }
+
+/* LinkedIn-branded secondary button: the blue "in" mark + LinkedIn-blue hover */
+.fm-btn--linkedin { gap: 9px; }
+.fm-btn--linkedin svg { width: 19px; height: 19px; flex-shrink: 0; fill: var(--linkedin); }
+.fm-btn--linkedin:hover { border-color: var(--linkedin); color: var(--fg); }
+.fm-footer__li { display: inline-flex; align-items: center; gap: 6px; }
+.fm-footer__li svg { width: 14px; height: 14px; flex-shrink: 0; fill: var(--linkedin); }
+.fm-footer__li:hover svg { fill: var(--linkedin); }
 
 .fm-cta-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
 

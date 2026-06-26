@@ -69,7 +69,10 @@
       return Number.isFinite(v) ? v : fallback;
     }
     _accent() {
-      return getComputedStyle(this).getPropertyValue("--accent").trim() || "#23E5A2";
+      var s = getComputedStyle(this);
+      return s.getPropertyValue("--wave").trim()
+          || s.getPropertyValue("--accent").trim()
+          || "#F5B23D";
     }
     _size() {
       var dpr = Math.min(window.devicePixelRatio || 1, 2);

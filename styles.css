@@ -110,6 +110,9 @@
   --rotate-interval: 2400ms;
 
   --glow-accent: 0 0 12px var(--accent);
+
+  /* Waveform colour — amber, independent of --accent and the same in both themes. */
+  --wave: #F5B23D;
 }
 
 /* — COLOR · DARK (default) ----------------------------------------------- */

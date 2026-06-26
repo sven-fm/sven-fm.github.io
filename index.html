@@ -9,8 +9,8 @@
     (function () {
       try {
         var stored = localStorage.getItem('fm-theme');
-        var t = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-        document.documentElement.setAttribute('data-theme', t);
+        // Dark is the default regardless of OS preference; light only on explicit opt-in.
+        document.documentElement.setAttribute('data-theme', stored || 'dark');
       } catch (e) {
         document.documentElement.setAttribute('data-theme', 'dark');
       }
@@ -18,15 +18,14 @@
   </script>
 
   <title>Sven Ahrens — consumer monetization &amp; growth leader. Ex-Spotify, ex-CEO Yousician.</title>
-  <meta name="description" content="I help consumer companies grow. Fractional or interim leader for growth, product, monetization, a region or a business unit; board member; advisor. Eight years scaling Spotify, former CEO of Yousician, angel in 18+ startups. Book a call." />
+  <meta name="description" content="I help consumer companies grow. Fractional or interim leader for growth, product, monetization, a region or a business unit; board member; advisor. Eight years scaling Spotify, former CEO of Yousician, angel in 20+ startups. Book a call." />
   <meta name="author" content="Sven Ahrens" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="keywords" content="Sven Ahrens, consumer monetization, growth leader, fractional leader, interim leader, regional leader, business unit leader, retention, pricing, packaging, AI transformation, Spotify, Yousician, GuitarTuna, Newconic Ventures, angel investor, board member, advisor, Berlin" />
   <link rel="canonical" href="https://sven.fm" />
   <link rel="me" href="https://linkedin.com/in/svenahrens" />
   <link rel="me" href="https://svenahrens.com" />
-  <meta name="theme-color" content="#0A0F0D" media="(prefers-color-scheme: dark)" />
-  <meta name="theme-color" content="#F4F8F5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0A0F0D" />
 
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
@@ -225,7 +224,7 @@
             "name": "What is Newconic Ventures?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "My angel investing and advisory vehicle, running since 2019. I back pre-seed and seed consumer, prosumer, AI, and subscription startups across the EU and US, 18+ to date. Two exits so far: Butter to Miro, and Petli to Agria. Advisory work includes Peloton, Knowunity, and Kittl."
+              "text": "My angel investing and advisory vehicle, running since 2019. I back pre-seed and seed consumer, prosumer, AI, and subscription startups across the EU and US, 20+ to date. Two exits so far: Butter to Miro, and Petli to Agria. Advisory work includes Peloton, Knowunity, and Kittl."
             }
           },
           {
@@ -281,7 +280,7 @@
           </p>
 
           <p class="fm-body fm-hero__body">
-            I'm Sven Ahrens. Eight years scaling Spotify, former CEO of Yousician, angel in 18+ consumer
+            I'm Sven Ahrens. Eight years scaling Spotify, former CEO of Yousician, angel in 20+ consumer
             startups. Seasoned enough to know what works, yet hands-on and hungry to build it with you. Strong
             bias for action: I help you make the hard call, then I help you move it.
           </p>
@@ -316,7 +315,7 @@
           <div class="fm-metric"><div class="fm-metric__value" data-count="60" data-suffix="%+">60%+</div><p class="fm-metric__label">of Spotify's subscriber growth, my team's work</p></div>
           <div class="fm-metric"><div class="fm-metric__value" data-count="1" data-prefix="$" data-suffix="B+">$1B+</div><p class="fm-metric__label">subscriptions revenue managed at Spotify</p></div>
           <div class="fm-metric"><div class="fm-metric__value" data-count="20" data-suffix="M+">20M+</div><p class="fm-metric__label">MAU, led as CEO of Yousician</p></div>
-          <div class="fm-metric"><div class="fm-metric__value" data-count="18" data-suffix="+">18+</div><p class="fm-metric__label">startups backed as an angel</p></div>
+          <div class="fm-metric"><div class="fm-metric__value" data-count="20" data-suffix="+">20+</div><p class="fm-metric__label">startups backed as an angel</p></div>
           <div class="fm-metric"><div class="fm-metric__value" data-count="2">2</div><p class="fm-metric__label">exits: Butter to Miro, Petli to Agria</p></div>
           <div class="fm-metric"><div class="fm-metric__value" data-count="75">75</div><p class="fm-metric__label">countries, and counting</p></div>
         </div>
@@ -706,7 +705,7 @@
           </div>
           <div class="fm-faq__item" data-reveal>
             <dt>What is Newconic Ventures?</dt>
-            <dd>My angel investing and advisory vehicle, running since 2019. I back pre-seed and seed consumer, prosumer, AI, and subscription startups across the EU and US, 18+ to date. Two exits so far: Butter to Miro, and Petli to Agria. Advisory work includes Peloton, Knowunity, and Kittl.</dd>
+            <dd>My angel investing and advisory vehicle, running since 2019. I back pre-seed and seed consumer, prosumer, AI, and subscription startups across the EU and US, 20+ to date. Two exits so far: Butter to Miro, and Petli to Agria. Advisory work includes Peloton, Knowunity, and Kittl.</dd>
           </div>
           <div class="fm-faq__item" data-reveal>
             <dt>Where are you based?</dt>

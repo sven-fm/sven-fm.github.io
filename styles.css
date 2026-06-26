@@ -156,24 +156,8 @@
   color-scheme: light;
 }
 
-/* Follow the OS when no explicit theme is set. */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme]) {
-    --accent:      #06B981;
-    --accent-text: #0A6B4D;
-    --accent-ink:  #02201A;
-    --bg:       #F4F8F5;
-    --bg-elev:  #FFFFFF;
-    --bg-glass: rgba(244, 248, 245, 0.80);
-    --fg:    #0A130F;
-    --muted: #54655C;
-    --rule:  rgba(8, 24, 18, 0.12);
-    --rule-strong: rgba(8, 24, 18, 0.22);
-    --chip-bg: #FFFFFF;
-    --linkedin: #0A66C2;
-    color-scheme: light;
-  }
-}
+/* Dark is the default for everyone; light applies only via [data-theme="light"]
+   (an explicit user toggle). We intentionally do NOT follow the OS preference. */
 
 /* ============================================================================
    3 · BASE

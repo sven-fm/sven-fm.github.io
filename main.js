@@ -142,17 +142,7 @@
       try { localStorage.setItem("fm-theme", next); } catch (e) {}
       sync();
     });
-    // Follow OS changes until the user has made an explicit choice.
-    try {
-      var mq = matchMedia("(prefers-color-scheme: light)");
-      var handler = function (e) {
-        var stored = null;
-        try { stored = localStorage.getItem("fm-theme"); } catch (err) {}
-        if (!stored) { root.setAttribute("data-theme", e.matches ? "light" : "dark"); sync(); }
-      };
-      if (mq.addEventListener) mq.addEventListener("change", handler);
-      else if (mq.addListener) mq.addListener(handler);
-    } catch (e) {}
+    // No OS-preference following: dark is the default, light is opt-in only.
   }
 
   /* ── 3. Role rotation ─────────────────────────────────────────────────── */

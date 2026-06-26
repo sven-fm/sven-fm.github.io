@@ -331,6 +331,7 @@ img, canvas, svg { display: block; max-width: 100%; }
   display: inline-flex; align-items: center; gap: 4px;
   font-family: var(--font-data); font-weight: 600; font-size: 15px;
   letter-spacing: 0.02em; color: var(--fg); text-decoration: none;
+  text-transform: none; /* stay lowercase even inside the uppercased footer */
 }
 .fm-wordmark__dot {
   width: 9px; height: 9px; border-radius: 50%;

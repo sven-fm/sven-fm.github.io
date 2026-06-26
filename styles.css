@@ -410,11 +410,19 @@ fm-waveform { position: absolute; left: 0; right: 0; bottom: 0; height: 42%; dis
 }
 
 /* — Metric ledger ------------------------------------------------------- */
+/* Flexbox (not grid) so the last row's cards stretch to fill: 7 stats never
+   leave a phantom empty cell. Hairlines: top+left on the ledger, right+bottom
+   on each cell, giving single 1px rules with no doubling. */
 .fm-ledger {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+  display: flex; flex-wrap: wrap;
+  background: var(--bg);
+  border-top: 1px solid var(--rule); border-left: 1px solid var(--rule);
 }
-.fm-metric { background: var(--bg); padding: var(--space-6) clamp(16px, 2vw, 26px); }
+.fm-metric {
+  flex: 1 1 138px;
+  background: var(--bg); padding: var(--space-6) clamp(16px, 2vw, 26px);
+  border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
 .fm-metric__value {
   font-family: var(--font-data); font-weight: 600; font-size: var(--fs-metric);
   letter-spacing: var(--track-display); line-height: 1; color: var(--fg);
@@ -452,9 +460,12 @@ fm-waveform { position: absolute; left: 0; right: 0; bottom: 0; height: 42%; dis
 }
 .fm-about__bio {
   flex: 1; font-family: var(--font-body);
-  font-size: var(--fs-lead); line-height: 1.5; color: var(--fg);
-  max-width: 40ch; margin: 0;
+  font-size: var(--fs-body); line-height: 1.6; color: var(--fg);
+  max-width: 64ch; margin: 0;
 }
+.fm-about__bio p { margin: 0 0 1em; }
+.fm-about__bio p:last-child { margin-bottom: 0; }
+.fm-about__bio p:first-child { font-size: var(--fs-lead); line-height: 1.45; }
 .fm-about__aside { flex: 0 0 240px; }
 
 /* — Career timeline ----------------------------------------------------- */

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>sven.fm — app icon</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Source for favicon.ico, /assets/favicon-*.png, /assets/icon-*.png and
+       /apple-touch-icon.png. The mark is the wordmark's S in Syne 800.
+
+       ?variant=brass  brass field, pine S  (shipped — brightest in a tab strip)
+       ?variant=pine   pine field, brass S  (the field inverted)
+       ?tight=1        less padding, for 16–32px where the glyph must carry
+
+       Render with: node design-system/render-assets.mjs  (see the README) -->
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+    body { display: grid; place-items: center; }
+
+    .tile {
+      position: relative; width: 100%; height: 100%;
+      display: grid; place-items: center; overflow: hidden;
+      background: var(--brass-button);
+      color: var(--surface-pine);
+    }
+    /* Same top highlight the buttons carry, so the icon reads as pressed metal. */
+    .tile::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      box-shadow: inset 0 6% 0 rgba(255,255,255,.4), inset 0 -6% 0 rgba(0,0,0,.10);
+    }
+    body[data-variant="pine"] .tile { background: var(--surface-pine); color: var(--brass); }
+    body[data-variant="pine"] .tile::after {
+      box-shadow: inset 0 0 0 1px rgba(220,228,210,.10);
+      background: radial-gradient(120% 100% at 30% 8%, rgba(208,169,40,.20), rgba(208,169,40,0) 62%);
+    }
+
+    .s {
+      position: relative; z-index: 1;
+      font-family: var(--font-display); font-weight: 800;
+      font-size: 60cqh; line-height: 1; letter-spacing: -.04em;
+      /* optical centring: Syne's cap sits high in the em box */
+      transform: translateY(-1.5%);
+    }
+    /* Small sizes: a touch larger, and one weight down so the counters of the
+       S stay open instead of filling in at 16px. */
+    body[data-tight="1"] .s { font-size: 72cqh; font-weight: 700; }
+    .tile { container-type: size; }
+  </style>
+</head>
+<body>
+  <div class="tile"><span class="s">S</span></div>
+  <script>
+    var q = new URLSearchParams(location.search);
+    document.body.dataset.variant = q.get("variant") || "brass";
+    document.body.dataset.tight = q.get("tight") || "0";
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>sven.fm — Open Graph card</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Source for /assets/og.png (1200×630). Render with:
+       node design-system/render-assets.mjs   (see the README) -->
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    body {
+      position: relative;
+      background: var(--surface-pine);
+      color: var(--text-on-pine);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Atmosphere, same recipe as the page, dialled for a small canvas. */
+    .grain {
+      position: absolute; inset: 0; z-index: 3; pointer-events: none;
+      opacity: .38; mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+    .glow { position: absolute; z-index: 2; pointer-events: none; mix-blend-mode: soft-light; }
+    .glow--warm {
+      top: -46%; left: -22%; width: 105%; height: 150%; opacity: .9;
+      background: radial-gradient(closest-side,
+        rgba(208,169,40,.55), rgba(208,169,40,.24) 42%, rgba(208,169,40,.06) 70%, rgba(208,169,40,0) 100%);
+    }
+    .glow--cool {
+      bottom: -60%; right: -18%; width: 90%; height: 150%; opacity: .7;
+      background: radial-gradient(closest-side,
+        rgba(240,246,230,.4), rgba(240,246,230,.15) 45%, rgba(240,246,230,.04) 72%, rgba(240,246,230,0) 100%);
+    }
+
+    .card {
+      position: relative; z-index: 4;
+      height: 100%; padding: 58px 64px 54px;
+      display: grid; grid-template-columns: 1fr auto; gap: 52px; align-items: center;
+    }
+    /* wordmark pinned top, headline centred in what's left, credentials bottom */
+    .col { display: grid; grid-template-rows: auto 1fr auto; height: 100%; }
+    .col h1 { align-self: center; }
+
+    .wordmark {
+      display: flex; align-items: center; gap: 11px;
+      font-family: var(--font-display); font-weight: 800; font-size: 25px; letter-spacing: -.02em;
+    }
+    .wordmark__dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--brass); box-shadow: 0 0 0 5px rgba(208,169,40,.16);
+    }
+
+    h1 {
+      font-family: var(--font-display); font-weight: 800; font-size: 78px;
+      line-height: .88; letter-spacing: -.045em; max-width: 13ch;
+    }
+    h1 em { font-style: normal; color: var(--brass); }
+
+    .foot {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 16px; font-weight: 600; letter-spacing: var(--track-meta);
+      text-transform: uppercase; color: var(--text-on-pine-muted);
+    }
+    .foot .rule { width: 34px; height: 1px; background: var(--brass); }
+
+    /* Portrait: the arch, halo and base fade, scaled to the card. */
+    .portrait { position: relative; width: 330px; }
+    .portrait__halo {
+      position: absolute; inset: -14% -12% -10%; pointer-events: none;
+      background: radial-gradient(closest-side,
+        var(--brass-halo), rgba(208,169,40,.08) 55%, rgba(208,169,40,0) 100%);
+    }
+    .portrait__frame {
+      position: relative; padding: 14px; border-radius: 186px 186px 30px 30px;
+      background: linear-gradient(180deg, rgba(220,228,210,.10), rgba(220,228,210,.015));
+      border: 1px solid var(--rule-on-pine);
+      box-shadow: var(--shadow-portrait);
+    }
+    .portrait__img {
+      display: block; width: 100%; aspect-ratio: 4 / 5;
+      object-fit: cover; object-position: center 18%;
+      border-radius: 172px 172px 20px 20px;
+      filter: saturate(.86) contrast(1.05);
+      -webkit-mask-image: linear-gradient(180deg,#000 0%,#000 58%,rgba(0,0,0,.55) 84%,rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(180deg,#000 0%,#000 58%,rgba(0,0,0,.55) 84%,rgba(0,0,0,0) 100%);
+    }
+    .portrait__cap {
+      display: flex; align-items: center; gap: 9px; margin-top: 4px;
+      font-size: 13px; font-weight: 600; letter-spacing: var(--track-meta);
+      text-transform: uppercase; color: var(--text-on-pine-muted);
+    }
+    .portrait__cap .rule { width: 20px; height: 1px; background: var(--brass); }
+  </style>
+</head>
+<body>
+  <div class="glow glow--warm"></div>
+  <div class="glow glow--cool"></div>
+
+  <div class="card">
+    <div class="col">
+      <div class="wordmark"><span class="wordmark__dot"></span>sven.fm</div>
+      <h1>I help consumer companies <em>grow</em>.</h1>
+      <div class="foot">
+        <span class="rule"></span>Ex-Spotify · Ex-CEO Yousician · Newconic Ventures
+      </div>
+    </div>
+
+    <figure class="portrait">
+      <span class="portrait__halo"></span>
+      <div class="portrait__frame">
+        <img class="portrait__img" src="/assets/sven.jpg" alt="Sven Ahrens">
+        <figcaption class="portrait__cap"><span class="rule"></span>Sven Ahrens · Berlin</figcaption>
+      </div>
+    </figure>
+  </div>
+
+  <div class="grain"></div>
+</body>
+</html>

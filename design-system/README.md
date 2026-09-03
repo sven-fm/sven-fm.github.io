@@ -64,6 +64,9 @@ contrast on paper, so it never appears there.
 | `base.css` | Reset, atmosphere layers, and every component pattern. | 3rd |
 | `motion.js` | Menu, role crossfade, reveals, parallax, count-up, favicon chips, year. | `defer` |
 | `example.html` | Working reference build — every pattern on one page. Start here. | — |
+| `og.html` | Source for the Open Graph card. | — |
+| `icon.html` | Source for the favicon / app icon mark. | — |
+| `render-assets.mjs` | Rasterises both into the shipped image assets. | — |
 
 ```html
 <link rel="preload" href="/assets/fonts/syne-latin-var.woff2" as="font" type="font/woff2" crossorigin>
@@ -242,6 +245,35 @@ run, counters show their final value.
 > 800 the widest value ("20M+") measures ~250px and spilled into its
 > neighbour. Keeping the display size costs a column: the band is four across
 > on a wide screen, not six.
+
+---
+
+## Image assets
+
+The share card and every icon are **rendered from the system**, not drawn by
+hand — same tokens, same fonts, so they can never drift from the page.
+
+| Source | Output |
+|---|---|
+| `og.html` | `assets/og.jpg` — 1200×630, JPEG q88 |
+| `icon.html` | `favicon.ico` (16/32/48), `assets/favicon-16x16.png`, `assets/favicon-32x32.png`, `apple-touch-icon.png` (180), `assets/icon-192.png`, `assets/icon-512.png` |
+
+```bash
+python3 -m http.server 8765 &            # serve the repo root
+PLAYWRIGHT="$(npm root)/playwright" node design-system/render-assets.mjs
+```
+
+Everything renders at 2–4× and downsamples, so 16px type stays crisp.
+
+**The mark** is the wordmark's S in Syne 800 on the brass button gradient with
+pine ink — the primary button, miniaturized. Below 48px it steps down to weight
+700 at a larger optical size, because 800 fills in the S's counters at 16px.
+`icon.html?variant=pine` renders the inverted mark (brass S on pine) if the
+field is ever wrong for a context; `ICON_VARIANT=pine` ships it.
+
+**The card is a JPEG, not a PNG.** It carries a photo and the grain layer,
+which PNG stores at roughly ten times the bytes (878KB vs 87KB) for no visible
+difference. `og:image:type` says `image/jpeg` to match.
 
 ---
 

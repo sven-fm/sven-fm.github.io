@@ -1,0 +1,110 @@
+/* ============================================================================
+   sven.fm — Design Tokens · "Pine"
+   ----------------------------------------------------------------------------
+   Single source of truth for surface, text, accent, type, space, radius,
+   elevation and motion.
+
+   One theme, not two. The page alternates between a deep pine field and a
+   pistachio-sage paper band; brass is the only accent. There is no
+   [data-theme] switch and no light mode — a section picks its surface with
+   .section--sage, and the text tokens for that surface come with it.
+
+   Contrast floor: small uppercase labels are tuned to clear WCAG AA on both
+   surfaces (~5.4:1). Do not dim them below 72% opacity on pine — earlier
+   passes at 45–50% measured 3.5–4.0:1 and failed.
+   ========================================================================== */
+:root {
+  /* Surfaces */
+  --surface-pine: #13291F;
+  --surface-pine-glass: rgba(19, 41, 31, .82);
+  --surface-sage: #DCE4D2;
+  --surface-raised: rgba(220, 228, 210, .045);
+  --surface-raised-hover: rgba(220, 228, 210, .075);
+  --rule-on-pine: rgba(220, 228, 210, .16);
+  --rule-on-sage: rgba(19, 41, 31, .14);
+
+  /* Text */
+  --text-on-pine: #DCE4D2;
+  --text-on-pine-body: rgba(220, 228, 210, .74);
+  --text-on-pine-muted: rgba(220, 228, 210, .72); /* AA at 11–12px — do not dim */
+  --text-on-pine-subtle: rgba(220, 228, 210, .62);
+  --text-on-sage: #13291F;
+  --text-on-sage-body: rgba(19, 41, 31, .72);
+  --text-on-sage-muted: rgba(19, 41, 31, .74);
+
+  /* Accent */
+  --brass: #D0A928;
+  --brass-on-sage: #7A5C0A;
+  --brass-button: linear-gradient(180deg, #E0BC48, #C79E20);
+  --brass-halo: rgba(208, 169, 40, .24);
+
+  /* Type */
+  --font-display: "Syne", system-ui, sans-serif;
+  --font-body: "Work Sans", system-ui, sans-serif;
+
+  /* 10.5vw is tuned so the longest word ("companies") just fills the line.
+     Below ~400px the gutter stops shrinking with the viewport, so the second
+     term takes over and keeps the word inside the container instead of
+     clipping it — the prototype's 48px floor overflowed every phone. */
+  --fs-h1: min(10.5vw, calc((100vw - 40px) / 8.6), 158px);
+  --fs-h2: clamp(30px, 5vw, 72px);
+  --fs-h2-closing: clamp(52px, 13vw, 190px);
+  --fs-h3: clamp(20px, 2.4vw, 32px);
+  --fs-role: clamp(21px, 2.4vw, 32px);
+  --fs-about-lead: clamp(22px, 2.8vw, 38px);
+  --fs-career: clamp(19px, 2.1vw, 27px);
+  --fs-faq: clamp(18px, 2vw, 25px);
+  --fs-metric: clamp(34px, 4vw, 58px);
+  --fs-portfolio: clamp(16px, 1.4vw, 19px);
+  --fs-hero-body: clamp(16px, 1.25vw, 19px);
+  --fs-body: 16px;
+  --fs-body-sm: 15.5px;
+  --fs-card: 13.5px;
+  --fs-metric-label: 13px;
+  --fs-nav: 13.5px;
+  --fs-eyebrow: 11.5px;
+  --fs-tag: 11px;
+
+  --track-display: -.045em;
+  --track-h2: -.04em;
+  --track-h3: -.03em;
+  --track-eyebrow: .22em;
+  --track-meta: .16em;
+  --track-tag: .12em;
+
+  /* Space */
+  --gutter: clamp(20px, 5vw, 72px);
+  --section-y: clamp(52px, 8vw, 120px);
+  --hero-top: clamp(40px, 7vw, 110px);
+  --col-gap: clamp(16px, 3vw, 56px);
+  --row-y: clamp(20px, 3vw, 32px);
+  --maxw: 1320px;
+
+  /* Radii */
+  --r-pill: 999px;
+  --r-card: 20px;
+  --r-chip: 8px;
+  --r-portrait-frame: 200px 200px 34px 34px;
+  --r-portrait-img: 184px 184px 22px 22px;
+
+  /* Elevation */
+  --shadow-btn: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -1px 0 rgba(0,0,0,.14),
+                0 2px 5px rgba(0,0,0,.22), 0 16px 30px -14px rgba(0,0,0,.7);
+  --shadow-btn-hover: inset 0 1px 0 rgba(255,255,255,.6), 0 3px 8px rgba(0,0,0,.24),
+                      0 26px 42px -16px rgba(0,0,0,.75);
+  --shadow-btn-active: inset 0 2px 6px rgba(0,0,0,.28), 0 6px 14px -8px rgba(0,0,0,.6);
+  --shadow-ghost: inset 0 1px 0 rgba(255,255,255,.12), 0 12px 24px -16px rgba(0,0,0,.6);
+  --shadow-card: inset 0 1px 0 rgba(255,255,255,.09);
+  --shadow-portrait: inset 0 1px 0 rgba(255,255,255,.12), 0 46px 70px -38px rgba(0,0,0,.9);
+  --shadow-favicon: 0 1px 3px rgba(0,0,0,.35), inset 0 0 0 1px rgba(0,0,0,.07);
+
+  /* Motion */
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --dur-press: 300ms;
+  --dur-role-fade: 420ms;
+  --dur-role-hold: 3400ms;
+  --dur-reveal: 900ms;
+  --dur-count: 1300ms;
+  --reveal-offset: 16px;
+  --parallax-clamp: 44px;
+}

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sven.fm — Pine reference build</title>
+  <!-- Tracked in git so tooling can read the system, but it ships with the
+       static site, so keep it out of the index. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#13291F">
+
+  <!-- Design system: order matters (fonts → tokens → base) -->
+  <link rel="preload" href="/assets/fonts/syne-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="base.css">
+
+  <script src="motion.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Atmosphere: one grain layer, two ambient lights. Both inert. -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="glow glow--warm" aria-hidden="true"></div>
+  <div class="glow glow--cool" aria-hidden="true"></div>
+
+  <!-- ── Header: wordmark · nav · CTA · hamburger ─────────────────────── -->
+  <header class="hdr">
+    <div class="hdr__in">
+      <a class="wordmark" href="#top" aria-label="sven.fm — home">
+        <span class="wordmark__dot" aria-hidden="true"></span>sven.fm
+      </a>
+      <span class="hdr__spacer"></span>
+
+      <nav class="nav" aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#numbers">Numbers</a>
+        <a href="#portfolio">Portfolio</a>
+      </nav>
+
+      <a class="btn btn--sm" href="#book">Book a call</a>
+
+      <button class="menu-btn" id="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-sheet">
+        <span class="menu-btn__bar" aria-hidden="true"></span>
+        <span class="menu-btn__bar" aria-hidden="true"></span>
+        <span class="menu-btn__bar" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <nav class="sheet" id="menu-sheet" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#numbers">Numbers</a>
+      <a href="#portfolio">Portfolio</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ── Hero: eyebrow · display headline · role line · portrait ────── -->
+    <section id="top" class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <p class="eyebrow hero__eyebrow" data-drift="0.035">
+          <span class="rule" aria-hidden="true"></span>Eyebrow, brass, with a leading rule
+        </p>
+
+        <!-- <em> is the accent word, not emphasis -->
+        <h1 id="hero-title" class="hero__h1">Display type at <em>full</em> size.</h1>
+
+        <div class="hero__grid">
+          <div>
+            <p class="roleline">As your <span class="role" data-roles='["fractional Head of Growth","interim Head of Product","board member"]'>fractional Head of Growth.</span></p>
+
+            <p class="hero__body">
+              Body copy on pine, capped at 50ch. The type pairing is the system: Syne
+              carries every headline and number, Work Sans carries every sentence.
+            </p>
+
+            <div class="cta-row">
+              <a class="btn" href="#book">Book a call <span aria-hidden="true">→</span></a>
+              <a class="btn btn--ghost" href="#book">Ghost button</a>
+            </div>
+
+            <p class="availability">
+              <span class="availability__dot" aria-hidden="true"></span>
+              Status line, with a slow brass pulse.
+            </p>
+          </div>
+
+          <figure class="portrait" data-drift="0.07">
+            <span class="portrait__halo" aria-hidden="true"></span>
+            <div class="portrait__frame">
+              <img class="portrait__img" src="/assets/sven.jpg" alt="Sven Ahrens" width="320" height="400">
+              <figcaption class="portrait__cap">
+                <span class="rule" aria-hidden="true"></span>Caption left
+                <span>Right</span>
+              </figcaption>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Numbers band: the sage surface ──────────────────────────────── -->
+    <section id="numbers" class="section--sage band" aria-label="Numbers">
+      <div class="container metrics" data-reveal>
+        <div class="metric">
+          <div class="metric__value" data-count="8" data-suffix=" yrs">8 yrs</div>
+          <p class="metric__label">Label under the value, capped at 22ch</p>
+        </div>
+        <div class="metric">
+          <div class="metric__value" data-count="60" data-suffix="%+">60%+</div>
+          <p class="metric__label">The count-up animates toward the rendered text</p>
+        </div>
+        <div class="metric">
+          <div class="metric__value" data-count="1" data-prefix="$" data-suffix="B+">$1B+</div>
+          <p class="metric__label">Prefix and suffix are markup, not script</p>
+        </div>
+        <div class="metric">
+          <div class="metric__value" data-count="75">75</div>
+          <p class="metric__label">Tracks are 250px so 58px values never collide</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Two-column rows: the workhorse layout ───────────────────────── -->
+    <section id="work" class="section" aria-labelledby="work-title">
+      <div class="container">
+        <p class="eyebrow">Section eyebrow</p>
+        <h2 id="work-title" class="section__h2" data-reveal>Section headline, Syne 700, capped at 22ch so it always breaks into a stack.</h2>
+
+        <div class="row" data-reveal>
+          <h3 class="mode__title"><span class="mode__num" aria-hidden="true">01</span> Row title with a brass ordinal</h3>
+          <p class="mode__desc">The right column runs 1fr : 1.25fr against the left and caps at 58ch. Below 820px both columns stack.</p>
+        </div>
+        <div class="row" data-reveal>
+          <h3 class="mode__title"><span class="mode__num" aria-hidden="true">02</span> Second row</h3>
+          <p class="mode__desc">Every row carries its own 1px top rule, so the list reads as a ledger rather than a set of cards.</p>
+        </div>
+
+        <div class="career-row" data-reveal>
+          <div>
+            <div class="career__title">Career row variant</div>
+            <div class="meta career__meta">Meta line · uppercase · 0.16em</div>
+          </div>
+          <div>
+            <p class="career__desc">Same shape at 1fr : 1.3fr, tighter body size, and an optional pill list underneath.</p>
+            <ul class="career__sub">
+              <li>Pill one</li>
+              <li>Pill two</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── About: the sage two-column ──────────────────────────────────── -->
+    <section class="section section--sage" aria-labelledby="about-title">
+      <div class="container about">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2 id="about-title" class="about__lead">Lead sentence on sage, Syne 600, capped at 24ch.</h2>
+        </div>
+        <div class="about__bio">
+          <p>Body on sage, 60ch, 1.7 line-height, with <a href="#book">an inline link</a> that carries a hairline underline rather than a colour change alone.</p>
+          <p>Brass on sage is <code>--brass-on-sage</code> (#7A5C0A), never the pine brass — the bright one fails contrast on paper.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Cards + press ───────────────────────────────────────────────── -->
+    <section id="portfolio" class="section section--portfolio" aria-labelledby="portfolio-title">
+      <div class="container">
+        <div class="section__head">
+          <h2 id="portfolio-title" class="eyebrow">Cards</h2>
+          <p class="meta">Right-aligned meta</p>
+        </div>
+
+        <!-- flex, not grid: no phantom empty cells at any column count -->
+        <ul class="pf">
+          <li><a class="pf-card" href="https://alba.tech" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">A</span><img data-domain="alba.tech" alt="" loading="lazy"></span>
+              Alba
+            </span>
+            <span class="pf-card__desc">The chip renders the initial first; the favicon fades in over it if one loads.</span>
+          </a></li>
+          <li><a class="pf-card" href="https://miro.com" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">B</span><img data-domain="miro.com" alt="" loading="lazy"></span>
+              Butter <span class="tag">Exit</span>
+            </span>
+            <span class="pf-card__desc">Cards take an optional uppercase tag after the name.</span>
+          </a></li>
+          <li><div class="pf-card">
+            <span class="pf-card__name">
+              <span class="fav fav--dual">
+                <span class="fav__letter">H</span>
+                <img data-domain="heat.io" alt="" loading="lazy">
+                <img data-domain="mile.club" alt="" loading="lazy">
+              </span>
+              <span><a href="https://heat.io" target="_blank" rel="noopener">Heat</a> &amp; <a href="https://mile.club" target="_blank" rel="noopener">Mile</a></span>
+            </span>
+            <span class="pf-card__desc">Two links in one card: the card is a div, not an anchor.</span>
+          </div></li>
+        </ul>
+
+        <h2 class="eyebrow" style="margin-top:clamp(30px,4vw,52px);">Press list</h2>
+        <ul class="press" style="margin-top:clamp(14px,2vw,22px);">
+          <li>
+            <a href="#book">
+              <span class="press__pub">Publication</span>
+              <span class="press__title">Headline, 14.5px, over a 1px rule that turns brass on hover</span>
+            </a>
+          </li>
+          <li>
+            <a href="#book">
+              <span class="press__pub">Publication</span>
+              <span class="press__title">Second item</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── Q&A rows on sage ────────────────────────────────────────────── -->
+    <section class="section section--sage" aria-labelledby="faq-title">
+      <div class="container">
+        <h2 id="faq-title" class="eyebrow" style="margin-bottom:clamp(22px,3vw,40px);">Question rows</h2>
+        <dl>
+          <div class="faq-row">
+            <dt>Question, Syne 700</dt>
+            <dd>Answer, Work Sans, 1fr : 1.3fr, always open — no accordion, so the copy is in the page for anyone reading it without JavaScript.</dd>
+          </div>
+          <div class="faq-row">
+            <dt>Second question</dt>
+            <dd>Rules are <code>--rule-on-sage</code> here, <code>--rule-on-pine</code> on the dark surface.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ── Closing CTA ─────────────────────────────────────────────────── -->
+    <section id="book" class="close" aria-labelledby="close-title">
+      <h2 id="close-title" class="close__h2" data-drift="-0.02">Let's talk.</h2>
+      <p class="close__body">The closing headline is the largest type in the system and drifts against the scroll at a negative rate, clamped to ±44px.</p>
+      <div class="cta-row cta-row--center">
+        <a class="btn btn--lg" href="#book">Book a call <span aria-hidden="true">→</span></a>
+        <a class="btn btn--lg btn--ghost" href="#book">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>sven.fm</span>
+    <span>© <span id="year">2026</span> Sven Ahrens · Berlin</span>
+    <span class="footer__links"><a href="#book">Book a call</a></span>
+  </footer>
+</body>
+</html>

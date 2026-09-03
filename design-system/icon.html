@@ -10,7 +10,8 @@
 
        ?variant=brass  brass field, pine S  (shipped — brightest in a tab strip)
        ?variant=pine   pine field, brass S  (the field inverted)
-       ?tight=1        less padding, for 16–32px where the glyph must carry
+       ?tight=1        fills the tile harder, for 16–48px
+       ?fillw= ?fillh= override the fill fractions when tuning
 
        Render with: node design-system/render-assets.mjs  (see the README) -->
   <link rel="stylesheet" href="fonts.css">
@@ -37,25 +38,63 @@
       background: radial-gradient(120% 100% at 30% 8%, rgba(208,169,40,.20), rgba(208,169,40,0) 62%);
     }
 
-    .s {
-      position: relative; z-index: 1;
-      font-family: var(--font-display); font-weight: 800;
-      font-size: 60cqh; line-height: 1; letter-spacing: -.04em;
-      /* optical centring: Syne's cap sits high in the em box */
-      transform: translateY(-1.5%);
-    }
-    /* Small sizes: a touch larger, and one weight down so the counters of the
-       S stay open instead of filling in at 16px. */
-    body[data-tight="1"] .s { font-size: 72cqh; font-weight: 700; }
-    .tile { container-type: size; }
+    /* The glyph is painted into a canvas so it can be placed by its real ink
+       box: a CSS line box would leave the S sitting high, and at 16px half a
+       pixel of drift is visible. */
+    .s { position: relative; z-index: 1; display: block; width: 100%; height: 100%; }
   </style>
 </head>
 <body>
-  <div class="tile"><span class="s">S</span></div>
+  <div class="tile"><canvas class="s"></canvas></div>
   <script>
     var q = new URLSearchParams(location.search);
-    document.body.dataset.variant = q.get("variant") || "brass";
-    document.body.dataset.tight = q.get("tight") || "0";
+    var variant = q.get("variant") || "brass";
+    var tight = q.get("tight") === "1";       // 16–48px: fill the tile harder
+    document.body.dataset.variant = variant;
+    document.body.dataset.tight = tight ? "1" : "0";
+
+    // How much of the tile the ink fills. Small icons run as large as the
+    // glyph allows: scaling the S up widens its counters in absolute pixels,
+    // so Syne 800 keeps its character at 16px instead of needing a lighter
+    // weight. Syne's S is ~1.45x as wide as it is tall, so width is the
+    // binding constraint and the vertical air is the glyph's own proportion.
+    // At 1.0 the S touches the tile edge, so 0.95 is the practical ceiling.
+    var FILL_W = +q.get("fillw") || (tight ? 0.95 : 0.86);
+    var FILL_H = +q.get("fillh") || (tight ? 0.99 : 0.80);
+
+    // Canvas does not trigger a webfont load the way rendered text does, so
+    // ask for the face explicitly before measuring — otherwise measureText
+    // silently reports a fallback serif.
+    document.fonts.load('800 400px Syne').then(function () {
+      if (!document.fonts.check('800 400px Syne')) throw new Error('Syne did not load');
+      var cv = document.querySelector(".s");
+      var tile = document.querySelector(".tile").getBoundingClientRect();
+      var W = tile.width, H = tile.height;
+      var dpr = window.devicePixelRatio || 1;
+
+      cv.width = Math.round(W * dpr);
+      cv.height = Math.round(H * dpr);
+      var cx = cv.getContext("2d");
+      cx.scale(dpr, dpr);
+
+      var PROBE = 400;
+      cx.font = "800 " + PROBE + "px Syne";
+      var m = cx.measureText("S");
+      var inkH = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
+      var inkW = m.actualBoundingBoxRight + m.actualBoundingBoxLeft;
+
+      var size = Math.min(PROBE * (W * FILL_W) / inkW, PROBE * (H * FILL_H) / inkH);
+      var k = size / PROBE;
+
+      cx.font = "800 " + size + "px Syne";
+      cx.fillStyle = variant === "pine" ? "#D0A928" : "#13291F";
+      // fillText places the baseline; offset so the ink box lands centred.
+      cx.fillText("S",
+        (W - inkW * k) / 2 + m.actualBoundingBoxLeft * k,
+        (H - inkH * k) / 2 + m.actualBoundingBoxAscent * k);
+
+      document.documentElement.dataset.ready = "1";
+    });
   </script>
 </body>
 </html>

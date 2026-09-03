@@ -266,8 +266,21 @@ PLAYWRIGHT="$(npm root)/playwright" node design-system/render-assets.mjs
 Everything renders at 2–4× and downsamples, so 16px type stays crisp.
 
 **The mark** is the wordmark's S in Syne 800 on the brass button gradient with
-pine ink — the primary button, miniaturized. Below 48px it steps down to weight
-700 at a larger optical size, because 800 fills in the S's counters at 16px.
+pine ink — the primary button, miniaturized. Syne 800 at full weight all the
+way down to 16px: the glyph is scaled to fill 95% of the tile width at 16–48px,
+and scaling it up widens the counters in absolute pixels, so the distinctive
+wide S survives instead of needing a lighter weight. Width is what binds — the
+S is ~1.45× as wide as it is tall — and the air above and below is the glyph's
+own proportion, not padding. At 100% it touches the tile edge, so 95% is the
+ceiling; the larger app icons sit back at 86%.
+
+The glyph is painted into a `<canvas>` and placed by its measured ink box, not
+by a CSS line box, because Syne's S sits high in the em and half a pixel of
+drift shows at 16px. Canvas doesn't trigger a webfont load on its own, so the
+template calls `document.fonts.load()` first and asserts the face is there —
+without it `measureText` silently reports a fallback serif and the icon renders
+in the wrong typeface.
+
 `icon.html?variant=pine` renders the inverted mark (brass S on pine) if the
 field is ever wrong for a context; `ICON_VARIANT=pine` ships it.
 

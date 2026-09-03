@@ -1,21 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Set theme before first paint (no flash). Falls back to OS preference. -->
-  <script>
-    (function () {
-      try {
-        var stored = localStorage.getItem('fm-theme');
-        // Dark is the default regardless of OS preference; light only on explicit opt-in.
-        document.documentElement.setAttribute('data-theme', stored || 'dark');
-      } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
-    })();
-  </script>
 
   <title>Sven Ahrens — consumer monetization &amp; growth leader. Ex-Spotify, ex-CEO Yousician.</title>
   <meta name="description" content="I help consumer companies grow. Fractional or interim leader for growth, product, monetization, a region or a business unit; board member; advisor. Eight years scaling Spotify, former CEO of Yousician, angel in 20+ startups. Book a call." />
@@ -25,7 +13,7 @@
   <link rel="canonical" href="https://sven.fm" />
   <link rel="me" href="https://linkedin.com/in/svenahrens" />
   <link rel="me" href="https://svenahrens.com" />
-  <meta name="theme-color" content="#0A0F0D" />
+  <meta name="theme-color" content="#13291F" />
 
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
@@ -56,8 +44,8 @@
   <meta name="twitter:image" content="https://sven.fm/assets/og.png" />
   <meta name="twitter:image:alt" content="Sven Ahrens — consumer monetization and growth leader." />
 
-  <!-- Preload the above-the-fold display face only -->
-  <link rel="preload" href="/assets/fonts/newsreader-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+  <!-- Preload the above-the-fold display face only (the hero headline) -->
+  <link rel="preload" href="/assets/fonts/syne-latin-var.woff2" as="font" type="font/woff2" crossorigin />
 
   <link rel="stylesheet" href="/styles.css" />
   <script src="/main.js" defer></script>
@@ -251,208 +239,245 @@
 </head>
 
 <body>
-  <a class="fm-skip" href="#main">Skip to content</a>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Paper grain + ambient light. Fixed, inert, blended over everything. -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="glow glow--warm" aria-hidden="true"></div>
+  <div class="glow glow--cool" aria-hidden="true"></div>
 
   <!-- ── Header ──────────────────────────────────────────────────────── -->
-  <header class="fm-header">
-    <a class="fm-wordmark" href="#main" aria-label="sven.fm — home">
-      <span class="fm-wordmark__dot" aria-hidden="true"></span>sven<span class="fm-wordmark__tld">.fm</span>
-    </a>
-    <span class="fm-header__spacer"></span>
-    <button id="theme-toggle" class="fm-theme-toggle" type="button" aria-label="Toggle light or dark theme">Light</button>
-    <a class="fm-btn" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">Book a call</a>
+  <header class="hdr">
+    <div class="hdr__in">
+      <a class="wordmark" href="#top" aria-label="sven.fm — home">
+        <span class="wordmark__dot" aria-hidden="true"></span>sven.fm
+      </a>
+      <span class="hdr__spacer"></span>
+
+      <nav class="nav" aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#career">Career</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+
+      <a class="btn btn--sm" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">Book a call</a>
+
+      <button class="menu-btn" id="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-sheet">
+        <span class="menu-btn__bar" aria-hidden="true"></span>
+        <span class="menu-btn__bar" aria-hidden="true"></span>
+        <span class="menu-btn__bar" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <nav class="sheet" id="menu-sheet" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#career">Career</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
   </header>
 
   <main id="main">
 
     <!-- ── Hero ──────────────────────────────────────────────────────── -->
-    <section class="fm-section fm-hero" aria-labelledby="hero-title">
-      <fm-waveform aria-hidden="true"></fm-waveform>
+    <section id="top" class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <p class="eyebrow hero__eyebrow" data-drift="0.035">
+          <span class="rule" aria-hidden="true"></span>Consumer monetization &amp; growth leader
+        </p>
 
-      <div class="fm-container fm-container--hero fm-hero__grid">
-        <div class="fm-hero__col">
-          <p class="fm-eyebrow" style="margin:0 0 var(--space-6);">Consumer monetization &amp; growth leader</p>
+        <h1 id="hero-title" class="hero__h1">I help consumer companies <em>grow</em>.</h1>
 
-          <h1 id="hero-title" class="fm-h1 fm-hero__headline">I help consumer companies grow.</h1>
+        <div class="hero__grid">
+          <div>
+            <p class="roleline">As your <span class="role" data-roles='["fractional Head of Growth","interim Head of Product","operator who runs your team","board member","fire-fighter","sounding board"]'>fractional Head of Growth.</span></p>
 
-          <p class="fm-roleline">As your
-            <span class="fm-role" data-roles='["fractional Head of Growth","interim Head of Product","operator who runs your team","board member","fire-fighter","sounding board"]'>fractional Head of Growth</span>.
-          </p>
+            <p class="hero__body">
+              I'm Sven Ahrens. Eight years scaling Spotify, former CEO of Yousician, angel in 20+ consumer
+              startups. Seasoned enough to know what works, yet hands-on and hungry to build it with you. Strong
+              bias for action: I help you make the hard call, then I help you move it.
+            </p>
 
-          <p class="fm-body fm-hero__body">
-            I'm Sven Ahrens. Eight years scaling Spotify, former CEO of Yousician, angel in 20+ consumer
-            startups. Seasoned enough to know what works, yet hands-on and hungry to build it with you. Strong
-            bias for action: I help you make the hard call, then I help you move it.
-          </p>
+            <div class="cta-row">
+              <a class="btn" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">Book a call <span aria-hidden="true">→</span></a>
+              <a class="btn btn--ghost" href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
 
-          <div class="fm-cta-row">
-            <a class="fm-btn" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">
-              Book a call <span class="fm-btn__arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="fm-btn--ghost fm-btn fm-btn--linkedin" href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>LinkedIn</a>
+            <p class="availability">
+              <span class="availability__dot" aria-hidden="true"></span>
+              Open to: fractional, board and advisory work, or the right full-time seat.
+            </p>
           </div>
 
-          <p class="fm-availability">
-            <span class="fm-availability__dot fm-availability__dot--pulse" aria-hidden="true"></span>
-            Open to: fractional, board and advisory work, or the right full-time seat.
-          </p>
-        </div>
-
-        <div class="fm-hero__aside">
-          <figure class="fm-portrait">
-            <img src="/assets/sven.jpg" alt="Sven Ahrens" width="320" height="400" />
-            <figcaption class="fm-portrait__caption">Yes, that's me</figcaption>
+          <figure class="portrait" data-drift="0.07">
+            <span class="portrait__halo" aria-hidden="true"></span>
+            <div class="portrait__frame">
+              <img class="portrait__img" src="/assets/sven.jpg" alt="Sven Ahrens" width="320" height="400" />
+              <figcaption class="portrait__cap">
+                <span class="rule" aria-hidden="true"></span>Yes, that's me
+                <span>Berlin</span>
+              </figcaption>
+            </div>
           </figure>
         </div>
       </div>
     </section>
 
-    <!-- ── Metrics ───────────────────────────────────────────────────── -->
-    <section class="fm-section" aria-label="Proof in numbers">
-      <div class="fm-container">
-        <div class="fm-ledger">
-          <div class="fm-metric"><div class="fm-metric__value" data-count="8"  data-suffix=" yrs">8 yrs</div><p class="fm-metric__label">at Spotify, through the hyper-growth years</p></div>
-          <div class="fm-metric"><div class="fm-metric__value" data-count="60" data-suffix="%+">60%+</div><p class="fm-metric__label">of Spotify's subscriber growth, my team's work</p></div>
-          <div class="fm-metric"><div class="fm-metric__value" data-count="1" data-prefix="$" data-suffix="B+">$1B+</div><p class="fm-metric__label">subscriptions revenue managed at Spotify</p></div>
-          <div class="fm-metric"><div class="fm-metric__value" data-count="20" data-suffix="M+">20M+</div><p class="fm-metric__label">MAU, led as CEO of Yousician</p></div>
-          <div class="fm-metric"><div class="fm-metric__value" data-count="20" data-suffix="+">20+</div><p class="fm-metric__label">startups backed as an angel</p></div>
-          <div class="fm-metric"><div class="fm-metric__value" data-count="2">2</div><p class="fm-metric__label">exits: Butter to Miro, Petli to Agria</p></div>
-          <div class="fm-metric"><div class="fm-metric__value" data-count="75">75</div><p class="fm-metric__label">countries, and counting</p></div>
+    <!-- ── Numbers ───────────────────────────────────────────────────── -->
+    <section class="section--sage band" aria-label="Proof in numbers">
+      <div class="container metrics" data-reveal>
+        <div class="metric">
+          <div class="metric__value" data-count="8" data-suffix=" yrs">8 yrs</div>
+          <p class="metric__label">at Spotify, through the hyper-growth years</p>
+        </div>
+        <div class="metric">
+          <div class="metric__value" data-count="60" data-suffix="%+">60%+</div>
+          <p class="metric__label">of Spotify's subscriber growth, my team's work</p>
+        </div>
+        <div class="metric">
+          <div class="metric__value" data-count="1" data-prefix="$" data-suffix="B+">$1B+</div>
+          <p class="metric__label">subscriptions revenue managed at Spotify</p>
+        </div>
+        <div class="metric">
+          <div class="metric__value" data-count="20" data-suffix="M+">20M+</div>
+          <p class="metric__label">MAU, led as CEO of Yousician</p>
+        </div>
+        <div class="metric">
+          <div class="metric__value" data-count="20" data-suffix="+">20+</div>
+          <p class="metric__label">startups backed as an angel</p>
+        </div>
+        <div class="metric">
+          <div class="metric__value" data-count="2">2</div>
+          <p class="metric__label">exits: Butter to Miro, Petli to Agria</p>
+        </div>
+        <div class="metric">
+          <div class="metric__value" data-count="75">75</div>
+          <p class="metric__label">countries, and counting</p>
         </div>
       </div>
     </section>
 
-    <!-- ── What I do ─────────────────────────────────────────────────── -->
-    <section class="fm-section" aria-labelledby="what-title">
-      <div class="fm-container">
-        <div class="fm-section__head">
-          <h2 id="what-title" class="fm-h2" data-reveal>What I do</h2>
-          <span class="fm-eyebrow">Five ways to engage</span>
+    <!-- ── Ways to engage ────────────────────────────────────────────── -->
+    <section id="work" class="section" aria-labelledby="work-title">
+      <div class="container">
+        <p class="eyebrow">Five ways to engage</p>
+        <h2 id="work-title" class="section__h2" data-reveal>However you need me, from one honest conversation to a full-time seat. Same depth, same hands on the work, whichever shape it takes.</h2>
+
+        <div class="row" data-reveal>
+          <h3 class="mode__title"><span class="mode__num" aria-hidden="true">01</span> Lead it: full-time, interim, or fractional</h3>
+          <p class="mode__desc">I step in as your Growth, Product, Regional, or Business Unit leader and run it. For the right company I'll do it full-time; short of that, interim while you hire, or fractional for as long as it keeps working. Either way you get a senior leader and player-coach from day one, not a six-month search.</p>
         </div>
 
-        <p class="fm-modes__intro" data-reveal>However you need me, from one honest conversation to a full-time seat. Same depth, same hands on the work, whichever shape it takes.</p>
-
-        <div class="fm-mode" data-reveal>
-          <div class="fm-mode__num" aria-hidden="true">1</div>
-          <div>
-            <h3 class="fm-h3 fm-mode__title">Lead it: full-time, interim, or fractional</h3>
-            <p class="fm-body fm-muted fm-mode__desc">I step in as your Growth, Product, Regional, or Business Unit leader and run it. For the right company I'll do it full-time; short of that, interim while you hire, or fractional for as long as it keeps working. Either way you get a senior leader and player-coach from day one, not a six-month search.</p>
-          </div>
+        <div class="row" data-reveal>
+          <h3 class="mode__title"><span class="mode__num" aria-hidden="true">02</span> Run the team</h3>
+          <p class="mode__desc">I take the team you already have and get it shipping again: focused, accountable, clear on what actually moves the business. I rally your people around the goals that matter.</p>
         </div>
 
-        <div class="fm-mode" data-reveal>
-          <div class="fm-mode__num" aria-hidden="true">2</div>
-          <div>
-            <h3 class="fm-h3 fm-mode__title">Run the team</h3>
-            <p class="fm-body fm-muted fm-mode__desc">I take the team you already have and get it shipping again: focused, accountable, clear on what actually moves the business. I rally your people around the goals that matter.</p>
-          </div>
+        <div class="row" data-reveal>
+          <h3 class="mode__title"><span class="mode__num" aria-hidden="true">03</span> Fire-fighter</h3>
+          <p class="mode__desc">Something is burning and you need it handled now. I drop in, diagnose fast, and stop the bleeding. Then I stay and execute it through with your team until it holds. I don't write a plan and leave; I see it done.</p>
         </div>
 
-        <div class="fm-mode" data-reveal>
-          <div class="fm-mode__num" aria-hidden="true">3</div>
-          <div>
-            <h3 class="fm-h3 fm-mode__title">Fire-fighter</h3>
-            <p class="fm-body fm-muted fm-mode__desc">Something is burning and you need it handled now. I drop in, diagnose fast, and stop the bleeding. Then I stay and execute it through with your team until it holds. I don't write a plan and leave; I see it done.</p>
-          </div>
+        <div class="row" data-reveal>
+          <h3 class="mode__title"><span class="mode__num" aria-hidden="true">04</span> Board member or observer</h3>
+          <p class="mode__desc">A seat at the table for the long game. I bring the consumer monetization and growth lens to the decisions that compound: pricing, retention, packaging, the moves you only get to make once.</p>
         </div>
 
-        <div class="fm-mode" data-reveal>
-          <div class="fm-mode__num" aria-hidden="true">4</div>
-          <div>
-            <h3 class="fm-h3 fm-mode__title">Board member or observer</h3>
-            <p class="fm-body fm-muted fm-mode__desc">A seat at the table for the long game. I bring the consumer monetization and growth lens to the decisions that compound: pricing, retention, packaging, the moves you only get to make once.</p>
-          </div>
-        </div>
-
-        <div class="fm-mode" data-reveal>
-          <div class="fm-mode__num" aria-hidden="true">5</div>
-          <div>
-            <h3 class="fm-h3 fm-mode__title">Advisor or sounding board</h3>
-            <p class="fm-body fm-muted fm-mode__desc">For founders and seasoned leaders facing the calls that keep them up at night. Candid, fast, biased toward action. No deck required, just the hard question and an honest answer. Want to know what I'm like to work with? I'll connect you with founders who do.</p>
-          </div>
+        <div class="row" data-reveal>
+          <h3 class="mode__title"><span class="mode__num" aria-hidden="true">05</span> Advisor or sounding board</h3>
+          <p class="mode__desc">For founders and seasoned leaders facing the calls that keep them up at night. Candid, fast, biased toward action. No deck required, just the hard question and an honest answer. Want to know what I'm like to work with? I'll connect you with founders who do.</p>
         </div>
       </div>
     </section>
 
     <!-- ── About ─────────────────────────────────────────────────────── -->
-    <section class="fm-section" aria-labelledby="about-title">
-      <div class="fm-container">
-        <div class="fm-section__head">
-          <h2 id="about-title" class="fm-h2" data-reveal>About</h2>
+    <section id="about" class="section section--sage" aria-labelledby="about-title">
+      <div class="container about">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2 id="about-title" class="about__lead">I'm one of Europe's leading consumer, monetization and growth leaders, and I still love to roll up my sleeves.</h2>
         </div>
-        <div class="fm-about" data-reveal>
-          <div class="fm-about__bio">
-            <p>
-              I'm one of Europe's leading consumer, monetization and growth leaders, and I still love to roll up my
-              sleeves. I spent eight years inside <a class="fm-link" href="https://spotify.com" target="_blank" rel="noopener">Spotify</a>
-              through its hyper-growth era, most recently as Director of Global Growth, where my team drove more than
-              60% of Spotify's subscriber growth. From 2025 to 2026 I was CEO of
-              <a class="fm-link" href="https://yousician.com" target="_blank" rel="noopener">Yousician</a>, the company
-              behind the music apps Yousician and <a class="fm-link" href="https://guitartuna.com" target="_blank" rel="noopener">GuitarTuna</a>,
-              with 20+ million monthly active users. Through Newconic Ventures I back consumer, prosumer, AI, and
-              subscription startups across Europe and the US.
-            </p>
-            <p>
-              What ties it all together is people. I understand humans across cultures, fueled by a love of other
-              places (75+ countries and counting), and I turn that instinct into results through relentless research
-              and A/B testing across hundreds of millions of users worldwide.
-            </p>
-            <p>
-              I'm AI-forward in practice, not just talk: I ship my own products, like
-              <a class="fm-link" href="https://www.trainwithkalle.com" target="_blank" rel="noopener">trainwithkalle.com</a>
-              and <a class="fm-link" href="https://www.trainingzones.app" target="_blank" rel="noopener">trainingzones.app</a>,
-              and I know how to get a whole company behind an AI transformation, not just a stalled pilot. I've grown
-              products at hundred-million-subscriber scale and from a standing start, so I know which playbook applies
-              when.
-            </p>
-          </div>
+        <div class="about__bio">
+          <p>
+            I spent eight years inside <a href="https://spotify.com" target="_blank" rel="noopener">Spotify</a>
+            through its hyper-growth era, most recently as Director of Global Growth, where my team drove more than
+            60% of Spotify's subscriber growth. From 2025 to 2026 I was CEO of
+            <a href="https://yousician.com" target="_blank" rel="noopener">Yousician</a>, the company
+            behind the music apps Yousician and <a href="https://guitartuna.com" target="_blank" rel="noopener">GuitarTuna</a>,
+            with 20+ million monthly active users. Through Newconic Ventures I back consumer, prosumer, AI, and
+            subscription startups across Europe and the US.
+          </p>
+          <p>
+            What ties it all together is people. I understand humans across cultures, fueled by a love of other
+            places (75+ countries and counting), and I turn that instinct into results through relentless research
+            and A/B testing across hundreds of millions of users worldwide.
+          </p>
+          <p>
+            I'm AI-forward in practice, not just talk: I ship my own products, like
+            <a href="https://www.trainwithkalle.com" target="_blank" rel="noopener">trainwithkalle.com</a>
+            and <a href="https://www.trainingzones.app" target="_blank" rel="noopener">trainingzones.app</a>,
+            and I know how to get a whole company behind an AI transformation, not just a stalled pilot. I've grown
+            products at hundred-million-subscriber scale and from a standing start, so I know which playbook applies
+            when.
+          </p>
         </div>
       </div>
     </section>
 
     <!-- ── Career ────────────────────────────────────────────────────── -->
-    <section class="fm-section" aria-labelledby="career-title">
-      <div class="fm-container">
-        <div class="fm-section__head">
-          <h2 id="career-title" class="fm-h2" data-reveal>Career</h2>
-        </div>
-        <ul class="fm-career">
-          <li class="fm-career__item" data-reveal>
-            <div class="fm-career__role">
-              <span class="fm-career__title">CEO, Yousician</span>
-              <span class="fm-career__meta">Berlin and Helsinki · 2025 to 2026</span>
+    <section id="career" class="section" aria-labelledby="career-title">
+      <div class="container">
+        <h2 id="career-title" class="eyebrow" style="margin-bottom:clamp(22px,3vw,40px);">Career</h2>
+        <ul>
+          <li class="career-row" data-reveal>
+            <div>
+              <div class="career__title">CEO, Yousician</div>
+              <div class="meta career__meta">Berlin and Helsinki · 2025 to 2026</div>
             </div>
-            <p class="fm-career__desc">Led the music app developer behind Yousician and GuitarTuna; 20+ million MAU globally, and the category leaders in guitar and piano learning, play-along, and theory.</p>
+            <div>
+              <p class="career__desc">Led the music app developer behind Yousician and GuitarTuna; 20+ million MAU globally, and the category leaders in guitar and piano learning, play-along, and theory.</p>
+            </div>
           </li>
-          <li class="fm-career__item" data-reveal>
-            <div class="fm-career__role">
-              <span class="fm-career__title">Founder, Newconic Ventures</span>
-              <span class="fm-career__meta">Berlin · 2019 to present</span>
+          <li class="career-row" data-reveal>
+            <div>
+              <div class="career__title">Founder, Newconic Ventures</div>
+              <div class="meta career__meta">Berlin · 2019 to present</div>
             </div>
-            <p class="fm-career__desc">My angel investing and advisory vehicle. Pre-seed and seed checks into consumer, prosumer, AI, and subscription startups across the EU and US. Advisory work with Peloton, Knowunity, Kittl, and others.</p>
+            <div>
+              <p class="career__desc">My angel investing and advisory vehicle. Pre-seed and seed checks into consumer, prosumer, AI, and subscription startups across the EU and US. Advisory work with Peloton, Knowunity, Kittl, and others.</p>
+            </div>
           </li>
-          <li class="fm-career__item" data-reveal>
-            <div class="fm-career__role">
-              <span class="fm-career__title">Board Observer, Female Invest</span>
-              <span class="fm-career__meta">Copenhagen · 2024 to present</span>
+          <li class="career-row" data-reveal>
+            <div>
+              <div class="career__title">Board Observer, Female Invest</div>
+              <div class="meta career__meta">Copenhagen · 2024 to present</div>
             </div>
-            <p class="fm-career__desc">Fintech building financial education and investing for women.</p>
+            <div>
+              <p class="career__desc">Fintech building financial education and investing for women.</p>
+            </div>
           </li>
-          <li class="fm-career__item" data-reveal>
-            <div class="fm-career__role">
-              <span class="fm-career__title">Chief Growth Officer, Muse Group</span>
-              <span class="fm-career__meta">Berlin · 2024</span>
+          <li class="career-row" data-reveal>
+            <div>
+              <div class="career__title">Chief Growth Officer, Muse Group</div>
+              <div class="meta career__meta">Berlin · 2024</div>
             </div>
-            <p class="fm-career__desc">Brought in to initiate the company-wide pivot to an LTV-driven subscription model.</p>
+            <div>
+              <p class="career__desc">Brought in to initiate the company-wide pivot to an LTV-driven subscription model.</p>
+            </div>
           </li>
-          <li class="fm-career__item" data-reveal>
-            <div class="fm-career__role">
-              <span class="fm-career__title">Spotify</span>
-              <span class="fm-career__meta">Berlin, Stockholm, New York · 2016 to 2024</span>
+          <li class="career-row" data-reveal>
+            <div>
+              <div class="career__title">Spotify</div>
+              <div class="meta career__meta">Berlin, Stockholm, New York · 2016 to 2024</div>
             </div>
-            <div class="fm-career__desc">
-              Eight years through the hyper-growth era, across global rollout, regional subscription growth in Europe, and finally global subscriber acquisition and engagement. My Global Growth team drove 60%+ of Spotify's subscriber growth.
-              <ul class="fm-career__sub">
+            <div>
+              <p class="career__desc">Eight years through the hyper-growth era, across global rollout, regional subscription growth in Europe, and finally global subscriber acquisition and engagement. My Global Growth team drove 60%+ of Spotify's subscriber growth.</p>
+              <ul class="career__sub">
                 <li>Director, Global Growth (2021 to 2024)</li>
                 <li>Associate Director, Subscriptions Europe (2018 to 2021)</li>
                 <li>Head of Market Strategy and Operations (2017 to 2018)</li>
@@ -460,220 +485,229 @@
               </ul>
             </div>
           </li>
-          <li class="fm-career__item" data-reveal>
-            <div class="fm-career__role">
-              <span class="fm-career__title">Consultant, Bain &amp; Company</span>
-              <span class="fm-career__meta">Munich · 2012 to 2016</span>
+          <li class="career-row" data-reveal>
+            <div>
+              <div class="career__title">Consultant, Bain &amp; Company</div>
+              <div class="meta career__meta">Munich · 2012 to 2016</div>
             </div>
-            <p class="fm-career__desc">Strategy, operations, and transformation across tech and automotive, plus private equity due diligence. Externship with SoundCloud on new-market expansion (2014).</p>
+            <div>
+              <p class="career__desc">Strategy, operations, and transformation across tech and automotive, plus private equity due diligence. Externship with SoundCloud on new-market expansion (2014).</p>
+            </div>
           </li>
         </ul>
       </div>
     </section>
 
-    <!-- ── Angel portfolio ───────────────────────────────────────────── -->
-    <section class="fm-section" aria-labelledby="portfolio-title">
-      <div class="fm-container">
-        <div class="fm-section__head">
-          <h2 id="portfolio-title" class="fm-h2" data-reveal>Angel portfolio</h2>
-          <span class="fm-eyebrow">Newconic Ventures</span>
+    <!-- ── Angel portfolio + press ───────────────────────────────────── -->
+    <section id="portfolio" class="section section--portfolio" aria-labelledby="portfolio-title">
+      <div class="container">
+        <div class="section__head">
+          <h2 id="portfolio-title" class="eyebrow">Angel portfolio</h2>
+          <p class="meta">Newconic Ventures · 20+ companies · 2 exits</p>
         </div>
-        <ul class="fm-holdings">
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="A"><img class="fm-fav__img" data-domain="alba.tech" alt="" loading="lazy" /></span>
-              <a href="https://alba.tech" target="_blank" rel="noopener">Alba</a>
+
+        <ul class="pf">
+          <li><a class="pf-card" href="https://alba.tech" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">A</span><img data-domain="alba.tech" alt="" loading="lazy" /></span>
+              Alba
             </span>
-            <span class="fm-hold__desc">Next-gen consumer app factory.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="A"><img class="fm-fav__img" data-domain="amie.so" alt="" loading="lazy" /></span>
-              <a href="https://amie.so" target="_blank" rel="noopener">Amie</a>
-              <span class="fm-tag fm-tag--dead">Dead</span>
+            <span class="pf-card__desc">Next-gen consumer app factory.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://amie.so" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">A</span><img data-domain="amie.so" alt="" loading="lazy" /></span>
+              Amie <span class="tag">Dead</span>
             </span>
-            <span class="fm-hold__desc">Joyful productivity app for desktop and phone.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="A"><img class="fm-fav__img" data-domain="aminocollective.com" alt="" loading="lazy" /></span>
-              <a href="https://aminocollective.com" target="_blank" rel="noopener">Amino Collective</a>
+            <span class="pf-card__desc">Joyful productivity app for desktop and phone.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://aminocollective.com" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">A</span><img data-domain="aminocollective.com" alt="" loading="lazy" /></span>
+              Amino Collective
             </span>
-            <span class="fm-hold__desc">LP in a friendly early-stage biotech fund.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="A"><img class="fm-fav__img" data-domain="animocabrands.com" alt="" loading="lazy" /></span>
-              <a href="https://animocabrands.com" target="_blank" rel="noopener">Animoca Brands</a>
+            <span class="pf-card__desc">LP in a friendly early-stage biotech fund.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://animocabrands.com" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">A</span><img data-domain="animocabrands.com" alt="" loading="lazy" /></span>
+              Animoca Brands
             </span>
-            <span class="fm-hold__desc">NFTs and games at scale (don't ask).</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="B"><img class="fm-fav__img" data-domain="born.com" alt="" loading="lazy" /></span>
-              <a href="https://born.com" target="_blank" rel="noopener">Born</a>
+            <span class="pf-card__desc">NFTs and games at scale (don't ask).</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://born.com" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">B</span><img data-domain="born.com" alt="" loading="lazy" /></span>
+              Born
             </span>
-            <span class="fm-hold__desc">Social, reinvented. Home of Slay, W App, FRFR and more.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="B"><img class="fm-fav__img" data-domain="miro.com" alt="" loading="lazy" /></span>
-              <a href="https://miro.com" target="_blank" rel="noopener">Butter</a>
-              <span class="fm-tag fm-tag--exit">Exit</span>
+            <span class="pf-card__desc">Social, reinvented. Home of Slay, W App, FRFR and more.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://miro.com" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">B</span><img data-domain="miro.com" alt="" loading="lazy" /></span>
+              Butter <span class="tag">Exit</span>
             </span>
-            <span class="fm-hold__desc">All meeting tools in one joyful place. Exited to Miro.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="C"><img class="fm-fav__img" data-domain="careeros.com" alt="" loading="lazy" /></span>
-              <a href="https://careeros.com" target="_blank" rel="noopener">CareerOS</a>
+            <span class="pf-card__desc">All meeting tools in one joyful place. Exited to Miro.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://careeros.com" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">C</span><img data-domain="careeros.com" alt="" loading="lazy" /></span>
+              CareerOS
             </span>
-            <span class="fm-hold__desc">Career platform for advising, employer relations and outcomes.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="D"><img class="fm-fav__img" data-domain="dirigent.ai" alt="" loading="lazy" /></span>
-              <a href="https://dirigent.ai" target="_blank" rel="noopener">Dirigent</a>
+            <span class="pf-card__desc">Career platform for advising, employer relations and outcomes.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://dirigent.ai" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">D</span><img data-domain="dirigent.ai" alt="" loading="lazy" /></span>
+              Dirigent
             </span>
-            <span class="fm-hold__desc">Orchestrating defense in the AI era.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="E"><img class="fm-fav__img" data-domain="epix-sports.com" alt="" loading="lazy" /></span>
-              <a href="https://www.epix-sports.com/" target="_blank" rel="noopener">EPIX Sports</a>
+            <span class="pf-card__desc">Orchestrating defense in the AI era.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://www.epix-sports.com/" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">E</span><img data-domain="epix-sports.com" alt="" loading="lazy" /></span>
+              EPIX Sports
             </span>
-            <span class="fm-hold__desc">Premium, inclusive, and community-driven sports experiences for athletes everywhere.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="F"><img class="fm-fav__img" data-domain="flow-ai.com" alt="" loading="lazy" /></span>
-              <a href="https://flow-ai.com" target="_blank" rel="noopener">Flow AI</a>
+            <span class="pf-card__desc">Premium, inclusive, and community-driven sports experiences for athletes everywhere.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://flow-ai.com" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">F</span><img data-domain="flow-ai.com" alt="" loading="lazy" /></span>
+              Flow AI
             </span>
-            <span class="fm-hold__desc">Customer-facing data agents inside your product.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav is-dual" data-letter="H">
-                <img class="fm-fav__img" data-domain="heat.io" alt="" loading="lazy" />
-                <img class="fm-fav__img" data-domain="mile.club" alt="" loading="lazy" />
+            <span class="pf-card__desc">Customer-facing data agents inside your product.</span>
+          </a></li>
+
+          <li><div class="pf-card">
+            <span class="pf-card__name">
+              <span class="fav fav--dual">
+                <span class="fav__letter">H</span>
+                <img data-domain="heat.io" alt="" loading="lazy" />
+                <img data-domain="mile.club" alt="" loading="lazy" />
               </span>
-              <a href="https://heat.io" target="_blank" rel="noopener">Heat</a>
-              &amp;
-              <a href="https://mile.club" target="_blank" rel="noopener">Mile</a>
+              <span><a href="https://heat.io" target="_blank" rel="noopener">Heat</a> &amp; <a href="https://mile.club" target="_blank" rel="noopener">Mile</a></span>
             </span>
-            <span class="fm-hold__desc">Luxury fashion retail, reinvented.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="I"><img class="fm-fav__img" data-domain="informed.so" alt="" loading="lazy" /></span>
-              <a href="https://informed.so" target="_blank" rel="noopener">Informed</a>
-              <span class="fm-tag fm-tag--dead">Dead</span>
-            </span>
-            <span class="fm-hold__desc">News, reinvented.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="K"><img class="fm-fav__img" data-domain="komi.io" alt="" loading="lazy" /></span>
-              <a href="https://komi.io" target="_blank" rel="noopener">Komi</a>
-            </span>
-            <span class="fm-hold__desc">End-to-end workflow for brands and creators.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="L"><img class="fm-fav__img" data-domain="litona.de" alt="" loading="lazy" /></span>
-              <a href="https://litona.de" target="_blank" rel="noopener">Litona</a>
-            </span>
-            <span class="fm-hold__desc">Sodium-ion battery cells from abundant local materials.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="M"><img class="fm-fav__img" data-domain="melotech.ai" alt="" loading="lazy" /></span>
-              <a href="https://melotech.ai" target="_blank" rel="noopener">Melotech</a>
-            </span>
-            <span class="fm-hold__desc">Real AI artists, real music.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="N"><img class="fm-fav__img" data-domain="ship-nemox.com" alt="" loading="lazy" /></span>
-              <a href="https://ship-nemox.com" target="_blank" rel="noopener">Nemox</a>
-            </span>
-            <span class="fm-hold__desc">AI assistant for freight forwarders.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="P"><img class="fm-fav__img" data-domain="peec.ai" alt="" loading="lazy" /></span>
-              <a href="https://peec.ai" target="_blank" rel="noopener">Peec</a>
-            </span>
-            <span class="fm-hold__desc">AI search analytics for marketing teams.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="P"><img class="fm-fav__img" data-domain="petli.app" alt="" loading="lazy" /></span>
-              <a href="https://petli.app" target="_blank" rel="noopener">Petli</a>
-              <span class="fm-tag fm-tag--exit">Exit</span>
-            </span>
-            <span class="fm-hold__desc">Dog training and community. Exited to Agria.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="P"><img class="fm-fav__img" data-domain="protocolhealth.ai" alt="" loading="lazy" /></span>
-              <a href="https://protocolhealth.ai/" target="_blank" rel="noopener">Protocol Health</a>
-            </span>
-            <span class="fm-hold__desc">Turn your device into a personal fitness coach.</span>
-          </li>
-          <li>
-            <span class="fm-hold__name">
-              <span class="fm-fav" data-letter="V"><img class="fm-fav__img" data-domain="voicy.network" alt="" loading="lazy" /></span>
-              <a href="https://voicy.network" target="_blank" rel="noopener">Voicy</a>
-              <span class="fm-tag fm-tag--dead">Dead</span>
-            </span>
-            <span class="fm-hold__desc">The Giphy of sounds, integrating everywhere.</span>
-          </li>
-        </ul>
-      </div>
-    </section>
+            <span class="pf-card__desc">Luxury fashion retail, reinvented.</span>
+          </div></li>
 
-    <!-- ── As featured in ────────────────────────────────────────────── -->
-    <section class="fm-section" aria-labelledby="press-title">
-      <div class="fm-container">
-        <div class="fm-section__head">
-          <h2 id="press-title" class="fm-h2" data-reveal>As featured in</h2>
-        </div>
-        <ul class="fm-press">
+          <li><a class="pf-card" href="https://informed.so" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">I</span><img data-domain="informed.so" alt="" loading="lazy" /></span>
+              Informed <span class="tag">Dead</span>
+            </span>
+            <span class="pf-card__desc">News, reinvented.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://komi.io" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">K</span><img data-domain="komi.io" alt="" loading="lazy" /></span>
+              Komi
+            </span>
+            <span class="pf-card__desc">End-to-end workflow for brands and creators.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://litona.de" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">L</span><img data-domain="litona.de" alt="" loading="lazy" /></span>
+              Litona
+            </span>
+            <span class="pf-card__desc">Sodium-ion battery cells from abundant local materials.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://melotech.ai" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">M</span><img data-domain="melotech.ai" alt="" loading="lazy" /></span>
+              Melotech
+            </span>
+            <span class="pf-card__desc">Real AI artists, real music.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://ship-nemox.com" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">N</span><img data-domain="ship-nemox.com" alt="" loading="lazy" /></span>
+              Nemox
+            </span>
+            <span class="pf-card__desc">AI assistant for freight forwarders.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://peec.ai" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">P</span><img data-domain="peec.ai" alt="" loading="lazy" /></span>
+              Peec
+            </span>
+            <span class="pf-card__desc">AI search analytics for marketing teams.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://petli.app" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">P</span><img data-domain="petli.app" alt="" loading="lazy" /></span>
+              Petli <span class="tag">Exit</span>
+            </span>
+            <span class="pf-card__desc">Dog training and community. Exited to Agria.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://protocolhealth.ai/" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">P</span><img data-domain="protocolhealth.ai" alt="" loading="lazy" /></span>
+              Protocol Health
+            </span>
+            <span class="pf-card__desc">Turn your device into a personal fitness coach.</span>
+          </a></li>
+
+          <li><a class="pf-card" href="https://voicy.network" target="_blank" rel="noopener">
+            <span class="pf-card__name">
+              <span class="fav"><span class="fav__letter">V</span><img data-domain="voicy.network" alt="" loading="lazy" /></span>
+              Voicy <span class="tag">Dead</span>
+            </span>
+            <span class="pf-card__desc">The Giphy of sounds, integrating everywhere.</span>
+          </a></li>
+        </ul>
+
+        <h2 class="eyebrow" style="margin-top:clamp(30px,4vw,52px);">As featured in</h2>
+        <ul class="press" style="margin-top:clamp(14px,2vw,22px);">
           <li>
             <a href="https://www.vogue.com/article/mystery-box-heat-raises-dollar5million-from-antler-lvmh-luxury-ventures" target="_blank" rel="noopener">
-              <span class="fm-press__pub">Vogue</span>
-              <span class="fm-press__title">Mystery box Heat raises $5 million from Antler, LVMH Luxury Ventures</span>
+              <span class="press__pub">Vogue</span>
+              <span class="press__title">Mystery box Heat raises $5 million from Antler, LVMH Luxury Ventures</span>
             </a>
           </li>
           <li>
             <a href="https://www.crunchbase.com/person/sven-ahrens-235f" target="_blank" rel="noopener">
-              <span class="fm-press__pub">Crunchbase</span>
-              <span class="fm-press__title">Investor profile and portfolio history</span>
+              <span class="press__pub">Crunchbase</span>
+              <span class="press__title">Investor profile and portfolio history</span>
             </a>
           </li>
           <li>
             <a href="https://www.startupmag.co.uk/investors/sven-ahrens/" target="_blank" rel="noopener">
-              <span class="fm-press__pub">StartupMag</span>
-              <span class="fm-press__title">Investor profile</span>
+              <span class="press__pub">StartupMag</span>
+              <span class="press__title">Investor profile</span>
             </a>
           </li>
           <li>
             <a href="https://www.thesaasnews.com/news/komi-raises-5-million-in-seed-round" target="_blank" rel="noopener">
-              <span class="fm-press__pub">The SaaS News</span>
-              <span class="fm-press__title">Komi raises $5 million in seed round</span>
+              <span class="press__pub">The SaaS News</span>
+              <span class="press__title">Komi raises $5 million in seed round</span>
             </a>
           </li>
           <li>
             <a href="https://www.teosto.fi/teostory/talouskasvua-musiikkialalta-yousician-ja-vandall-tahtaavat-kansainvaliseen-menestykseen/" target="_blank" rel="noopener">
-              <span class="fm-press__pub">Teosto</span>
-              <span class="fm-press__title">Talouskasvua musiikkialalta: Yousician ja Vandall tähtäävät kansainväliseen menestykseen</span>
+              <span class="press__pub">Teosto</span>
+              <span class="press__title">Talouskasvua musiikkialalta: Yousician ja Vandall tähtäävät kansainväliseen menestykseen</span>
             </a>
           </li>
           <li>
             <a href="https://medieninsider.com/informed-spotify-fuer-journalismus/6567/" target="_blank" rel="noopener">
-              <span class="fm-press__pub">Medieninsider</span>
-              <span class="fm-press__title">Informed: Spotify für Journalismus</span>
+              <span class="press__pub">Medieninsider</span>
+              <span class="press__title">Informed: Spotify für Journalismus</span>
             </a>
           </li>
         </ul>
@@ -681,37 +715,35 @@
     </section>
 
     <!-- ── Common questions ──────────────────────────────────────────── -->
-    <section class="fm-section" aria-labelledby="faq-title">
-      <div class="fm-container">
-        <div class="fm-section__head">
-          <h2 id="faq-title" class="fm-h2" data-reveal>Common questions</h2>
-        </div>
-        <dl class="fm-faq">
-          <div class="fm-faq__item" data-reveal>
+    <section id="faq" class="section section--sage" aria-labelledby="faq-title">
+      <div class="container">
+        <h2 id="faq-title" class="eyebrow" style="margin-bottom:clamp(22px,3vw,40px);">Common questions</h2>
+        <dl>
+          <div class="faq-row">
             <dt>What do you actually do?</dt>
             <dd>I come in as a fractional or interim leader for growth, product, a region, or a business unit, I run teams and get them shipping, I sit on boards, and I advise founders and leaders making hard calls. Operating-heavy or advisory-light, whichever the situation needs. The common thread is consumer monetization and growth, paired with a bias for action.</dd>
           </div>
-          <div class="fm-faq__item" data-reveal>
+          <div class="faq-row">
             <dt>What are you best at?</dt>
             <dd>Turning early consumer traction into durable, compounding revenue: lifecycle and habit, pricing, monetization and packaging, multi-channel conversion, retention cohorts, internationalization. I learned it at hundred-million-subscriber scale at Spotify, and I've applied it from a standing start ever since.</dd>
           </div>
-          <div class="fm-faq__item" data-reveal>
+          <div class="faq-row">
             <dt>Who do you work with?</dt>
             <dd>Consumer and prosumer companies tackling growth challenges on more than one front: product, monetization, user acquisition, culture and leadership. Companies going through an AI transformation. From pre-seed founders to seasoned leadership teams. If your growth depends on people choosing to pay you again and again, that's my world.</dd>
           </div>
-          <div class="fm-faq__item" data-reveal>
+          <div class="faq-row">
             <dt>Are you open to a full-time role?</dt>
             <dd>Yes, for the right company. I'm selective, but the right mission, team, and mandate would win, and I'd go all in. The rest of the time I run a few fractional, board, and advisory engagements at once. Either way, <a href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">book a call</a> and make the case.</dd>
           </div>
-          <div class="fm-faq__item" data-reveal>
+          <div class="faq-row">
             <dt>What is Newconic Ventures?</dt>
             <dd>My angel investing and advisory vehicle, running since 2019. I back pre-seed and seed consumer, prosumer, AI, and subscription startups across the EU and US, 20+ to date. Two exits so far: Butter to Miro, and Petli to Agria. Advisory work includes Peloton, Knowunity, and Kittl.</dd>
           </div>
-          <div class="fm-faq__item" data-reveal>
+          <div class="faq-row">
             <dt>Where are you based?</dt>
             <dd>Berlin. Native German, fluent in English, Spanish, and Portuguese, and I've worked across Berlin, Stockholm, New York, and Helsinki, plus pretty much every major city in the world. I travel a lot; 75 countries so far.</dd>
           </div>
-          <div class="fm-faq__item" data-reveal>
+          <div class="faq-row">
             <dt>How do we start?</dt>
             <dd>Book a call. Bring the hard question; I'll bring an honest answer and a view on what to do next.</dd>
           </div>
@@ -720,46 +752,35 @@
     </section>
 
     <!-- ── Closing CTA ───────────────────────────────────────────────── -->
-    <section id="book" class="fm-section fm-close" aria-labelledby="close-title">
-      <fm-waveform style="height:60%;" aria-hidden="true"></fm-waveform>
-      <div class="fm-container fm-close__inner">
-        <h2 id="close-title" class="fm-h2" data-reveal style="font-size:var(--fs-display);">Let's talk.</h2>
-        <p class="fm-body fm-muted fm-close__body" data-reveal>
-          Whether you're hiring a full-time leader, need an operator for the next six months, want a board member
-          for the next six years, or just one honest conversation this week, the door is open. Founders, operators,
-          investors, recruiters, and journalists all start the same way.
-        </p>
-        <div class="fm-cta-row" data-reveal>
-          <a class="fm-btn" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">
-            Book a call <span class="fm-btn__arrow" aria-hidden="true">→</span>
-          </a>
-          <a class="fm-btn--ghost fm-btn" href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener" style="background:transparent;">LinkedIn</a>
-        </div>
+    <section id="book" class="close" aria-labelledby="close-title">
+      <h2 id="close-title" class="close__h2" data-drift="-0.02">Let's talk.</h2>
+      <p class="close__body">
+        Whether you're hiring a full-time leader, need an operator for the next six months, want a board member
+        for the next six years, or just one honest conversation this week, the door is open. Founders, operators,
+        investors, recruiters, and journalists all start the same way.
+      </p>
+      <div class="cta-row cta-row--center">
+        <a class="btn btn--lg" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">Book a call <span aria-hidden="true">→</span></a>
+        <a class="btn btn--lg btn--ghost" href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </section>
-
-    <!-- ── Footer ────────────────────────────────────────────────────── -->
-    <footer class="fm-footer">
-      <span class="fm-wordmark">
-        <span class="fm-wordmark__dot" aria-hidden="true"></span>sven<span class="fm-wordmark__tld">.fm</span>
-      </span>
-      <span>© <span id="year"></span> Sven Ahrens · Berlin</span>
-      <span class="fm-footer__links">
-        <a href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">Book a call</a>
-        <a class="fm-footer__li" href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>LinkedIn</a>
-      </span>
-    </footer>
   </main>
 
-  <!-- Sticky CTA (revealed after the hero by main.js) -->
-  <a class="fm-btn fm-sticky fm-sticky--pill" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener" data-sticky-cta>
-    Book a call <span class="fm-btn__arrow" aria-hidden="true">→</span>
-  </a>
-  <div class="fm-sticky fm-sticky--bar" data-sticky-cta>
-    <a class="fm-btn" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">
-      Book a call <span class="fm-btn__arrow" aria-hidden="true">→</span>
-    </a>
+  <!-- Mobile action bar (≤820px), plus a spacer so it never covers the footer -->
+  <div class="actionbar">
+    <a class="btn" href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">Book a call</a>
+    <a class="btn btn--ghost" href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener">LinkedIn</a>
   </div>
+
+  <footer class="footer">
+    <span>sven.fm</span>
+    <span>© <span id="year">2026</span> Sven Ahrens · Berlin</span>
+    <span class="footer__links">
+      <a href="https://calendar.app.google/nZxUFkXKCTPJFuR19" target="_blank" rel="noopener">Book a call</a>
+      <a href="https://linkedin.com/in/svenahrens" target="_blank" rel="noopener">LinkedIn</a>
+    </span>
+  </footer>
+  <div class="actionbar-spacer" aria-hidden="true"></div>
 
   <!-- Vercel Web Analytics (privacy-friendly, no cookies) -->
   <script>

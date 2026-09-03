@@ -3,149 +3,58 @@
    ----------------------------------------------------------------------------
    Everything client-side, vanilla, no dependencies:
 
-     1. <fm-waveform>     the signature ambient signal (canvas custom element)
-     2. Theme toggle      persisted in localStorage, follows OS until overridden
-     3. Role rotation     crossfade through engagement modes, pauses on hover/focus
-     4. Scroll reveals    [data-reveal] fade + rise once into view
+     1. Mobile menu       hamburger morphs to an X, sheet under the sticky bar
+     2. Role crossfade    hero role cycles, pauses on hover/focus and hidden tab
+     3. Scroll reveals    [data-reveal] fades + rises once into view
+     4. Parallax drift    [data-drift] eases against its own document position
      5. Metric count-up   [data-count] counts 0 → target on scroll-into-view
-     6. Sticky CTA        [data-sticky-cta] appears once the hero is scrolled past
-     7. Portfolio favicons DuckDuckGo icon with a letter-chip fallback
+     6. Portfolio favicons DuckDuckGo icon over a letter-chip fallback
+     7. Footer year
 
-   Core content (copy, links, the static "Book a call" anchors) works with JS
-   off. Everything here is progressive enhancement and degrades to static under
+   All copy and the Book-a-call anchors render without JavaScript; everything
+   here is progressive enhancement and degrades to static under
    prefers-reduced-motion.
    ========================================================================== */
 (function () {
   "use strict";
 
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var root = document.documentElement;
+  var EASE = "cubic-bezier(.2,.7,.2,1)";
+  var MOBILE = "(max-width: 820px)";
 
-  function cssMs(name, fallback) {
-    var v = getComputedStyle(root).getPropertyValue(name).trim();
-    if (!v) return fallback;
-    return v.indexOf("ms") > -1 ? parseFloat(v) : parseFloat(v) * 1000;
-  }
+  /* ── 1. Mobile menu ───────────────────────────────────────────────────
+     Display of the button and the sheet is CSS-driven (820px breakpoint);
+     this only carries the open/closed state. */
+  function initMenu() {
+    var btn = document.getElementById("menu-btn");
+    var sheet = document.getElementById("menu-sheet");
+    if (!btn || !sheet) return;
 
-  /* ── 1. Signature waveform <fm-waveform> ──────────────────────────────── */
-  class FMWaveform extends HTMLElement {
-    connectedCallback() {
-      this.canvas = document.createElement("canvas");
-      this.canvas.setAttribute("aria-hidden", "true");
-      Object.assign(this.canvas.style, {
-        position: "absolute", inset: "0", width: "100%", height: "100%",
-        pointerEvents: "none",
-      });
-      if (getComputedStyle(this).position === "static") this.style.position = "relative";
-      this.appendChild(this.canvas);
-
-      this.reduced = reduced;
-      this._visible = true;
-      this._ro = new ResizeObserver(() => this._size());
-      this._ro.observe(this);
-      this._size();
-
-      // Pause the loop when scrolled off-screen (saves battery / main thread).
-      if ("IntersectionObserver" in window) {
-        this._io = new IntersectionObserver((entries) => {
-          this._visible = entries[0].isIntersecting;
-          if (this._visible && !this.reduced && !this._raf) this._loop();
-        }, { threshold: 0 });
-        this._io.observe(this);
-      }
-
-      if (this.reduced) this._draw(0.8);
-      else this._loop();
+    function set(open) {
+      btn.setAttribute("aria-expanded", String(open));
+      sheet.classList.toggle("is-open", open);
     }
+    set(false);
 
-    disconnectedCallback() {
-      cancelAnimationFrame(this._raf);
-      if (this._ro) this._ro.disconnect();
-      if (this._io) this._io.disconnect();
-    }
-
-    _num(attr, fallback) {
-      var v = parseFloat(this.getAttribute(attr));
-      return Number.isFinite(v) ? v : fallback;
-    }
-    _accent() {
-      var s = getComputedStyle(this);
-      return s.getPropertyValue("--wave").trim()
-          || s.getPropertyValue("--accent").trim()
-          || "#F5B23D";
-    }
-    _size() {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var w = this.clientWidth || 1;
-      var h = this.clientHeight || 120;
-      this.canvas.width = w * dpr;
-      this.canvas.height = h * dpr;
-      this._ctx = this.canvas.getContext("2d");
-      this._ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      this._w = w; this._h = h;
-      if (this.reduced) this._draw(0.8);
-    }
-    _draw(t) {
-      var ctx = this._ctx, w = this._w, h = this._h, accent = this._accent();
-      if (!ctx) return;
-      var base = h * this._num("baseline", 0.62);
-      var amp = this._num("amplitude", 0.18);
-      var speed = this._num("speed", 0.9);
-      var glow = this._num("glow", 10);
-
-      ctx.clearRect(0, 0, w, h);
-
-      // resting baseline
-      ctx.strokeStyle = accent; ctx.globalAlpha = 0.18; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(0, base); ctx.lineTo(w, base); ctx.stroke();
-
-      var wave = function (a, freq, sp, phase, alpha, lw, g) {
-        ctx.globalAlpha = alpha; ctx.lineWidth = lw;
-        ctx.strokeStyle = accent; ctx.shadowColor = accent; ctx.shadowBlur = g;
-        ctx.beginPath();
-        for (var x = 0; x <= w; x += 2) {
-          var env = 0.5 + 0.5 * Math.sin(x * 0.004 + t * 0.4); // slow modulation
-          // two counter-travelling components so the line morphs over time
-          // (interference), not just slides — keeps every wave visibly alive.
-          var y = base + (Math.sin(x * freq + t * sp + phase) * 0.68
-                        + Math.sin(x * freq * 1.9 - t * sp * 0.5 + phase * 1.3) * 0.32) * a * env;
-          x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-        }
-        ctx.stroke(); ctx.shadowBlur = 0;
-      };
-
-      wave(h * amp, 0.012, speed, 0, 0.9, 2, glow);                // primary
-      wave(h * amp * 0.55, 0.022, -speed * 0.67, 1.6, 0.35, 1.2, 0); // harmonic
-      ctx.globalAlpha = 1;
-    }
-    _loop() {
-      if (!this._visible) { this._raf = null; return; }
-      this._draw(performance.now() / 1000);
-      this._raf = requestAnimationFrame(() => this._loop());
-    }
-  }
-  if (!customElements.get("fm-waveform")) customElements.define("fm-waveform", FMWaveform);
-
-  /* ── 2. Theme toggle ──────────────────────────────────────────────────── */
-  function initTheme() {
-    var btn = document.getElementById("theme-toggle");
-    if (!btn) return;
-    function sync() {
-      var t = root.getAttribute("data-theme") || "dark";
-      btn.textContent = t === "dark" ? "Light" : "Dark";
-      btn.setAttribute("aria-pressed", String(t === "light"));
-    }
-    sync();
     btn.addEventListener("click", function () {
-      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      root.setAttribute("data-theme", next);
-      try { localStorage.setItem("fm-theme", next); } catch (e) {}
-      sync();
+      set(btn.getAttribute("aria-expanded") !== "true");
     });
-    // No OS-preference following: dark is the default, light is opt-in only.
+    // Any tap on a nav item closes the sheet.
+    sheet.addEventListener("click", function (e) {
+      if (e.target.closest("a")) set(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") set(false);
+    });
+    // Leaving the mobile breakpoint resets the state.
+    var mq = matchMedia(MOBILE);
+    var onChange = function () { set(false); };
+    if (mq.addEventListener) mq.addEventListener("change", onChange);
+    else if (mq.addListener) mq.addListener(onChange);
   }
 
-  /* ── 3. Role rotation ─────────────────────────────────────────────────── */
+  /* ── 2. Role crossfade ────────────────────────────────────────────────
+     Out (opacity + rise + blur), swap the text, back in. Never a hard swap. */
   function initRoles() {
     var el = document.querySelector("[data-roles]");
     if (!el) return;
@@ -154,66 +63,115 @@
     if (!Array.isArray(roles) || !roles.length) return;
 
     var i = 0;
-    el.textContent = roles[0];
+    el.textContent = roles[0] + ".";
     if (reduced) return; // one fixed phrase, no cycling
 
-    el.style.transition = "opacity var(--dur-swap, 280ms) var(--ease-out, ease)";
-    var swap = cssMs("--dur-swap", 280);
-    var interval = cssMs("--rotate-interval", 2400);
-    var paused = false, timer = null;
-
-    function advance() {
+    var paused = false;
+    setInterval(function () {
       if (paused) return;
-      el.style.opacity = "0";
+      el.classList.add("is-out");
       setTimeout(function () {
         i = (i + 1) % roles.length;
-        el.textContent = roles[i];
-        el.style.opacity = "1";
-      }, swap);
-    }
-    timer = setInterval(advance, interval);
+        el.textContent = roles[i] + ".";
+        el.classList.remove("is-out");
+      }, 420);
+    }, 3400);
 
-    // Pause on hover/focus of the surrounding line, and when the tab is hidden.
-    var host = el.closest(".fm-roleline") || el;
-    var pause = function () { paused = true; };
-    var resume = function () { paused = false; };
-    host.addEventListener("mouseenter", pause);
-    host.addEventListener("mouseleave", resume);
-    host.addEventListener("focusin", pause);
-    host.addEventListener("focusout", resume);
+    var host = el.closest(".roleline") || el;
+    host.addEventListener("mouseenter", function () { paused = true; });
+    host.addEventListener("mouseleave", function () { paused = false; });
+    host.addEventListener("focusin", function () { paused = true; });
+    host.addEventListener("focusout", function () { paused = false; });
     document.addEventListener("visibilitychange", function () {
       paused = document.hidden;
     });
   }
 
-  /* ── 4. Scroll reveals ────────────────────────────────────────────────── */
+  /* ── 3. Scroll reveals ────────────────────────────────────────────────
+     Only blocks below the fold are hidden to begin with, and a scroll sweep
+     catches anything the observer misses — a deep link or a restored scroll
+     position must never leave a block invisible. */
   function initReveals() {
     var els = [].slice.call(document.querySelectorAll("[data-reveal]"));
-    if (!els.length) return;
+    if (!els.length || reduced) return;
 
-    if (reduced) { els.forEach(function (e) { e.style.opacity = "1"; e.style.transform = "none"; }); return; }
-
-    var dur = cssMs("--dur-reveal", 700);
-    els.forEach(function (e) {
-      e.style.opacity = "0";
-      e.style.transform = "translateY(18px)";
-      e.style.transition = "opacity " + dur + "ms var(--ease-out, ease), transform " + dur + "ms var(--ease-out, ease)";
-    });
-    function show(e) { e.style.opacity = "1"; e.style.transform = "none"; e.dataset.shown = "1"; }
-
-    if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) { if (en.isIntersecting) { show(en.target); io.unobserve(en.target); } });
-      }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-      els.forEach(function (e) { io.observe(e); });
+    var TRANS = "opacity 900ms " + EASE + ", transform 900ms " + EASE;
+    function show(el) {
+      el.style.transition = TRANS;
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      if (io) io.unobserve(el);
     }
-    setTimeout(function () { els.forEach(function (e) { if (!e.dataset.shown) show(e); }); }, 2600);
+
+    var io = "IntersectionObserver" in window
+      ? new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) show(e.target); });
+        }, { rootMargin: "0px 0px -12% 0px" })
+      : null;
+
+    var pending = [];
+    els.forEach(function (el, i) {
+      if (el.getBoundingClientRect().top < window.innerHeight) return; // already in view
+      el.style.opacity = "0";
+      el.style.transform = "translate3d(0," + 16 + "px,0)";
+      el.style.transitionDelay = ((i % 4) * 70) + "ms";
+      pending.push(el);
+      if (io) io.observe(el);
+    });
+    if (!pending.length) return;
+
+    function sweep() {
+      pending = pending.filter(function (el) {
+        if (el.style.opacity !== "0") return false;
+        if (el.getBoundingClientRect().top < window.innerHeight) { show(el); return false; }
+        return true;
+      });
+      if (!pending.length) window.removeEventListener("scroll", sweep);
+    }
+    window.addEventListener("scroll", sweep, { passive: true });
+    if (!io) sweep();
   }
 
-  /* ── 5. Metric count-up ───────────────────────────────────────────────── */
+  /* ── 4. Parallax drift ────────────────────────────────────────────────
+     Offset comes from each element's own document position, smoothed and
+     clamped. Driving it off absolute scrollY accumulates 100px+ far down the
+     page and collides with neighbouring text. */
+  function initDrift() {
+    var els = [].slice.call(document.querySelectorAll("[data-drift]"));
+    if (!els.length || reduced) return;
+
+    var anchors = new Map();
+    function measure() {
+      els.forEach(function (el) {
+        var prev = el.style.transform;
+        el.style.transform = "none";
+        anchors.set(el, el.getBoundingClientRect().top + window.scrollY);
+        el.style.transform = prev;
+      });
+    }
+    els.forEach(function (el) { el.style.willChange = "transform"; });
+    measure();
+    window.addEventListener("resize", measure);
+
+    var cur = window.scrollY;
+    (function tick() {
+      cur += (window.scrollY - cur) * 0.06;
+      els.forEach(function (el) {
+        var rate = parseFloat(el.getAttribute("data-drift")) || 0;
+        var rel = (cur + window.innerHeight / 2) - (anchors.get(el) || 0);
+        var y = Math.max(-44, Math.min(44, -rel * rate));
+        el.style.transform = "translate3d(0," + y.toFixed(2) + "px,0)";
+      });
+      requestAnimationFrame(tick);
+    })();
+  }
+
+  /* ── 5. Metric count-up ───────────────────────────────────────────────
+     The final value is already in the markup, so this only ever animates
+     toward what is rendered without JS. */
   function initCounters() {
     var els = [].slice.call(document.querySelectorAll("[data-count]"));
-    if (!els.length) return;
+    if (!els.length || reduced) return;
 
     els.forEach(function (el) {
       var target = parseFloat(el.dataset.count) || 0;
@@ -221,23 +179,23 @@
       var suffix = el.dataset.suffix || "";
       var set = function (v) { el.textContent = prefix + Math.round(v) + suffix; };
 
-      if (reduced) { set(target); return; }
       set(0);
 
-      var dur = cssMs("--dur-count", 1300);
       var started = false;
       function run() {
-        if (started) return; started = true;
+        if (started) return;
+        started = true;
         var t0 = performance.now();
-        (function tick(now) {
-          var p = Math.min(1, (now - t0) / dur);
+        (function frame(now) {
+          var p = Math.min(1, (now - t0) / 1300);
           set(target * (1 - Math.pow(1 - p, 3)));
-          if (p < 1) requestAnimationFrame(tick);
+          if (p < 1) requestAnimationFrame(frame);
         })(t0);
       }
+
       if ("IntersectionObserver" in window) {
         var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (en) { if (en.isIntersecting) { io.disconnect(); run(); } });
+          entries.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); run(); } });
         }, { threshold: 0.4 });
         io.observe(el);
       } else { run(); }
@@ -245,63 +203,43 @@
     });
   }
 
-  /* ── 6. Sticky CTA — appears once the hero is scrolled past ───────────── */
-  function initSticky() {
-    var ctas = [].slice.call(document.querySelectorAll("[data-sticky-cta]"));
-    var hero = document.querySelector(".fm-hero");
-    var closing = document.querySelector(".fm-close");
-    if (!ctas.length || !hero) return;
-
-    // Show once the hero is gone, but hide again when the closing CTA (which
-    // already offers "Book a call") is on screen, so it never sits redundantly.
-    var pastHero = false, atClosing = false;
-    function apply() { var v = pastHero && !atClosing; ctas.forEach(function (c) { c.classList.toggle("is-visible", v); }); }
-
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (e) {
-        pastHero = !e[0].isIntersecting; apply();
-      }, { threshold: 0, rootMargin: "-40% 0px 0px 0px" }).observe(hero);
-
-      if (closing) {
-        new IntersectionObserver(function (e) {
-          atClosing = e[0].isIntersecting; apply();
-        }, { threshold: 0 }).observe(closing);
-      }
-    } else {
-      window.addEventListener("scroll", function () {
-        pastHero = window.scrollY > hero.offsetHeight * 0.6;
-        atClosing = closing ? closing.getBoundingClientRect().top < window.innerHeight : false;
-        apply();
-      }, { passive: true });
-    }
-  }
-
-  /* ── 7. Portfolio favicons (DuckDuckGo → letter chip) ─────────────────── */
+  /* ── 6. Portfolio favicons ────────────────────────────────────────────
+     The white chip renders the company initial; the icon fades in over it if
+     DuckDuckGo has one. Blank icons (naturalWidth < 8) count as a failure, so
+     the letter stays. Requested after first paint, never blocking. */
   function initFavicons() {
-    document.querySelectorAll(".fm-fav__img").forEach(function (img) {
-      var domain = img.getAttribute("data-domain");
-      if (!domain) return;
-      img.addEventListener("error", function () {
-        var parent = img.closest(".fm-fav");
-        if (parent) parent.classList.add("is-fallback");
+    setTimeout(function () {
+      document.querySelectorAll(".fav img[data-domain]").forEach(function (img) {
+        var chip = img.closest(".fav");
+        var letter = chip && chip.querySelector(".fav__letter");
+        var dual = chip && chip.classList.contains("fav--dual");
+        function fail() { img.style.display = "none"; }
+        img.addEventListener("load", function () {
+          if (img.naturalWidth < 8 || img.naturalHeight < 8) return fail();
+          img.style.opacity = "1";
+          if (letter) {
+            letter.style.opacity = "0";
+            // Dual chips lay out in flow, so the letter has to leave the box.
+            if (dual) letter.style.display = "none";
+            else letter.style.visibility = "hidden";
+          }
+        });
+        img.addEventListener("error", fail);
+        img.src = "https://icons.duckduckgo.com/ip3/" + img.getAttribute("data-domain") + ".ico";
       });
-      img.addEventListener("load", function () {
-        if (img.naturalWidth < 8 || img.naturalHeight < 8) img.dispatchEvent(new Event("error"));
-      });
-      img.src = "https://icons.duckduckgo.com/ip3/" + domain + ".ico";
-    });
+    }, 80);
   }
 
-  /* ── boot ─────────────────────────────────────────────────────────────── */
+  /* ── boot ─────────────────────────────────────────────────────────────
+     Reveal/drift measure after layout has settled. */
   function init() {
-    initTheme();
+    initMenu();
     initRoles();
-    initReveals();
-    initCounters();
-    initSticky();
     initFavicons();
+    initCounters();
     var y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
+    setTimeout(function () { initReveals(); initDrift(); }, 60);
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

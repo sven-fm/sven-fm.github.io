@@ -4,6 +4,8 @@
    Rasterises the two templates in this folder into the shipped image assets:
 
      og.html    -> assets/og.jpg                       1200x630, q88
+     sven.jpg   -> assets/sven-360.avif, sven-720.avif  responsive portrait
+                   assets/sven-360.jpg                 JPEG fallback
      icon.html  -> favicon.ico                         16, 32, 48
                    assets/favicon-16x16.png
                    assets/favicon-32x32.png
@@ -54,6 +56,19 @@ im.save("${OUT}/assets/og.jpg", quality=88, optimize=True, progressive=True, sub
 `]);
   console.log('assets/og.jpg');
 }
+
+/* — Portrait derivatives ------------------------------------------------ */
+// The <picture> in index.html serves AVIF at 360/720 with the original JPEG as
+// fallback; the 720 JPEG stays the source of truth and the OG card's input.
+execFileSync('python3', ['-c', `
+from PIL import Image
+src = Image.open("${OUT}/assets/sven.jpg").convert("RGB")
+for w in (360, 720):
+    im = src if w == 720 else src.resize((w, round(src.height * w / src.width)), Image.LANCZOS)
+    im.save("${OUT}/assets/sven-%d.avif" % w, quality=62)
+    if w == 360: im.save("${OUT}/assets/sven-360.jpg", quality=84, optimize=True, progressive=True)
+`]);
+console.log('assets/sven-360.avif, sven-720.avif, sven-360.jpg');
 
 /* — Icons --------------------------------------------------------------- */
 const variant = process.env.ICON_VARIANT || 'brass';

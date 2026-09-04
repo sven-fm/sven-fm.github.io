@@ -256,6 +256,8 @@ hand — same tokens, same fonts, so they can never drift from the page.
 | Source | Output |
 |---|---|
 | `og.html` | `assets/og.jpg` — 1200×630, JPEG q88 |
+| `assets/sven.jpg` | `assets/sven-360.avif`, `sven-720.avif`, `sven-360.jpg` — the responsive portrait behind the hero's `<picture>` |
+| `fetch-favicons.py` | `assets/portfolio/<domain>.png` — one 32px PNG per portfolio company, pulled once from DuckDuckGo so the live page makes no third-party request |
 | `icon.html` | `favicon.ico` (16/32/48), `assets/favicon-16x16.png`, `assets/favicon-32x32.png`, `apple-touch-icon.png` (180), `assets/icon-192.png`, `assets/icon-512.png` |
 
 ```bash
@@ -308,10 +310,10 @@ difference. `og:image:type` says `image/jpeg` to match.
 
 - **No icon set anywhere.** The only glyphs are text ("→") and CSS shapes: the
   wordmark dot, the hairlines, the hamburger bars. Don't introduce a library.
-- Portfolio favicons come from `https://icons.duckduckgo.com/ip3/<domain>.ico`
-  at runtime — third-party, unversioned, sometimes a blank 1px image. Treat
-  `naturalWidth < 8` as a failure; the letter chip is the required fallback.
-  Cache the icons into `assets/` if you'd rather not depend on it.
+- Portfolio favicons are served from `assets/portfolio/`, fetched once by
+  `fetch-favicons.py` — no third-party request per visitor. A company with no
+  usable icon simply has no file there and keeps the letter chip; re-run the
+  script when a company is added.
 - The grain is generated, not an image file. Keep it that way.
 - Sticky header is always visible; there is no scroll-triggered CTA and no
   fixed bottom bar — the header carries the one conversion action at every

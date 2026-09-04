@@ -9,7 +9,7 @@
      3. Scroll reveals    [data-reveal] fades + rises once into view
      4. Parallax drift    [data-drift] eases against its own document position
      5. Metric count-up   [data-count] counts 0 -> target on scroll-into-view
-     6. Favicon chips     .fav img[data-domain], letter fallback underneath
+     6. Favicon chips     .fav img[data-domain] -> /assets/portfolio, letter fallback
      7. Footer year       #year
 
    Markup hooks:
@@ -215,8 +215,10 @@
 
   /* ── 6. Portfolio favicons ────────────────────────────────────────────
      The white chip renders the company initial; the icon fades in over it if
-     DuckDuckGo has one. Blank icons (naturalWidth < 8) count as a failure, so
-     the letter stays. Requested after first paint, never blocking. */
+     one exists in /assets/portfolio (fetched once by
+     design-system/fetch-favicons.py — no third-party request per visit).
+     A missing file 404s, a blank one has naturalWidth < 8, and either way the
+     letter stays. Requested after first paint, never blocking. */
   function initFavicons() {
     setTimeout(function () {
       document.querySelectorAll(".fav img[data-domain]").forEach(function (img) {
@@ -235,7 +237,7 @@
           }
         });
         img.addEventListener("error", fail);
-        img.src = "https://icons.duckduckgo.com/ip3/" + img.getAttribute("data-domain") + ".ico";
+        img.src = "/assets/portfolio/" + img.getAttribute("data-domain") + ".png";
       });
     }, 80);
   }

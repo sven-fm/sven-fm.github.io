@@ -67,6 +67,8 @@ contrast on paper, so it never appears there.
 | `og.html` | Source for the Open Graph card. | — |
 | `icon.html` | Source for the favicon / app icon mark. | — |
 | `render-assets.mjs` | Rasterises both into the shipped image assets. | — |
+| `fetch-favicons.py` | Pulls the portfolio favicons once into `assets/portfolio/`. | — |
+| `indexnow.sh` | Tells Bing, Yandex, Seznam and Naver that a URL changed. | — |
 
 ```html
 <link rel="preload" href="/assets/fonts/syne-latin-var.woff2" as="font" type="font/woff2" crossorigin>
@@ -285,6 +287,25 @@ in the wrong typeface.
 
 `icon.html?variant=pine` renders the inverted mark (brass S on pine) if the
 field is ever wrong for a context; `ICON_VARIANT=pine` ships it.
+
+## Telling the search engines
+
+After a deploy that changes copy, the title or the meta description:
+
+```bash
+design-system/indexnow.sh            # submit /
+design-system/indexnow.sh / /work/advisor
+```
+
+One call reaches Bing, Yandex, Seznam and Naver. Bing's index is what
+ChatGPT Search reads, so this is the fast path for a copy change — without it
+a rewrite can take weeks to show up there. Ownership is proved by
+`0996b186965c405784b2eae9b8e6b6fc.txt` at the site root: the filename is the
+key and the file contains only the key. Delete it and every submission 403s.
+
+Google ignores IndexNow — request indexing in Search Console separately.
+
+---
 
 **The card is a JPEG, not a PNG.** It carries a photo and the grain layer,
 which PNG stores at roughly ten times the bytes (878KB vs 87KB) for no visible

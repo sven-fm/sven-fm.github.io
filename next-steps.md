@@ -50,9 +50,11 @@ The Person JSON-LD now lists all four as `sameAs` and carries a
 
 - Google Search Console: request indexing of `/` once after this deploy so
   the old em-dash title drops out of the index.
-- Bing Webmaster Tools: submit `sitemap.xml` and turn on IndexNow. Bing's
-  index is what ChatGPT search and Copilot cite; without IndexNow, copy
-  changes take weeks to show up there.
+- Bing Webmaster Tools: submit `sitemap.xml`. IndexNow is wired up — the key
+  file sits at the site root and `design-system/indexnow.sh` submits a URL in
+  one call; run it after any deploy that changes copy. Bing's index is what
+  ChatGPT Search and Copilot cite; without it, copy changes take weeks to
+  show up there.
 
 ## 4. Declined for now
 

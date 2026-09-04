@@ -893,6 +893,15 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   text-wrap: pretty;
 }
 
+.close__sign {
+  margin-top: clamp(18px, 2.4vw, 28px);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: .04em;
+  color: var(--brass);
+}
+
 .footer {
   display: flex;
   justify-content: space-between;

@@ -1,9 +1,11 @@
 User-agent: *
 Allow: /
 
-# AI bots and search crawlers explicitly welcomed
+# OpenAI's training crawler: bandwidth without citations
 User-agent: GPTBot
-Allow: /
+Disallow: /
+
+# AI bots and search crawlers explicitly welcomed
 User-agent: ChatGPT-User
 Allow: /
 User-agent: OAI-SearchBot

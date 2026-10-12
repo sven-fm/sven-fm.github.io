@@ -11,7 +11,7 @@ for the asset templates.
    on `/profile/`, typeset as a document, and in the JSON-LD and `llms.txt`.
 2. **Facts, not adjectives.** No "help", no "passionate", no rotating role
    lines, no availability pitch, no FAQ on the home page. Numbers carry the claim.
-3. **One accent.** Brass marks state (the live dot, an exit, a hover). Never a
+3. **One accent.** Brass marks state (the wordmark dot, an exit, a hover). Never a
    fill, never a gradient, never on paper (use `--brass-ink` there).
 4. **Tactile, not decorative.** Grain, a portrait that leans a few pixels
    toward the pointer, hover states that move like objects. Nothing loops.
@@ -22,7 +22,7 @@ for the asset templates.
 |---|---|---|
 | `--night` | `#08100B` | Hero stage. Matches the portrait's backdrop so the photo dissolves in. |
 | `--pine` | `#13291F` | The field. Every section after the hero. |
-| `--paper` | `#DCE4D2` | One band per page (Investments) and the whole `/profile/` page. |
+| `--paper` | `#DCE4D2` | The light theme's field and stage; in dark mode, the one contrast band (Investments). |
 
 ## Themes
 
@@ -33,7 +33,21 @@ setting; a click on the toggle is saved in `localStorage`. Below the token block
 raw colors. `.block--paper` always takes the opposite theme. In light mode the
 portrait swaps to `sven-light*`, the same shot on a sage backdrop graded to
 exactly `--paper`, so it dissolves into the page the way the original does into
-night. Same box, same masks: switching themes never moves it.
+night. Same box, same masks: switching themes never moves it. The switch is a
+380ms view-transition crossfade (skipped under reduced motion).
+
+| Theme token | Dark (default) | Light |
+|---|---|---|
+| `--bg` | `--pine` | `--paper` |
+| `--stage` | `--night` | `--paper` |
+| `--fg` | `--sage` | `--ink` |
+| `--fg-body` | `--sage-body` | `--ink-body` |
+| `--fg-muted` | `--sage-muted` | `--ink-muted` |
+| `--rule` | `--sage-rule` | `--ink-rule` |
+| `--accent` | `--brass` | `--brass-ink` |
+| `--wash` (hover plate) | sage at .045 | ink at .05 |
+| `--glass` (stuck header) | night at .62 | paper at .72 |
+| `--sel-bg` / `--sel-fg` | brass / night | ink / paper |
 
 ## Ink
 
@@ -67,7 +81,8 @@ Syne for anything you look at, Instrument Sans for anything you read.
 
 `--ease: cubic-bezier(.16, 1, .3, 1)` for everything that lands.
 First paint: kicker 120ms, name lines 180ms and 290ms (rise from a clip),
-deck 520ms, status 660ms; portrait fades and settles from 1.045 over 2.6s.
+deck 520ms; portrait fades and settles from 1.045 over 2.6s, then leans up to
+7px toward the pointer on desktop.
 Reveals rise 22px over 1.1s. Numbers rise out of a clip. All of it is off
 under `prefers-reduced-motion`.
 
@@ -84,6 +99,8 @@ under `prefers-reduced-motion`.
 
 ## Assets wanted
 
-The portrait is 848px wide (letterbox cropped from the supplied PNG). On a
-retina screen the hero shows it at about 1.4x. A 2000px original of the same
-shot would make it fully crisp.
+Two portraits, same shot and framing: `sven*` on the dark backdrop for dark
+mode, `sven-light*` on a sage backdrop graded to `--paper` for light mode. Both
+are 848px wide; on a retina screen the hero shows them at about 1.4x. A 2000px
+original would make them fully crisp. A replacement needs both versions, each
+backdrop matching its stage exactly, or the dissolve breaks.

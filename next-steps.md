@@ -1,5 +1,11 @@
 # sven.fm – next steps
 
+> Status 2026-10-12: the "Pine, quiet" redesign shipped. The home page no
+> longer has engagement rows or a FAQ; the depth lives on `/profile/` (with
+> FAQPage JSON-LD). Section 1 below predates that: if `/work/` pages happen,
+> link them from `/profile/` ("Working together"), not from the home page.
+> Sections 2 to 4 still apply; run IndexNow for `/` and `/profile/`.
+
 Open items from the SEO / GEO pass on 2026-09-04. Things that are either a
 scope decision, or live outside the repo. Everything that was a code fix has
 shipped.

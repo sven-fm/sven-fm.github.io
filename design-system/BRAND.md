@@ -21,9 +21,11 @@ Voice:
 
 ## Visual foundations
 
-**Surfaces.** Three, in a fixed order. `night` holds the hero and matches the portrait backdrop, so the photo has no frame at all: it dissolves into the stage through two masks (from the left edge and from the bottom). `night` eases into `pine` below the fold with a gradient, never a band edge. `paper` appears once per page as a band (Investments), and as the whole `/profile/` page.
+**Themes.** Two, on both pages: dark (pine) is the default for everyone, whatever the system setting; light (paper) is opt-in through the sun/moon button in the header and remembered in `localStorage`. The theme is set in `<head>` before first paint, and the switch is a 380ms crossfade. Below the token block, CSS paints only with theme tokens (`--bg`, `--stage`, `--fg`, `--fg-body`, `--fg-muted`, `--rule`, `--accent`, `--wash`, `--glass`), never raw colors. The Investments band always takes the opposite theme, so every page keeps one contrast band.
 
-**Accent.** `brass` marks state, not decoration: the wordmark dot, the kicker rule, the ledger hover arrow, the contact underline. On paper it becomes `brass-ink`. If a design needs a second brass element on screen, cut one.
+**Surfaces.** Dark: `night` holds the hero and matches the portrait backdrop, so the photo has no frame at all: it dissolves into the stage through two masks (from the left edge and from the bottom). `night` eases into `pine` below the fold with a gradient, never a band edge; Investments sits on `paper`. Light: `paper` is both stage and field, the portrait swaps to the light version (same shot on a sage backdrop graded to `paper`) with a shorter bottom fade, and Investments sits on `pine`. Above 1360px the portrait stays with the text column and fades out on the right too.
+
+**Accent.** `brass` marks state, not decoration: the wordmark dot, the kicker rule, the ledger hover arrow, the contact underline. On paper (the light theme, or the band in dark mode) it becomes `brass-ink`, through `--accent`. If a design needs a second brass element on screen, cut one.
 
 **Type.** Syne for anything you look at, Instrument Sans for anything you read. Syne runs at 600 to 700 with tight negative tracking; it never sets a sentence. Instrument Sans never goes above 24px. Numbers are tabular.
 
@@ -36,6 +38,8 @@ Voice:
 **Layout.** Content width `width-max` (1360px) with `space-gutter` on each side; header, hero text and sections share the same left edge. Sections below the hero use a 3:9 grid: a sticky label on the left, content on the right.
 
 ## Contrast
+
+Light mode uses the paper pairs for everything; dark mode uses the pine pairs, plus the paper pairs inside the Investments band.
 
 | Pair | Ratio |
 |---|---|
@@ -50,10 +54,10 @@ Voice:
 
 No icons except one: a 45° arrow drawn as a 3.2px stroke, used on the contact link and as "→" in ledger rows. No logos of other companies; portfolio companies appear as type only.
 
-One photograph: the portrait, shot on a near-black green backdrop (`#070d09`). Any replacement must be shot on the same dark backdrop or the hero dissolve breaks. Source at 2000px wide or more; the current 848px file is about 1.4x upscaled on retina.
+One photograph in two versions: `sven*` on a near-black green backdrop (`#070d09`) for dark mode, and `sven-light*`, the same framing on a sage backdrop graded to exactly `paper`, for light mode. A replacement needs both, each backdrop matching its stage, or the dissolve breaks. Source at 2000px wide or more; the current 848px files are about 1.4x upscaled on retina.
 
 There is no logo. The wordmark is "sven.fm" in Syne 700 with the brass dot before it.
 
 ## Where it lives
 
-The site is plain static HTML and CSS on Vercel: `index.html`, `profile/index.html`, `styles.css`, `main.js`. `styles.css` is the source of truth; `design-system/tokens.css` mirrors its `:root`.
+The site is plain static HTML and CSS on Vercel: `index.html`, `profile/index.html`, `styles.css`, `main.js`. `styles.css` is the source of truth (raw tokens in `:root`, theme tokens in the block below it); `design-system/tokens.css` mirrors the raw tokens, `design-system/tokens.json` holds both themes for tools, and `design-system/README.md` is the short engineering reference.

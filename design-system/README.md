@@ -31,9 +31,9 @@ header switches them. Dark is the default for everyone, whatever the system
 setting; a click on the toggle is saved in `localStorage`. Below the token block, CSS paints only with the theme tokens
 (`--bg`, `--fg`, `--fg-body`, `--fg-muted`, `--rule`, `--accent`, ...), never the
 raw colors. `.block--paper` always takes the opposite theme. In light mode the
-portrait swaps to `sven-cut-*.avif/webp`, the same shot cut out of its dark
-backdrop (macOS Vision foreground mask), so it dissolves into paper the same
-way. Same box, same masks: switching themes never moves it.
+portrait swaps to `sven-light*`, the same shot on a sage backdrop graded to
+exactly `--paper`, so it dissolves into the page the way the original does into
+night. Same box, same masks: switching themes never moves it.
 
 ## Ink
 

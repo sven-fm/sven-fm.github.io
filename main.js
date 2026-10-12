@@ -74,7 +74,7 @@
     };
     apply(root.dataset.theme === "light" ? "light" : "dark");
     /* The light portrait loads lazily; start fetching it once the toggle is in reach. */
-    var cut = document.querySelector(".hero__cut img");
+    var cut = document.querySelector(".hero__light img");
     var warm = function () { if (cut) cut.loading = "eager"; };
     var cutReady = function () {
       if (!cut) return Promise.resolve();

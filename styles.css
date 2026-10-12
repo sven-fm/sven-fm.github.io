@@ -123,7 +123,7 @@
 :root:not([data-theme="light"]) .block--paper {
   --bg: var(--paper);
   --stage: var(--paper);
-  --stage-glow: var(--paper-2);
+  --stage-glow: var(--paper);
   --fg: var(--ink);
   --fg-body: var(--ink-body);
   --fg-muted: var(--ink-muted);
@@ -287,10 +287,11 @@ a { color: inherit; text-decoration: none; }
   font-size: var(--fs-deck); line-height: 1.38; letter-spacing: -.01em;
   color: var(--fg-body);
 }
-/* Light: same box and masks, but the cut-out portrait, so it dissolves into paper */
-.hero__cut { display: none; }
-.hero__cut img { position: absolute; inset: 0; }
-:root[data-theme="light"] .hero__cut { display: block; }
+/* Light: same box and masks, but the portrait shot on a paper backdrop. Its backdrop
+   is graded to exactly --paper, so no filter here and no glow behind it. */
+.hero__light { display: none; }
+.hero__light img { position: absolute; inset: 0; filter: none; }
+:root[data-theme="light"] .hero__light { display: block; }
 :root[data-theme="light"] .hero__photo > picture:first-child { visibility: hidden; }
 /* A black shirt fading into paper reads as a grey smear, so the fade is shorter here */
 :root[data-theme="light"] .hero__photo {

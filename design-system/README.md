@@ -10,12 +10,11 @@ for the asset templates.
    ledger, a wall of names and one way to get in touch. Everything else lives
    on `/profile/`, typeset as a document, and in the JSON-LD and `llms.txt`.
 2. **Facts, not adjectives.** No "help", no "passionate", no rotating role
-   lines, no FAQ on the home page. Numbers carry the claim.
+   lines, no availability pitch, no FAQ on the home page. Numbers carry the claim.
 3. **One accent.** Brass marks state (the live dot, an exit, a hover). Never a
    fill, never a gradient, never on paper (use `--brass-ink` there).
 4. **Tactile, not decorative.** Grain, a portrait that leans a few pixels
-   toward the pointer, hover states that move like objects. Nothing loops
-   except the availability dot.
+   toward the pointer, hover states that move like objects. Nothing loops.
 
 ## Surfaces
 
@@ -74,5 +73,6 @@ under `prefers-reduced-motion`.
 
 ## Assets wanted
 
-The portrait is 720px wide. On a retina screen the hero shows it at about
-1.6x. A 2000px original of the same shot would make the hero crisp.
+The portrait is 848px wide (letterbox cropped from the supplied PNG). On a
+retina screen the hero shows it at about 1.4x. A 2000px original of the same
+shot would make it fully crisp.

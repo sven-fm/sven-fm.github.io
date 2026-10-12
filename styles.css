@@ -141,11 +141,6 @@ a { color: inherit; text-decoration: none; }
   box-shadow: 0 0 0 0 var(--brass-glow), 0 0 10px var(--brass-glow);
   flex: none;
 }
-.dot--live { animation: breathe 3.6s var(--ease-io) infinite; }
-@keyframes breathe {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(208,169,40,.0), 0 0 8px var(--brass-glow); }
-  50%      { box-shadow: 0 0 0 6px rgba(208,169,40,.10), 0 0 16px var(--brass-glow); }
-}
 
 .label {
   font: 500 var(--fs-label)/1.3 var(--text);
@@ -235,14 +230,6 @@ a { color: inherit; text-decoration: none; }
   font-size: var(--fs-deck); line-height: 1.38; letter-spacing: -.01em;
   color: var(--sage-body);
 }
-.status {
-  margin-top: clamp(26px, 3vw, 36px);
-  display: inline-flex; align-items: center; gap: 12px;
-  font-size: var(--fs-small); color: var(--sage-muted);
-  transition: color var(--t-fast) var(--ease);
-}
-.status:hover { color: var(--sage); }
-
 /* ── Numbers ───────────────────────────────────────────────────────────── */
 .numbers { padding: clamp(40px, 6vw, 96px) 0 var(--block); }
 .numbers__grid {
@@ -437,7 +424,6 @@ a { color: inherit; text-decoration: none; }
 .is-ready [data-in="2"] { transition-delay: 180ms; }
 .is-ready [data-in="3"] { transition-delay: 290ms; }
 .is-ready [data-in="4"] { transition-delay: 520ms; }
-.is-ready [data-in="5"] { transition-delay: 660ms; }
 .is-ready .hero__photo {
   opacity: 1; transform: none;
   transition: opacity 1800ms var(--ease), transform 2600ms var(--ease);
@@ -456,7 +442,6 @@ a { color: inherit; text-decoration: none; }
   .js [data-in], .js [data-reveal], .js .hero__photo, .js .num .num__clip, .js .hero__name [data-in] {
     opacity: 1 !important; transform: none !important; transition: none !important;
   }
-  .dot--live { animation: none; }
 }
 
 /* ── Responsive ────────────────────────────────────────────────────────── */

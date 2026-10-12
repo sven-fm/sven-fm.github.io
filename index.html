@@ -12,7 +12,19 @@
   <link rel="me" href="https://linkedin.com/in/svenahrens" />
   <link rel="me" href="https://svenahrens.com" />
   <meta name="theme-color" content="#08100B" />
-  <meta name="color-scheme" content="dark" />
+  <meta name="color-scheme" content="dark light" />
+  <script>
+    /* Theme before first paint: saved choice, else dark. */
+    (function () {
+      var d = document.documentElement, t;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "light") t = "dark";
+      d.dataset.theme = t;
+      d.classList.add("js");
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.content = t === "light" ? "#DCE4D2" : "#08100B";
+    })();
+  </script>
 
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
@@ -147,6 +159,10 @@
       <a href="/profile/">Profile</a>
       <a href="#contact">Contact</a>
     </nav>
+    <button class="theme" type="button" id="theme" aria-label="Switch to light mode">
+      <svg class="theme__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <svg class="theme__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    </button>
   </header>
 
   <main id="main">

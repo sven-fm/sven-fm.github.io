@@ -62,7 +62,22 @@
       });
     }
 
-    /* 5. Year. */
+    /* 5. Theme toggle. Dark unless the visitor picked light; a click is remembered. */
+    var btn = document.getElementById("theme");
+    var meta = document.querySelector('meta[name="theme-color"]');
+    var apply = function (t) {
+      root.dataset.theme = t;
+      if (meta) meta.content = t === "light" ? "#DCE4D2" : "#08100B";
+      if (btn) btn.setAttribute("aria-label", t === "light" ? "Switch to dark mode" : "Switch to light mode");
+    };
+    apply(root.dataset.theme === "light" ? "light" : "dark");
+    if (btn) btn.addEventListener("click", function () {
+      var t = root.dataset.theme === "light" ? "dark" : "light";
+      apply(t);
+      try { localStorage.setItem("theme", t); } catch (e) {}
+    });
+
+    /* 6. Year. */
     var y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
   });

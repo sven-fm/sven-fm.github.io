@@ -24,6 +24,15 @@ for the asset templates.
 | `--pine` | `#13291F` | The field. Every section after the hero. |
 | `--paper` | `#DCE4D2` | One band per page (Investments) and the whole `/profile/` page. |
 
+## Themes
+
+Both pages come in dark (pine) and light (paper). The sun/moon button in the
+header switches them. Dark is the default for everyone, whatever the system
+setting; a click on the toggle is saved in `localStorage`. Below the token block, CSS paints only with the theme tokens
+(`--bg`, `--fg`, `--fg-body`, `--fg-muted`, `--rule`, `--accent`, ...), never the
+raw colors. `.block--paper` always takes the opposite theme. In light mode the
+portrait is framed instead of dissolved, because its backdrop is dark.
+
 ## Ink
 
 | Token | On | Contrast |

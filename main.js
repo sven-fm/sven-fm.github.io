@@ -47,12 +47,14 @@
     }
 
     /* 4. The portrait leans a few pixels toward the pointer. Desktop only. */
-    var photo = document.querySelector(".hero__photo img");
+    var photos = [].slice.call(document.querySelectorAll(".hero__photo img"));
+    var photo = photos[0];
     if (photo && !reduced && window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 821px)").matches) {
       var tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
       var tick = function () {
         cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06;
-        photo.style.transform = "translate3d(" + cx.toFixed(2) + "px," + cy.toFixed(2) + "px,0) scale(1.03)";
+        var tf = "translate3d(" + cx.toFixed(2) + "px," + cy.toFixed(2) + "px,0) scale(1.03)";
+        photos.forEach(function (p) { p.style.transform = tf; });
         raf = (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) ? requestAnimationFrame(tick) : 0;
       };
       document.querySelector(".hero").addEventListener("pointermove", function (e) {
@@ -71,11 +73,26 @@
       if (btn) btn.setAttribute("aria-label", t === "light" ? "Switch to dark mode" : "Switch to light mode");
     };
     apply(root.dataset.theme === "light" ? "light" : "dark");
-    if (btn) btn.addEventListener("click", function () {
-      var t = root.dataset.theme === "light" ? "dark" : "light";
-      apply(t);
-      try { localStorage.setItem("theme", t); } catch (e) {}
-    });
+    /* The light portrait loads lazily; start fetching it once the toggle is in reach. */
+    var cut = document.querySelector(".hero__cut img");
+    var warm = function () { if (cut) cut.loading = "eager"; };
+    var cutReady = function () {
+      if (!cut) return Promise.resolve();
+      warm();
+      return Promise.race([cut.decode().catch(function () {}), new Promise(function (r) { setTimeout(r, 600); })]);
+    };
+    if (btn) {
+      btn.addEventListener("pointerenter", warm);
+      btn.addEventListener("focus", warm);
+      btn.addEventListener("click", function () {
+        var t = root.dataset.theme === "light" ? "dark" : "light";
+        try { localStorage.setItem("theme", t); } catch (e) {}
+        (t === "light" ? cutReady() : Promise.resolve()).then(function () {
+          if (document.startViewTransition && !reduced) document.startViewTransition(function () { apply(t); });
+          else apply(t);
+        });
+      });
+    }
 
     /* 6. Year. */
     var y = document.getElementById("year");

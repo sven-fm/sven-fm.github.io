@@ -254,7 +254,8 @@ a { color: inherit; text-decoration: none; }
 }
 .hero__photo {
   position: absolute; z-index: -2;
-  top: 0; right: 0; bottom: 0; width: min(54vw, 820px);
+  /* Flush right up to --maxw; beyond that it stays with the text column */
+  top: 0; bottom: 0; right: max(0px, calc((100vw - var(--maxw)) / 2)); width: min(54vw, 820px);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to top, transparent 0%, #000 34%);
   -webkit-mask-composite: source-in;
           mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to top, transparent 0%, #000 34%);
@@ -286,14 +287,32 @@ a { color: inherit; text-decoration: none; }
   font-size: var(--fs-deck); line-height: 1.38; letter-spacing: -.01em;
   color: var(--fg-body);
 }
-/* Light: the portrait's dark backdrop can't dissolve into paper, so it is framed */
-:root[data-theme="light"] .hero::after { display: none; }
+/* Light: same box and masks, but the cut-out portrait, so it dissolves into paper */
+.hero__cut { display: none; }
+.hero__cut img { position: absolute; inset: 0; }
+:root[data-theme="light"] .hero__cut { display: block; }
+:root[data-theme="light"] .hero__photo > picture:first-child { visibility: hidden; }
+/* A black shirt fading into paper reads as a grey smear, so the fade is shorter here */
 :root[data-theme="light"] .hero__photo {
-  top: 112px; bottom: clamp(56px, 9vh, 112px); right: var(--edge);
-  width: min(36vw, 520px);
-  border-radius: 6px; overflow: clip;
-  -webkit-mask-image: none; mask-image: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to top, transparent 9%, #000 27%);
+          mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to top, transparent 9%, #000 27%);
 }
+@media (min-width: 1361px) {
+  :root[data-theme="light"] .hero__photo {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 42%, #000 80%, transparent 100%), linear-gradient(to top, transparent 9%, #000 27%);
+            mask-image: linear-gradient(to right, transparent 0%, #000 42%, #000 80%, transparent 100%), linear-gradient(to top, transparent 9%, #000 27%);
+  }
+}
+/* Wide screens: the photo no longer reaches the window edge, so it fades out on the right too */
+@media (min-width: 1361px) {
+  .hero__photo {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 42%, #000 80%, transparent 100%), linear-gradient(to top, transparent 0%, #000 34%);
+            mask-image: linear-gradient(to right, transparent 0%, #000 42%, #000 80%, transparent 100%), linear-gradient(to top, transparent 0%, #000 34%);
+  }
+}
+/* Theme switch: one quick crossfade of the whole page (see main.js) */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 380ms; animation-timing-function: var(--ease-io); }
+
 /* ── Numbers ───────────────────────────────────────────────────────────── */
 .numbers { padding: clamp(40px, 6vw, 96px) 0 var(--block); }
 .numbers__grid {
@@ -523,12 +542,10 @@ a { color: inherit; text-decoration: none; }
   }
   .hero__photo img { object-position: 50% 14%; }
   :root[data-theme="light"] .hero__photo {
-    top: auto; bottom: auto; right: auto; width: auto;
-    height: min(60svh, 112vw);
-    margin: 76px 0 0;
-    -webkit-mask-image: none; mask-image: none;
+    -webkit-mask-image: linear-gradient(to top, transparent 20%, #000 50%);
+            mask-image: linear-gradient(to top, transparent 20%, #000 50%);
+    margin-top: 64px; /* keeps the hair clear of the header links */
   }
-  :root[data-theme="light"] .hero__text { margin-top: 32px; }
   .hero__text { margin-top: calc(-1 * min(17svh, 30vw)); }
   .kicker { margin-bottom: 14px; }
   .hero__name { font-size: clamp(64px, 21vw, 120px); }

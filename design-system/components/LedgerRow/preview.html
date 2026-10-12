@@ -1,0 +1,22 @@
+<!-- @dsCard group="Content" height=260 subtitle="Experience ledger, one row hovered" -->
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  body{margin:0;background:var(--pine);font-family:var(--font-text);padding:28px 40px;-webkit-font-smoothing:antialiased}
+  ol{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--sage-rule)}
+  a{display:grid;grid-template-columns:7.5em 1fr auto;align-items:baseline;gap:16px;padding:20px 0;border-top:1px solid var(--sage-rule);text-decoration:none;position:relative}
+  a::before{content:"";position:absolute;inset:0 -14px;border-radius:var(--radius-row);background:rgba(220,228,210,.045);opacity:0;transform:scale(.985);transition:opacity .52s cubic-bezier(.16,1,.3,1),transform .52s cubic-bezier(.16,1,.3,1);z-index:0}
+  a>*{position:relative;z-index:1}
+  .yr{font-size:15px;color:var(--sage-muted);font-variant-numeric:tabular-nums}
+  .role{font:600 25px/1.15 var(--font-display);letter-spacing:-.03em;color:var(--sage)}
+  .org{font-size:17px;color:var(--sage-body);display:inline-flex;gap:10px}
+  .org::after{content:"→";color:var(--brass);width:1em;opacity:0;transform:translateX(-8px);transition:all .52s cubic-bezier(.16,1,.3,1)}
+  a:hover::before,a.on::before{opacity:1;transform:none}
+  a:hover .org::after,a.on .org::after{opacity:1;transform:none}
+</style></head><body>
+<ol>
+  <li><a href="#"><span class="yr">2025–26</span><span class="role">Chief Executive Officer</span><span class="org">Yousician</span></a></li>
+  <li><a href="#" class="on"><span class="yr">2016–24</span><span class="role">Director, Global Growth</span><span class="org">Spotify</span></a></li>
+  <li><a href="#"><span class="yr">2012–16</span><span class="role">Consultant</span><span class="org">Bain &amp; Company</span></a></li>
+</ol>
+<script>document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>e.preventDefault()))</script>
+</body></html>

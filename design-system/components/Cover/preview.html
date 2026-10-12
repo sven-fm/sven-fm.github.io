@@ -1,0 +1,30 @@
+<!-- @dsCard height=300 -->
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  html,body{margin:0;height:100%}
+  body{position:relative;width:960px;height:300px;background:var(--pine);overflow:hidden;-webkit-font-smoothing:antialiased}
+  svg{position:absolute;left:0;top:0}
+  .night{fill:var(--night)} .paper{fill:var(--paper)} .brass{fill:var(--brass)} .glyph{fill:var(--pine);font-family:var(--font-display);font-weight:600;letter-spacing:-.05em}
+  .rule{stroke:var(--ink-rule);stroke-width:1}
+  .t{position:absolute;left:40px;bottom:40px;max-width:440px}
+  .n{font:700 92px/.92 var(--font-display);letter-spacing:-.05em;color:var(--sage);margin:0}
+  .s{margin:16px 0 0;font:400 14px/1.4 var(--font-text);color:var(--sage-muted)}
+</style></head><body>
+<svg width="960" height="300" viewBox="0 0 960 300" aria-hidden="true">
+  <!--
+    blocks: night 256x300 (x 496, bleeding top and bottom) · paper 208x176 (x 752, bleeding top/right) · brass disc 28 (radius-dot) · ground pine
+    arrangement: one tall slab with a paper satellite in the upper right and a single brass point, the way the hero stages the portrait against night with one brass dot
+    pattern: oversized Syne "%" from the 60%+ figure, cut into the night slab in pine and clipped by it; chosen because the system says "numbers carry the claim" and Syne is its one distinctive face; plus three ink-rule hairlines on the paper block for the ledger
+    scales: space-gap 64 (paper inset), space-row 26 (rule pitch ~ 2x), radius-dot 50% (disc), radius none elsewhere (hairlines over boxes)
+  -->
+  <defs><clipPath id="slab"><rect x="496" y="0" width="256" height="300"/></clipPath></defs>
+  <rect class="night" x="496" y="0" width="256" height="300"/>
+  <text class="glyph" x="470" y="300" font-size="330" clip-path="url(#slab)">%</text>
+  <rect class="paper" x="752" y="0" width="208" height="176"/>
+  <line class="rule" x1="776" y1="70" x2="960" y2="70"/>
+  <line class="rule" x1="776" y1="114" x2="960" y2="114"/>
+  <line class="rule" x1="776" y1="158" x2="960" y2="158"/>
+  <circle class="brass" cx="816" cy="236" r="14"/>
+</svg>
+<div class="t"><p class="n">sven.fm</p><p class="s">Pine, quiet. A name, three numbers, one way to get in touch.</p></div>
+</body></html>

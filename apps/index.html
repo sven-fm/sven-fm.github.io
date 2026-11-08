@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Newconic Ventures · Apps and support</title>
+  <meta name="description" content="Newconic Ventures is the developer of Train with Kalle and TrainingZones. Contact the developer for support, feedback or privacy requests." />
+  <meta name="author" content="Sven Ahrens" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://sven.fm/apps/" />
+  <meta name="theme-color" content="#08100B" />
+  <meta name="color-scheme" content="dark light" />
+  <script>
+    /* Theme before first paint: saved choice, else dark. */
+    (function () {
+      var d = document.documentElement, t;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "light") t = "dark";
+      d.dataset.theme = t;
+      d.classList.add("js");
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.content = t === "light" ? "#DCE4D2" : "#08100B";
+    })();
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sven.fm/apps/" />
+  <meta property="og:site_name" content="Sven Ahrens" />
+  <meta property="og:title" content="Newconic Ventures · Apps and support" />
+  <meta property="og:description" content="The developer of Train with Kalle and TrainingZones. Get in touch." />
+  <meta property="og:image" content="https://sven.fm/assets/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preload" href="/assets/fonts/syne-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/instrument-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="/main.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ContactPage",
+        "@id": "https://sven.fm/apps/#webpage",
+        "url": "https://sven.fm/apps/",
+        "name": "Newconic Ventures · Apps and support",
+        "isPartOf": { "@id": "https://sven.fm/#website" },
+        "about": { "@id": "https://sven.fm/#newconic" },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://sven.fm/#newconic",
+        "name": "Newconic Ventures",
+        "founder": { "@id": "https://sven.fm/#sven" },
+        "location": { "@type": "City", "name": "Berlin" },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "url": "https://sven.fm/apps/#contact",
+          "availableLanguage": ["English", "German"]
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Train with Kalle",
+        "url": "https://www.trainwithkalle.com",
+        "applicationCategory": "HealthApplication",
+        "author": { "@id": "https://sven.fm/#newconic" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "TrainingZones",
+        "url": "https://www.trainingzones.app",
+        "applicationCategory": "HealthApplication",
+        "author": { "@id": "https://sven.fm/#newconic" }
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body class="page-doc">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="hdr" id="hdr">
+    <a class="mark" href="/" aria-label="sven.fm, home"><span class="dot" aria-hidden="true"></span>sven.fm</a>
+    <nav class="hdr__nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme" type="button" id="theme" aria-label="Switch to light mode">
+      <svg class="theme__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <svg class="theme__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    </button>
+  </header>
+
+  <main id="main" class="doc">
+    <header class="doc__head">
+      <p class="doc__kicker">Newconic Ventures</p>
+      <h1>Apps</h1>
+      <p class="doc__lede">
+        Newconic Ventures is the developer of the apps below, run by Sven Ahrens in Berlin.
+        Questions, bugs, feedback or privacy requests about any of them come straight to me.
+      </p>
+    </header>
+
+    <section aria-labelledby="s-apps">
+      <h2 id="s-apps">Our apps</h2>
+      <ul class="apps">
+        <li>
+          <a class="apps__row" href="https://www.trainwithkalle.com" target="_blank" rel="noopener">
+            <span class="apps__name">Train with Kalle</span>
+            <span class="apps__url">trainwithkalle.com</span>
+          </a>
+        </li>
+        <li>
+          <a class="apps__row" href="https://www.trainingzones.app" target="_blank" rel="noopener">
+            <span class="apps__name">TrainingZones</span>
+            <span class="apps__url">trainingzones.app</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section id="contact" aria-labelledby="s-contact">
+      <h2 id="s-contact">Contact the developer</h2>
+      <div>
+        <p>Messages go to Newconic Ventures, the developer of these apps. I usually reply within two working days.</p>
+
+        <form class="form" id="contact-form" action="/api/contact" method="post" novalidate>
+          <div class="form__row">
+            <label class="form__field">
+              <span class="form__label">Name</span>
+              <input type="text" name="name" autocomplete="name" maxlength="120" required />
+            </label>
+            <label class="form__field">
+              <span class="form__label">Email</span>
+              <input type="email" name="email" autocomplete="email" maxlength="200" required />
+            </label>
+          </div>
+          <label class="form__field">
+            <span class="form__label">App</span>
+            <select name="app">
+              <option>Train with Kalle</option>
+              <option>TrainingZones</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label class="form__field">
+            <span class="form__label">Message</span>
+            <textarea name="message" rows="6" maxlength="5000" required></textarea>
+          </label>
+          <!-- Honeypot: people never see or fill this; bots do. -->
+          <label class="form__hp" aria-hidden="true">Company <input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+
+          <div class="form__foot">
+            <button class="form__btn" type="submit">Send message</button>
+            <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+          </div>
+          <p class="form__note">Your name, email and message are used only to answer you and are not shared.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ftr">
+    <span>© <span id="year">2026</span> Newconic Ventures · Sven Ahrens, Berlin</span>
+    <nav aria-label="Footer">
+      <a href="/">sven.fm</a>
+      <a href="/profile/">Profile</a>
+    </nav>
+  </footer>
+
+  <script>
+    /* Send without leaving the page. Without JS the form posts normally and the endpoint redirects back. */
+    (function () {
+      var form = document.getElementById("contact-form");
+      var status = document.getElementById("form-status");
+      if (/[?&]sent=1/.test(location.search)) status.textContent = "Thanks, your message is on its way.";
+      if (/[?&]sent=0/.test(location.search)) status.textContent = "Something went wrong. Please try again.";
+      if (!form || !window.fetch) return;
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!form.reportValidity()) return;
+        var btn = form.querySelector("button");
+        var data = Object.fromEntries(new FormData(form));
+        btn.disabled = true;
+        status.textContent = "Sending…";
+        fetch(form.action, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(data)
+        }).then(function (r) {
+          return r.json().catch(function () { return {}; }).then(function (j) {
+            if (!r.ok) throw new Error(j.error || "Something went wrong. Please try again.");
+            form.reset();
+            status.textContent = "Thanks, your message is on its way.";
+          });
+        }).catch(function (err) {
+          status.textContent = err.message;
+        }).finally(function () { btn.disabled = false; });
+      });
+    })();
+  </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -8,3 +8,5 @@ redesign/
 *.zip
 
 Claude outputs/
+.vercel
+.env*

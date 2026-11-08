@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
   <title>Newconic Ventures · Apps and support</title>
-  <meta name="description" content="Newconic Ventures is the developer of Train with Kalle and TrainingZones. Contact the developer for support, feedback or privacy requests." />
+  <meta name="description" content="Newconic Ventures is the developer of Train with Kalle, TrainingZones, Snanify, Seconds and Rosie. Contact the developer for support, feedback or privacy requests." />
   <meta name="author" content="Sven Ahrens" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://sven.fm/apps/" />
@@ -32,7 +32,7 @@
   <meta property="og:url" content="https://sven.fm/apps/" />
   <meta property="og:site_name" content="Sven Ahrens" />
   <meta property="og:title" content="Newconic Ventures · Apps and support" />
-  <meta property="og:description" content="The developer of Train with Kalle and TrainingZones. Get in touch." />
+  <meta property="og:description" content="The developer of Train with Kalle, TrainingZones, Snanify, Seconds and Rosie. Get in touch." />
   <meta property="og:image" content="https://sven.fm/assets/og.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -80,13 +80,33 @@
         "url": "https://www.trainingzones.app",
         "applicationCategory": "HealthApplication",
         "author": { "@id": "https://sven.fm/#newconic" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Snanify",
+        "url": "https://www.snanify.com",
+        "applicationCategory": "LifestyleApplication",
+        "author": { "@id": "https://sven.fm/#newconic" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Seconds",
+        "operatingSystem": "iOS",
+        "applicationCategory": "PhotographyApplication",
+        "author": { "@id": "https://sven.fm/#newconic" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Rosie",
+        "applicationCategory": "LifestyleApplication",
+        "author": { "@id": "https://sven.fm/#newconic" }
       }
     ]
   }
   </script>
 </head>
 
-<body class="page-doc">
+<body class="page-doc page-apps">
   <a class="skip" href="#main">Skip to content</a>
   <div class="grain" aria-hidden="true"></div>
 
@@ -110,22 +130,60 @@
         Newconic Ventures is the developer of the apps below, run by Sven Ahrens in Berlin.
         Questions, bugs, feedback or privacy requests about any of them come straight to me.
       </p>
+      <div class="fan" aria-hidden="true">
+        <img src="/assets/apps/kalle.svg" alt="" width="96" height="96" />
+        <img src="/assets/apps/trainingzones.svg" alt="" width="96" height="96" />
+        <img src="/assets/apps/snanify.png" alt="" width="96" height="96" />
+        <img src="/assets/apps/seconds.svg" alt="" width="96" height="96" />
+        <img src="/assets/apps/rosie.svg" alt="" width="96" height="96" />
+      </div>
     </header>
 
-    <section aria-labelledby="s-apps">
+    <section class="apps-sec" aria-labelledby="s-apps">
       <h2 id="s-apps">Our apps</h2>
       <ul class="apps">
-        <li>
-          <a class="apps__row" href="https://www.trainwithkalle.com" target="_blank" rel="noopener">
-            <span class="apps__name">Train with Kalle</span>
-            <span class="apps__url">trainwithkalle.com</span>
+        <li class="app" style="--tint: #bbf246">
+          <a class="app__card" href="https://www.trainwithkalle.com" target="_blank" rel="noopener">
+            <img class="app__icon" src="/assets/apps/kalle.svg" alt="" width="88" height="88" />
+            <span class="app__tag">Live</span>
+            <h3 class="app__name">Train with Kalle</h3>
+            <p class="app__desc">An AI coach for endurance and strength that plans each day's workout from your own training data.</p>
+            <span class="app__url">trainwithkalle.com</span>
           </a>
         </li>
-        <li>
-          <a class="apps__row" href="https://www.trainingzones.app" target="_blank" rel="noopener">
-            <span class="apps__name">TrainingZones</span>
-            <span class="apps__url">trainingzones.app</span>
+        <li class="app" style="--tint: #8fd13a">
+          <a class="app__card" href="https://www.trainingzones.app" target="_blank" rel="noopener">
+            <img class="app__icon" src="/assets/apps/trainingzones.svg" alt="" width="88" height="88" />
+            <span class="app__tag">Live</span>
+            <h3 class="app__name">TrainingZones</h3>
+            <p class="app__desc">Free, science-based training-zone calculators for heart rate, power, pace and more.</p>
+            <span class="app__url">trainingzones.app</span>
           </a>
+        </li>
+        <li class="app" style="--tint: #e04a40">
+          <a class="app__card" href="https://www.snanify.com" target="_blank" rel="noopener">
+            <img class="app__icon" src="/assets/apps/snanify.png" alt="" width="88" height="88" />
+            <span class="app__tag">Live</span>
+            <h3 class="app__name">Snanify</h3>
+            <p class="app__desc">A digital snan: three quiet minutes each morning with the river you grew up near.</p>
+            <span class="app__url">snanify.com</span>
+          </a>
+        </li>
+        <li class="app app--soon" style="--tint: #ff5a3c">
+          <div class="app__card">
+            <img class="app__icon" src="/assets/apps/seconds.svg" alt="" width="88" height="88" />
+            <span class="app__tag">Soon · iOS</span>
+            <h3 class="app__name">Seconds</h3>
+            <p class="app__desc">Finds bursts and duplicates in your photo library, keeps the best shot and clears the rest.</p>
+          </div>
+        </li>
+        <li class="app app--soon" style="--tint: #f5b8c4">
+          <div class="app__card">
+            <img class="app__icon" src="/assets/apps/rosie.svg" alt="" width="88" height="88" />
+            <span class="app__tag">Soon</span>
+            <h3 class="app__name">Rosie</h3>
+            <p class="app__desc">One shared family calendar for duties, school runs and groceries, run by one-sentence chat.</p>
+          </div>
         </li>
       </ul>
     </section>
@@ -151,6 +209,9 @@
             <select name="app">
               <option>Train with Kalle</option>
               <option>TrainingZones</option>
+              <option>Snanify</option>
+              <option>Seconds</option>
+              <option>Rosie</option>
               <option>Something else</option>
             </select>
           </label>

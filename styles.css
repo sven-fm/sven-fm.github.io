@@ -532,6 +532,7 @@ a { color: inherit; text-decoration: none; }
 .app__desc { font-size: var(--fs-small); line-height: 1.5; color: var(--fg-body); max-width: 34ch; }
 .app__url { margin-top: auto; padding-top: 14px; font-size: var(--fs-small); color: var(--fg-muted); }
 .app__url::after { content: " ↗"; color: var(--accent); }
+.app__url--in::after { content: " →"; }
 a.app__card:hover, a.app__card:focus-visible { transform: translateY(-4px); border-color: color-mix(in srgb, var(--tint) 55%, transparent); }
 a.app__card:hover::before, a.app__card:focus-visible::before { opacity: 1; }
 a.app__card:hover .app__icon, a.app__card:focus-visible .app__icon { transform: rotate(-6deg) scale(1.05); }
@@ -567,6 +568,15 @@ a.app__card:hover .app__icon, a.app__card:focus-visible .app__icon { transform: 
 .form__status { font-size: var(--fs-small); color: var(--fg-body); }
 .form__note { font-size: var(--fs-small); color: var(--fg-muted); }
 @media (max-width: 560px) { .form__row { grid-template-columns: 1fr; } }
+
+/* ── Seconds (/apps/seconds/): app page and its legal pages ───────────── */
+.seconds-icon {
+  width: clamp(88px, 9vw, 120px); height: auto; border-radius: 22.5%; margin-bottom: 26px;
+  box-shadow: 0 22px 50px -20px rgba(255, 90, 60, .7);
+}
+.links { display: grid; gap: 10px; }
+.links a { font: 600 var(--fs-role)/1.2 var(--display); letter-spacing: -.03em; }
+.links a::after { content: " →"; font-family: var(--text); color: var(--accent); }
 
 /* ── Motion: first paint choreography + reveals ────────────────────────── */
 .js [data-in] { opacity: 0; transform: translateY(18px); }

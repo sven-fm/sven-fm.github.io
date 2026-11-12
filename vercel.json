@@ -3,39 +3,79 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "svenahrens.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "svenahrens.com"
+        }
+      ],
       "destination": "https://sven.fm/:path*",
       "statusCode": 301
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.svenahrens.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.svenahrens.com"
+        }
+      ],
       "destination": "https://sven.fm/:path*",
       "statusCode": 301
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "book.svenahrens.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "book.svenahrens.com"
+        }
+      ],
       "destination": "https://calendar.app.google/w12DA7YKvekX6PsS7",
       "permanent": false
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "cal.svenahrens.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "cal.svenahrens.com"
+        }
+      ],
       "destination": "https://calendar.app.google/w12DA7YKvekX6PsS7",
       "permanent": false
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "30min.svenahrens.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "30min.svenahrens.com"
+        }
+      ],
       "destination": "https://calendar.app.google/3tksiiYJRLdBNiV59",
       "permanent": false
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "60min.svenahrens.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "60min.svenahrens.com"
+        }
+      ],
       "destination": "https://calendar.app.google/t91wtpEGvW6QDBhK7",
       "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/zellerfeld",
+      "destination": "https://zellerfeld-six.vercel.app/zellerfeld"
+    },
+    {
+      "source": "/zellerfeld/:path*",
+      "destination": "https://zellerfeld-six.vercel.app/zellerfeld/:path*"
     }
   ]
 }

@@ -4,16 +4,21 @@
 (() => {
   const root = document.querySelector(".site");
   const mq = (q) => window.matchMedia(q);
-    const sticky = mq("(min-width: 901px) and (min-height: 640px)");
+  const sticky = mq("(min-width: 901px) and (min-height: 640px)");
+  const narrow = mq("(max-width: 900px)");
 
   /* 1. Control panel: which section is in the middle of the viewport.
-        Sets data-sec on .site; CSS moves the readout reel, the meter and the portrait. */
-  let io = null;
+        Sets data-sec on .site; CSS moves the readout reel, the meter and the portrait (desktop panel)
+        or the stats bar (mobile). On mobile, data-bar marks the panel as scrolled away, which shows the bar. */
+  let io = null, panelIo = null;
   const sections = [...document.querySelectorAll("[data-sec]")];
+  const panel = document.querySelector(".panel");
   const track = () => {
     if (io) { io.disconnect(); io = null; }
+    if (panelIo) { panelIo.disconnect(); panelIo = null; }
     if (!root) return;
-    if (!sticky.matches || !("IntersectionObserver" in window) || !sections.length) {
+    root.removeAttribute("data-bar");
+    if (!(sticky.matches || narrow.matches) || !("IntersectionObserver" in window) || !sections.length) {
       root.removeAttribute("data-sec");
       return;
     }
@@ -21,9 +26,16 @@
       for (const e of entries) if (e.isIntersecting) root.dataset.sec = e.target.dataset.sec;
     }, { rootMargin: "-45% 0px -45% 0px" });
     sections.forEach((s) => io.observe(s));
+    if (panel && narrow.matches) {
+      panelIo = new IntersectionObserver(([e]) => {
+        root.toggleAttribute("data-bar", !e.isIntersecting && e.boundingClientRect.top < 0);
+      });
+      panelIo.observe(panel);
+    }
   };
   track();
   sticky.addEventListener("change", track);
+  narrow.addEventListener("change", track);
 
   /* 2. Link underline draws in from the side the pointer entered. */
   document.addEventListener("pointerover", (e) => {
@@ -32,6 +44,25 @@
     const r = a.getBoundingClientRect();
     a.style.setProperty("--o", e.clientX - r.left < r.width / 2 ? "left" : "right");
   });
+
+  /* 2b. Product shelf: the tab of the slide in view is current; a tab scrolls its slide in.
+         Without JS the tabs are plain anchors and the track still swipes and snaps. */
+  const shelf = document.querySelector(".shelf__track");
+  if (shelf && "IntersectionObserver" in window) {
+    const tabs = [...document.querySelectorAll(".shelf__tab")];
+    const slides = [...shelf.children];
+    const mark = (i) => tabs.forEach((t, j) => t.setAttribute("aria-current", String(i === j)));
+    const sio = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) mark(slides.indexOf(e.target));
+    }, { root: shelf, threshold: 0.6 });
+    slides.forEach((s) => sio.observe(s));
+    tabs.forEach((t, i) => t.addEventListener("click", (e) => {
+      e.preventDefault();
+      const instant = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      shelf.scrollTo({ left: slides[i].offsetLeft - shelf.offsetLeft, behavior: instant ? "auto" : "smooth" });
+      mark(i);
+    }));
+  }
 
   /* 3. CTA press: short haptic tick on Android; silently ignored elsewhere. */
   document.addEventListener("pointerdown", (e) => {

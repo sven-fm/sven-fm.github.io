@@ -204,6 +204,16 @@
     </div>
   </header>
 
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__reel">
+      <div class="ticker__item"><p class="ticker__fig ticker__name">Sven Ahrens</p><p class="ticker__cap">Spotify, Yousician, Bain.</p></div>
+      <div class="ticker__item"><p class="ticker__fig">$5-200M</p><p class="ticker__cap">run rate of the consumer companies I work with</p></div>
+      <div class="ticker__item"><p class="ticker__fig">10+</p><p class="ticker__cap">years in consumer tech</p></div>
+      <div class="ticker__item"><p class="ticker__fig">23</p><p class="ticker__cap">angel investments, 2 exits</p></div>
+    </div>
+    <div class="ticker__meter"></div>
+  </div>
+
   <div class="main">
     <main id="main" class="col">
 
@@ -244,37 +254,41 @@
         <div class="proof">
           <h3 class="h3">I ship, not slides.</h3>
           <p>Growth leader by trade, AI tinkerer by habit. With AI, I cut asset production cost by over 75% and doubled marketing test throughput in my previous companies. I ship my own consumer products.</p>
-          <div class="plates">
-            <a class="plate plate--wide" href="https://www.trainwithkalle.com">
-              <div class="plate__frame">
-                <picture>
-                  <source type="image/avif" srcset="/assets/img/kalle-800.avif 800w, /assets/img/kalle-1600.avif 1600w" sizes="(min-width: 901px) 760px, 100vw">
-                  <img src="/assets/img/kalle-800.webp" srcset="/assets/img/kalle-800.webp 800w, /assets/img/kalle-1600.webp 1600w" sizes="(min-width: 901px) 760px, 100vw" width="1600" height="900" alt="Coach Kalle Today screen: an uphill sharpening run with its steps and why Kalle chose it, readiness, HRV, sleep and the week ahead" loading="lazy" decoding="async">
-                </picture>
-              </div>
-              <p class="plate__name"><span class="link">trainwithkalle.com</span></p>
-              <p class="label">A personal AI endurance coach</p>
-            </a>
-            <a class="plate" href="https://www.trainingzones.app">
-              <div class="plate__frame">
-                <picture>
-                  <source type="image/avif" srcset="/assets/img/trainingzones-800.avif 800w, /assets/img/trainingzones-1600.avif 1600w" sizes="(min-width: 901px) 368px, 100vw">
-                  <img src="/assets/img/trainingzones-800.webp" srcset="/assets/img/trainingzones-800.webp 800w, /assets/img/trainingzones-1600.webp 1600w" sizes="(min-width: 901px) 368px, 100vw" width="1600" height="900" alt="TrainingZones heart rate zone calculator: five zones from a maximum heart rate of 185 bpm" loading="lazy" decoding="async">
-                </picture>
-              </div>
-              <p class="plate__name"><span class="link">trainingzones.app</span></p>
-              <p class="label">Training zones from your own data</p>
-            </a>
-            <a class="plate" href="https://www.snanify.com">
-              <div class="plate__frame">
-                <picture>
-                  <source type="image/avif" srcset="/assets/img/snanify-800.avif 800w, /assets/img/snanify-1600.avif 1600w" sizes="(min-width: 901px) 368px, 100vw">
-                  <img src="/assets/img/snanify-800.webp" srcset="/assets/img/snanify-800.webp 800w, /assets/img/snanify-1600.webp 1600w" sizes="(min-width: 901px) 368px, 100vw" width="1600" height="900" alt="Snanify breath screen and a Sankalp Patra sheet for the Ganga at Har Ki Pauri" loading="lazy" decoding="async">
-                </picture>
-              </div>
-              <p class="plate__name"><span class="link">snanify.com</span></p>
-              <p class="label">A digital Ganga bath, three minutes each morning</p>
-            </a>
+          <div class="shelf">
+            <nav class="shelf__tabs" aria-label="Products">
+              <a class="link link--pad shelf__tab" href="#p-kalle" aria-current="true">Coach Kalle</a>
+              <a class="link link--pad shelf__tab" href="#p-trainingzones">TrainingZones</a>
+              <a class="link link--pad shelf__tab" href="#p-snanify">Snanify</a>
+            </nav>
+            <div class="shelf__track" tabindex="0" role="region" aria-label="Products I built">
+              <figure class="shelf__slide" id="p-kalle">
+                <a class="shelf__shot" href="https://www.trainwithkalle.com" tabindex="-1">
+                  <picture>
+                    <source type="image/avif" srcset="/assets/img/kalle-800.avif 800w, /assets/img/kalle-1600.avif 1600w" sizes="(min-width: 901px) 712px, 90vw">
+                    <img src="/assets/img/kalle-800.webp" srcset="/assets/img/kalle-800.webp 800w, /assets/img/kalle-1600.webp 1600w" sizes="(min-width: 901px) 712px, 90vw" width="1600" height="900" alt="Coach Kalle Today screen: an uphill sharpening run with its steps and why Kalle chose it, readiness, HRV, sleep and the week ahead" loading="lazy" decoding="async">
+                  </picture>
+                </a>
+                <figcaption class="shelf__cap"><span>A personal AI endurance coach</span><a class="link" href="https://www.trainwithkalle.com">trainwithkalle.com</a></figcaption>
+              </figure>
+              <figure class="shelf__slide" id="p-trainingzones">
+                <a class="shelf__shot" href="https://www.trainingzones.app" tabindex="-1">
+                  <picture>
+                    <source type="image/avif" srcset="/assets/img/trainingzones-800.avif 800w, /assets/img/trainingzones-1600.avif 1600w" sizes="(min-width: 901px) 712px, 90vw">
+                    <img src="/assets/img/trainingzones-800.webp" srcset="/assets/img/trainingzones-800.webp 800w, /assets/img/trainingzones-1600.webp 1600w" sizes="(min-width: 901px) 712px, 90vw" width="1600" height="900" alt="TrainingZones heart rate zone calculator: five zones from a maximum heart rate of 185 bpm" loading="lazy" decoding="async">
+                  </picture>
+                </a>
+                <figcaption class="shelf__cap"><span>Training zones from your own data</span><a class="link" href="https://www.trainingzones.app">trainingzones.app</a></figcaption>
+              </figure>
+              <figure class="shelf__slide" id="p-snanify">
+                <a class="shelf__shot" href="https://www.snanify.com" tabindex="-1">
+                  <picture>
+                    <source type="image/avif" srcset="/assets/img/snanify-800.avif 800w, /assets/img/snanify-1600.avif 1600w" sizes="(min-width: 901px) 712px, 90vw">
+                    <img src="/assets/img/snanify-800.webp" srcset="/assets/img/snanify-800.webp 800w, /assets/img/snanify-1600.webp 1600w" sizes="(min-width: 901px) 712px, 90vw" width="1600" height="900" alt="Snanify breath screen and a Sankalp Patra sheet for the Ganga at Har Ki Pauri" loading="lazy" decoding="async">
+                  </picture>
+                </a>
+                <figcaption class="shelf__cap"><span>A digital Ganga bath, three minutes each morning</span><a class="link" href="https://www.snanify.com">snanify.com</a></figcaption>
+              </figure>
+            </div>
           </div>
         </div>
       </section>

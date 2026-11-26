@@ -146,6 +146,9 @@
   --touch: 44px;              /* minimum hit target */
   --cta-h: 64px;
   --meter-w: 4px;
+  --ticker-h: min(76px, 20svh);            /* mobile stats bar: never more than a fifth of the screen */
+  --t-ticker: 40px;                        /* mobile stats bar figure */
+  --measure-ticker: 24ch;                  /* mobile stats bar caption */
   --stroke: 2px;              /* underlines, focus rings, field edge */
   --focus-offset: 4px;
   --icon: 24px;               /* LinkedIn glyph */
@@ -430,19 +433,28 @@ html:not(.js) .theme-toggle { display: none; }
 .offer__now { margin-top: var(--s-4); max-width: var(--measure-l); }
 .offer__now b { font-weight: var(--w-semibold); }
 
-/* Product proof plates */
+/* Product proof */
 .proof { margin-top: var(--s-6); }
 .proof p { margin-top: var(--s-2); max-width: var(--measure-l); color: var(--ink-2); }
-.plates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); margin-top: var(--s-4); }
-.plate { display: block; }
-.plate--wide { grid-column: 1 / -1; }
-.plate__frame { position: relative; overflow: hidden; aspect-ratio: var(--plate-ar); background: var(--tint); border-radius: var(--radius); }
-.plate__frame img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: top center;
+/* Product shelf: one dark stage, a carousel of three product screens. Tabs pick a slide; swipe or scroll works without JS. */
+.shelf { margin-top: var(--s-4); padding-bottom: var(--s-3); background: var(--panel); color: var(--panel-ink); }
+.shelf__tabs { display: flex; flex-wrap: wrap; gap: 0 var(--s-3); padding: var(--s-1) var(--s-3) 0; }
+.shelf__tab { font: var(--w-semibold) var(--t-body) / 1 var(--font-display); letter-spacing: var(--tr-sub); color: var(--panel-ink-2); }
+.shelf__tab::before { opacity: 0; }
+.shelf__tab[aria-current="true"] { color: var(--panel-ink); }
+.shelf__tab[aria-current="true"]::after { transform: scaleX(1); }
+.shelf__track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 100%;
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+  margin-top: var(--s-1);
 }
-.plate__name { margin-top: var(--s-2); font-weight: var(--w-semibold); }
-.plate .label { margin-top: var(--s-0); }
+.shelf__track::-webkit-scrollbar { display: none; }
+.shelf__track:focus-visible { outline: var(--stroke) solid var(--focus); outline-offset: calc(var(--stroke) * -1); }
+.shelf__slide { scroll-snap-align: start; padding: 0 var(--s-3); }
+.shelf__shot { display: block; aspect-ratio: var(--plate-ar); overflow: hidden; }
+.shelf__shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.shelf__cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-0) var(--s-2); margin-top: var(--s-2); font-size: var(--t-small); color: var(--panel-ink-2); }
+.shelf__cap .link { color: var(--panel-ink); font-weight: var(--w-semibold); }
 
 /* Career table: aligned columns, no rules. Row reveals one detail on hover. */
 .career { margin-top: var(--s-3); }
@@ -510,7 +522,7 @@ html:not(.js) .theme-toggle { display: none; }
 
 /* Mobile: panel becomes a header band, single column */
 @media (max-width: 900px) {
-  .site { grid-template-columns: 1fr; }
+  .site { grid-template-columns: minmax(0, 1fr); }
   .panel__pin { min-height: var(--panel-min-s); }
   .readout__win { height: auto; }
   .readout__reel { height: auto; transform: none !important; }
@@ -518,13 +530,57 @@ html:not(.js) .theme-toggle { display: none; }
   .readout__item:not(:first-child), .meter { display: none; }
   .main { padding: 0 var(--pad) var(--pad); }
   .hero { padding-top: var(--s-4); }
-  .stats, .offer__cols, .plates { grid-template-columns: 1fr; }
+  .stats, .offer__cols { grid-template-columns: 1fr; }
+  /* Shelf bleeds to the screen edges; the next slide peeks in to show it swipes */
+  .shelf { margin-inline: calc(var(--pad) * -1); }
+  .shelf__tabs { padding-inline: var(--pad); }
+  .shelf__track { grid-auto-columns: 88%; scroll-padding-inline: var(--pad); }
+  .shelf__slide { padding: 0 0 0 var(--pad); }
+  .shelf__slide:last-child { padding-right: var(--pad); }
   .portfolio__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .career__row { grid-template-columns: var(--career-cols-s); column-gap: var(--s-2); }
   .career__years { white-space: nowrap; }
   .career__role, .career__num, .career__detail { grid-column: 2; }
   .career__num { text-align: left; }
 }
+/* Mobile stats bar: the panel's readout and meter, pinned to the top once the panel has scrolled away.
+   Shown only with JS (it follows the sections); hidden on desktop, where the panel itself is pinned. */
+.ticker { display: none; }
+@media (max-width: 900px) {
+  html.js .ticker {
+    display: block; position: fixed; inset: 0 0 auto; z-index: 10;
+    height: var(--ticker-h); overflow: hidden;
+    background: var(--panel); color: var(--panel-ink);
+    transform: translateY(-100%);
+    transition: transform var(--dur-reel) var(--ease-out);
+  }
+  html.js .site[data-bar] .ticker { transform: none; }
+  .ticker__reel {
+    display: flex; flex-direction: column; height: 400%;
+    transition: transform var(--dur-reel) var(--ease-spring);
+  }
+  .ticker__item { flex: 0 0 25%; display: flex; align-items: center; gap: var(--s-2); padding: 0 var(--pad); }
+  .ticker__fig { font: var(--w-semibold) var(--t-ticker) / 1 var(--font-text); letter-spacing: var(--tr-display); white-space: nowrap; }
+  .ticker__name { font-family: var(--font-display); font-weight: var(--w-black); }
+  .ticker__cap { max-width: var(--measure-ticker); font-size: var(--t-small); line-height: var(--lh-caption); color: var(--panel-ink-2); }
+  .ticker__meter {
+    position: absolute; left: 0; right: 0; bottom: 0; height: var(--meter-w);
+    background: var(--signal);
+    transform: scaleX(0.25); transform-origin: 0 50%;
+    transition: transform var(--dur-reel) var(--ease-spring);
+  }
+  .site[data-sec="1"] .ticker__reel { transform: translateY(-25%); }
+  .site[data-sec="2"] .ticker__reel { transform: translateY(-50%); }
+  .site[data-sec="3"] .ticker__reel { transform: translateY(-75%); }
+  .site[data-sec="1"] .ticker__meter { transform: scaleX(0.5); }
+  .site[data-sec="2"] .ticker__meter { transform: scaleX(0.75); }
+  .site[data-sec="3"] .ticker__meter { transform: scaleX(1); }
+
+  /* Soft snap: sections settle just under the bar when a scroll ends near their start */
+  html.js { scroll-snap-type: y proximity; }
+  html.js [data-sec] { scroll-snap-align: start; scroll-margin-top: var(--ticker-h); }
+}
+
 /* Phones: the logo row breaks into two even rows (4 + 3), each filling the width */
 @media (max-width: 600px) {
   .logos { flex-wrap: wrap; --logo-sum: 334; --logo-gaps: 3; }

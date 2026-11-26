@@ -7,7 +7,7 @@
       "permanent": false
     },
     {
-      "source": "/profile",
+      "source": "/profile{/}?",
       "destination": "/about/",
       "statusCode": 301
     },

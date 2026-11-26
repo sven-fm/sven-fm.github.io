@@ -155,7 +155,7 @@
   --band-icon: 96px;
   --career-cols: 88px 190px minmax(0, 1fr) minmax(0, 15ch);
   --career-cols-s: 80px minmax(0, 1fr);
-  --plate-ar: 16 / 10;
+  --plate-ar: 16 / 9;
   --logo-gap: var(--s-3);
   --offscreen: -9999px;
 
@@ -174,7 +174,6 @@
   --o-dim: 0.2;          /* inactive readout item */
   --o-rest: 0.3;         /* resting underline */
   --o-disabled: 0.6;
-  --o-plate-dark: 0.88;  /* screenshots in dark mode, so they do not glare */
   --hover-up: 1.07;      /* CTA hover brightness */
   --hover-down: 0.85;    /* dark buttons hover brightness */
 
@@ -437,6 +436,7 @@ html:not(.js) .theme-toggle { display: none; }
 .proof p { margin-top: var(--s-2); max-width: var(--measure-l); color: var(--ink-2); }
 .plates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); margin-top: var(--s-4); }
 .plate { display: block; }
+.plate--wide { grid-column: 1 / -1; }
 .plate__frame { position: relative; overflow: hidden; aspect-ratio: var(--plate-ar); background: var(--tint); border-radius: var(--radius); }
 .plate__frame img {
   position: absolute; inset: calc(var(--plate-shift) * -1.6);
@@ -445,7 +445,6 @@ html:not(.js) .theme-toggle { display: none; }
   transform: translate(calc(var(--px, 0) * var(--plate-shift)), calc(var(--py, 0) * var(--plate-shift)));
   transition: transform var(--dur-base) var(--ease-out);
 }
-:root[data-theme="dark"] .plate__frame img { opacity: var(--o-plate-dark); }
 .plate__name { margin-top: var(--s-2); font-weight: var(--w-semibold); }
 .plate .label { margin-top: var(--s-0); }
 

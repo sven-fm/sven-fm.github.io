@@ -4,9 +4,7 @@
 (() => {
   const root = document.querySelector(".site");
   const mq = (q) => window.matchMedia(q);
-  const reduced = mq("(prefers-reduced-motion: reduce)");
-  const finePointer = mq("(hover: hover) and (pointer: fine)");
-  const sticky = mq("(min-width: 901px) and (min-height: 640px)");
+    const sticky = mq("(min-width: 901px) and (min-height: 640px)");
 
   /* 1. Control panel: which section is in the middle of the viewport.
         Sets data-sec on .site; CSS moves the readout reel, the meter and the portrait. */
@@ -35,34 +33,14 @@
     a.style.setProperty("--o", e.clientX - r.left < r.width / 2 ? "left" : "right");
   });
 
-  /* 3. Product plates: screenshot follows the cursor inside its frame, like a print under glass. */
-  let raf = 0;
-  document.addEventListener("pointermove", (e) => {
-    if (!finePointer.matches || reduced.matches) return;
-    const p = e.target.closest(".plate");
-    if (!p) return;
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      const r = p.getBoundingClientRect();
-      p.style.setProperty("--px", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
-      p.style.setProperty("--py", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
-    });
-  }, { passive: true });
-  document.addEventListener("pointerout", (e) => {
-    const p = e.target.closest(".plate");
-    if (!p || p.contains(e.relatedTarget)) return;
-    p.style.setProperty("--px", "0");
-    p.style.setProperty("--py", "0");
-  });
-
-  /* 4. CTA press: short haptic tick on Android; silently ignored elsewhere. */
+  /* 3. CTA press: short haptic tick on Android; silently ignored elsewhere. */
   document.addEventListener("pointerdown", (e) => {
     if (e.target.closest(".cta, .cta-li") && navigator.vibrate) {
       try { navigator.vibrate(8); } catch (_) {}
     }
   });
 
-  /* 5. Portfolio: pointing at or focusing a name writes what the company does into the caption line. */
+  /* 4. Portfolio: pointing at or focusing a name writes what the company does into the caption line. */
   const list = document.querySelector(".portfolio__list");
   const cap = document.querySelector(".portfolio__caption");
   if (list && cap) {
@@ -75,7 +53,7 @@
     list.addEventListener("pointerover", show);
   }
 
-  /* 6. Contact form (home and /apps/): send without leaving the page.
+  /* 5. Contact form (home and /apps/): send without leaving the page.
         Without JS the form posts normally and /api/contact redirects back to #contact-sent or #contact-failed. */
   const form = document.getElementById("contact-form");
   const status = document.getElementById("form-status");
@@ -108,7 +86,7 @@
     });
   }
 
-  /* 7. Theme toggle: light for everyone by default; the choice is remembered. */
+  /* 6. Theme toggle: light for everyone by default; the choice is remembered. */
   const html = document.documentElement;
   const sync = () => {
     const dark = html.dataset.theme === "dark";

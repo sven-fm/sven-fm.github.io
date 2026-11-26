@@ -23,8 +23,21 @@ def stylize(src):
     y = np.linspace(0, 1, a.shape[0])[:, None]
     a *= 0.10 + 0.90 * np.clip(1 - (y - 0.58) / 0.30, 0, 1) ** 1.6  # burn lower body
     a *= 0.80                                                  # low-key ceiling: light type stays readable
-    a = np.clip(a + np.random.default_rng(7).normal(0, 0.022, a.shape), 0, 1)  # grain
-    return Image.fromarray((PANEL + (LIGHT - PANEL) * a[..., None]).astype(np.uint8), "RGB")
+    # grain only where there is image: on the crushed background it would lift the black and show the photo's edge
+    grain = np.random.default_rng(7).normal(0, 0.022, a.shape) * np.clip(a / 0.12, 0, 1)
+    a = np.clip(a + grain, 0, 1)
+    a *= edge_fade(a.shape)                                    # every edge lands exactly on the panel colour
+    return Image.fromarray((PANEL + (LIGHT - PANEL) * a[..., None]).astype(np.uint8))
+
+
+def edge_fade(shape):
+    """1 inside, easing to 0 at each edge, so the photo has no visible border on the panel.
+    The right edge sits in the open panel, so it fades over a wider band, clear of the face."""
+    h, w = shape
+    ease = lambda t: (lambda t: t * t * (3 - 2 * t))(np.clip(t, 0, 1))  # smoothstep
+    x = np.linspace(0, 1, w)[None, :]
+    y = np.linspace(0, 1, h)[:, None]
+    return ease(x / 0.14) * ease((1 - x) / 0.26) * ease(y / 0.14) * ease((1 - y) / 0.14)
 
 
 def main():
@@ -33,10 +46,10 @@ def main():
     img = stylize(src)
     for w in (img.width, img.width // 2):
         im = img.resize((w, round(img.height * w / img.width)), Image.LANCZOS) if w != img.width else img
-        im.save(os.path.join(out, f"sven-portrait-{w}.avif"), quality=58, speed=4)
-        im.save(os.path.join(out, f"sven-portrait-{w}.webp"), quality=80, method=6)
+        im.save(os.path.join(out, f"sven-face-{w}.avif"), quality=58, speed=4)
+        im.save(os.path.join(out, f"sven-face-{w}.webp"), quality=80, method=6)
     for f in sorted(os.listdir(out)):
-        if f.startswith("sven-portrait"):
+        if f.startswith("sven-face"):
             print(f, os.path.getsize(os.path.join(out, f)), "bytes")
 
 

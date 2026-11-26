@@ -32,3 +32,4 @@ Static site on Vercel. Every page uses the C3 Signal route. /styles.css and /mai
 - Never commit `.claude/` or `.env*`.
 - Never publish personal data from Sven's product accounts (Kalle chat history, activity log, locations) in screenshots or the repo.
 - Images in /assets/img are cached for a week: give a changed image a new file name.
+- After every deploy that changes copy, a title or a meta description, run `bash design/tools/indexnow.sh` with the changed paths (e.g. `bash design/tools/indexnow.sh / /about/`). 200 or 202 means accepted. Google ignores IndexNow, so remind Sven to request indexing in Search Console.

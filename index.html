@@ -255,11 +255,17 @@
           <h3 class="h3">I ship, not slides.</h3>
           <p>Growth leader by trade, AI tinkerer by habit. With AI, I cut asset production cost by over 75% and doubled marketing test throughput in my previous companies. I ship my own consumer products.</p>
           <div class="shelf">
+            <div class="shelf__head">
             <nav class="shelf__tabs" aria-label="Products">
               <a class="link link--pad shelf__tab" href="#p-kalle" aria-current="true">Coach Kalle</a>
               <a class="link link--pad shelf__tab" href="#p-trainingzones">TrainingZones</a>
               <a class="link link--pad shelf__tab" href="#p-snanify">Snanify</a>
             </nav>
+            <div class="shelf__step" hidden>
+              <button class="shelf__btn" type="button" data-step="-1" aria-label="Previous product"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6"/></svg></button>
+              <button class="shelf__btn" type="button" data-step="1" aria-label="Next product"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4l6 6-6 6"/></svg></button>
+            </div>
+            </div>
             <div class="shelf__track" tabindex="0" role="region" aria-label="Products I built">
               <figure class="shelf__slide" id="p-kalle">
                 <a class="shelf__shot" href="https://www.trainwithkalle.com" tabindex="-1">

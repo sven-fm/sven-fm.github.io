@@ -438,19 +438,34 @@ html:not(.js) .theme-toggle { display: none; }
 .proof p { margin-top: var(--s-2); max-width: var(--measure-l); color: var(--ink-2); }
 /* Product shelf: one dark stage, a carousel of three product screens. Tabs pick a slide; swipe or scroll works without JS. */
 .shelf { margin-top: var(--s-4); padding-bottom: var(--s-3); background: var(--panel); color: var(--panel-ink); }
-.shelf__tabs { display: flex; flex-wrap: wrap; gap: 0 var(--s-3); padding: var(--s-1) var(--s-3) 0; }
+.shelf__head { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); padding: var(--s-1) var(--s-3) 0; }
+.shelf__tabs { display: flex; flex-wrap: wrap; gap: 0 var(--s-3); }
+.shelf__step { display: flex; flex: none; gap: var(--s-0); }
+.shelf__step[hidden] { display: none; }
+.shelf__btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: var(--touch); height: var(--touch); padding: 0; border: 0; border-radius: var(--radius);
+  background: var(--panel-tint); color: var(--panel-ink); cursor: pointer;
+  transition: transform var(--dur-slow) var(--ease-spring), opacity var(--dur-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.shelf__btn svg { width: var(--s-3); height: var(--s-3); fill: none; stroke: currentColor; stroke-width: var(--stroke); }
+.shelf__btn:disabled { opacity: var(--o-disabled); cursor: default; }
+.shelf__btn:active:not(:disabled) { transform: scale(var(--press-scale)); transition: transform var(--dur-instant) var(--ease-out); }
+.shelf__btn:focus-visible { outline: var(--stroke) solid var(--panel-ink); outline-offset: var(--stroke); }
 .shelf__tab { font: var(--w-semibold) var(--t-body) / 1 var(--font-display); letter-spacing: var(--tr-sub); color: var(--panel-ink-2); }
 .shelf__tab::before { opacity: 0; }
 .shelf__tab[aria-current="true"] { color: var(--panel-ink); }
 .shelf__tab[aria-current="true"]::after { transform: scaleX(1); }
 .shelf__track {
-  display: grid; grid-auto-flow: column; grid-auto-columns: 100%;
+  display: grid; grid-auto-flow: column; grid-auto-columns: 90%; /* the next product peeks in */
   overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
   margin-top: var(--s-1);
 }
 .shelf__track::-webkit-scrollbar { display: none; }
 .shelf__track:focus-visible { outline: var(--stroke) solid var(--focus); outline-offset: calc(var(--stroke) * -1); }
-.shelf__slide { scroll-snap-align: start; padding: 0 var(--s-3); }
+.shelf__slide { scroll-snap-align: start; padding-left: var(--s-3); }
+.shelf__slide:last-child { scroll-snap-align: end; padding-right: var(--s-3); }
 .shelf__shot { display: block; aspect-ratio: var(--plate-ar); overflow: hidden; }
 .shelf__shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .shelf__cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-0) var(--s-2); margin-top: var(--s-2); font-size: var(--t-small); color: var(--panel-ink-2); }
@@ -533,9 +548,10 @@ html:not(.js) .theme-toggle { display: none; }
   .stats, .offer__cols { grid-template-columns: 1fr; }
   /* Shelf bleeds to the screen edges; the next slide peeks in to show it swipes */
   .shelf { margin-inline: calc(var(--pad) * -1); }
-  .shelf__tabs { padding-inline: var(--pad); }
+  .shelf__head { padding-inline: var(--pad); }
+  .shelf__step:not([hidden]) { display: none; } /* phones swipe; the next product peeks in */
   .shelf__track { grid-auto-columns: 88%; scroll-padding-inline: var(--pad); }
-  .shelf__slide { padding: 0 0 0 var(--pad); }
+  .shelf__slide { padding-left: var(--pad); }
   .shelf__slide:last-child { padding-right: var(--pad); }
   .portfolio__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .career__row { grid-template-columns: var(--career-cols-s); column-gap: var(--s-2); }

@@ -51,17 +51,28 @@
   if (shelf && "IntersectionObserver" in window) {
     const tabs = [...document.querySelectorAll(".shelf__tab")];
     const slides = [...shelf.children];
-    const mark = (i) => tabs.forEach((t, j) => t.setAttribute("aria-current", String(i === j)));
+    const step = document.querySelector(".shelf__step");
+    const btns = step ? [...step.querySelectorAll("button")] : [];
+    let cur = 0;
+    const mark = (i) => {
+      if (i < 0) return;
+      cur = i;
+      tabs.forEach((t, j) => t.setAttribute("aria-current", String(i === j)));
+      if (btns.length) { btns[0].disabled = i === 0; btns[1].disabled = i === slides.length - 1; }
+    };
+    const go = (i) => {
+      i = Math.max(0, Math.min(slides.length - 1, i));
+      const instant = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      shelf.scrollTo({ left: slides[i].offsetLeft - shelf.offsetLeft, behavior: instant ? "auto" : "smooth" });
+      mark(i);
+    };
     const sio = new IntersectionObserver((entries) => {
       for (const e of entries) if (e.isIntersecting) mark(slides.indexOf(e.target));
     }, { root: shelf, threshold: 0.6 });
     slides.forEach((s) => sio.observe(s));
-    tabs.forEach((t, i) => t.addEventListener("click", (e) => {
-      e.preventDefault();
-      const instant = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      shelf.scrollTo({ left: slides[i].offsetLeft - shelf.offsetLeft, behavior: instant ? "auto" : "smooth" });
-      mark(i);
-    }));
+    tabs.forEach((t, i) => t.addEventListener("click", (e) => { e.preventDefault(); go(i); }));
+    btns.forEach((b) => b.addEventListener("click", () => go(cur + Number(b.dataset.step))));
+    if (step) { step.hidden = false; mark(0); }
   }
 
   /* 3. CTA press: short haptic tick on Android; silently ignored elsewhere. */

@@ -72,7 +72,7 @@
   /* Type scale (fluid between 390 and 1440 viewports) */
   --t-name: clamp(64px, 7vw, 116px);       /* panel name */
   --t-readout: clamp(72px, 8.4vw, 140px);  /* panel figures */
-  --readout-fit: 24cqi;                    /* figures never wider than the panel */
+  --readout-fit: 21cqi;                    /* widest figure ($5-200M, 4.3em) fits the panel */
   --t-hero: clamp(44px, 4.4vw, 72px);      /* fractional headline, h1 */
   --t-h2: clamp(32px, 2.9vw, 46px);        /* section headings */
   --t-h2-doc: clamp(26px, 2.2vw, 32px);    /* section headings on doc pages */

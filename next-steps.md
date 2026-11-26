@@ -1,5 +1,7 @@
 # sven.fm – next steps
 
+> Old to-do list from the "Pine, quiet" era (paths like `/profile/` and `design-system/` are gone). Design and working rules live in `/CLAUDE.md` only.
+
 > Status 2026-10-12: the "Pine, quiet" redesign shipped. The home page no
 > longer has engagement rows or a FAQ; the depth lives on `/profile/` (with
 > FAQPage JSON-LD). Section 1 below predates that: if `/work/` pages happen,

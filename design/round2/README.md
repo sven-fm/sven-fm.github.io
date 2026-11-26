@@ -1,5 +1,7 @@
 # sven.fm, Round 2: route C3 Signal, code-ready
 
+> Historical spec, not kept in sync. The live rules are in `/CLAUDE.md`; where this file differs (CTA count, screenshot size, device frames, scroll motion, signal colour, email), `/CLAUDE.md` wins.
+
 > **Historical spec.** The live site has moved on. `/styles.css` and `/main.js` at the repo root are the source of truth; the CSS, JS and `reference.html` here are not kept in sync.
 
 Everything Claude Code needs to rebuild the homepage as C3 Signal. `reference.html` is the complete
@@ -21,7 +23,6 @@ copy, wire, delete the old styles.
 | `tools/subset-fonts.sh` | keep in `design/` | Rebuilds the font files from the Google Fonts sources |
 | `tools/stylize-portrait.py` | keep in `design/` | Rebuilds the portrait from any source photo |
 | `tools/shoot-screens.mjs` | keep in `design/` | Captures and encodes the two product screenshots |
-| `CLAUDE-donts.md` | paste into `/CLAUDE.md` | The "do not" list for this route |
 
 The binary assets (fonts, sprite, portrait) are already in their final places under `/assets/`.
 CSS, JS, markup, tools and this spec live in `/design/round2/`. Preview before integrating: run `npx serve .`

@@ -1,5 +1,7 @@
 # sven.fm, Round 2: route C3 Signal, code-ready
 
+> **Historical spec.** The live site has moved on. `/styles.css` and `/main.js` at the repo root are the source of truth; the CSS, JS and `reference.html` here are not kept in sync.
+
 Everything Claude Code needs to rebuild the homepage as C3 Signal. `reference.html` is the complete
 homepage in production markup; the CSS and JS next to it are final. Injecting it is mechanical:
 copy, wire, delete the old styles.
@@ -213,7 +215,7 @@ and the press state carries the feel (deeper scale).
 1. **Portrait source:** the current original is 848×1108, soft at this size on retina. Re-run `tools/stylize-portrait.py` on an original ≥ 1800px tall.
 2. **Product screenshots:** run `tools/shoot-screens.mjs` (needs network). The 404s in the reference preview are these files.
 3. **Knowunity:** add `/assets/logos/knowunity.png` (white-on-transparent wordmark), then switch to `.logo--mask`.
-4. **Email:** confirm `hallo@svenahrens.com`; the repo has no public address apart from `apps@sven.fm`.
+4. **Email:** no address is published. Contact goes through the forms and /api/contact.
 5. **Career numbers:** Muse Group ("LTV model") and Bain ("Munich") have no real figure in the repo.
 6. **`llms.txt` and `/profile/`** still pitch full-time and interim roles; align them with the fractional-only offer when building `/about/`.
 7. **Lighthouse mobile targets:** LCP < 1.8s, CLS < 0.02, Performance 95+, Accessibility 100.

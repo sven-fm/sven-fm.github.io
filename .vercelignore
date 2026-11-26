@@ -1,0 +1,7 @@
+# Not part of the public site. Vercel skips these on every deploy.
+design/
+*.md
+!llms.txt
+Claude outputs/
+.claude/
+.env*

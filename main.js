@@ -71,17 +71,20 @@
       if (li) cap.textContent = li.dataset.name + ": " + li.dataset.d;
     };
     cap.textContent = "Point at or tap a name to see what they do.";
+    /* Descriptions are also in the list itself for screen readers, so the caption is decorative. */
     list.addEventListener("pointerover", show);
-    list.addEventListener("focusin", show);
   }
 
   /* 6. Contact form (home and /apps/): send without leaving the page.
-        Without JS the form posts normally and /api/contact redirects back with ?sent=1 or ?sent=0. */
+        Without JS the form posts normally and /api/contact redirects back to #contact-sent or #contact-failed. */
   const form = document.getElementById("contact-form");
   const status = document.getElementById("form-status");
   if (form && status) {
-    if (/[?&]sent=1/.test(location.search)) status.textContent = "Thanks, your message is on its way.";
-    if (/[?&]sent=0/.test(location.search)) status.textContent = "Something went wrong. Please try again.";
+    /* /apps/?app=Seconds preselects the app in the select. */
+    const pick = new URLSearchParams(location.search).get("app");
+    const sel = form.querySelector('select[name="app"]');
+    if (pick && sel) for (const o of sel.options) if (o.value === pick) o.selected = true;
+    const FAIL = "Something went wrong. Please try again, or book a call instead.";
     form.addEventListener("submit", (e) => {
       if (!window.fetch) return;
       e.preventDefault();
@@ -95,12 +98,28 @@
         body: JSON.stringify(Object.fromEntries(new FormData(form))),
       })
         .then((r) => r.json().catch(() => ({})).then((j) => {
-          if (!r.ok) throw new Error(j.error || "Something went wrong. Please try again.");
+          if (!r.ok) throw Object.assign(new Error(j.error || FAIL), { fromServer: !!j.error });
           form.reset();
           status.textContent = "Thanks, your message is on its way.";
         }))
-        .catch((err) => { status.textContent = err.message; })
+        /* Network failures (offline, blocked) surface as TypeError with browser wording; never show that. */
+        .catch((err) => { status.textContent = err.fromServer ? err.message : FAIL; })
         .finally(() => { btn.disabled = false; });
     });
   }
+
+  /* 7. Theme toggle: light for everyone by default; the choice is remembered. */
+  const html = document.documentElement;
+  const sync = () => {
+    const dark = html.dataset.theme === "dark";
+    document.querySelectorAll(".theme-toggle").forEach((b) => b.setAttribute("aria-pressed", String(dark)));
+  };
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".theme-toggle")) return;
+    const next = html.dataset.theme === "dark" ? "light" : "dark";
+    html.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (_) {}
+    sync();
+  });
+  sync();
 })();

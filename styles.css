@@ -146,8 +146,8 @@
   --touch: 44px;              /* minimum hit target */
   --cta-h: 64px;
   --meter-w: 4px;
-  --ticker-h: min(76px, 20svh);            /* mobile stats bar: never more than a fifth of the screen */
-  --t-ticker: 40px;                        /* mobile stats bar figure */
+  --ticker-h: min(76px, 20svh); --call-sq: 52px;            /* mobile stats bar: never more than a fifth of the screen */
+  --t-ticker: 32px;                        /* mobile stats bar figure */
   --measure-ticker: 24ch;                  /* mobile stats bar caption */
   --stroke: 2px;              /* underlines, focus rings, field edge */
   --focus-offset: 4px;
@@ -169,6 +169,7 @@
   --portrait-top-l: -9%;
   --portrait-h-l: 88%;
   --portrait-x-l: -40%;
+  --portrait-nudge-s: 16px;  /* phones: keeps the lit neck edge off screen */
 
   /* Radii: none anywhere. Square corners are part of the route. */
   --radius: 0;
@@ -458,7 +459,7 @@ html:not(.js) .theme-toggle { display: none; }
 .shelf__tab[aria-current="true"] { color: var(--panel-ink); }
 .shelf__tab[aria-current="true"]::after { transform: scaleX(1); }
 .shelf__track {
-  display: grid; grid-auto-flow: column; grid-auto-columns: 90%; /* the next product peeks in */
+  display: grid; grid-auto-flow: column; grid-auto-columns: 80%; /* a fifth of the next product peeks in */
   overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
   margin-top: var(--s-1);
 }
@@ -544,13 +545,14 @@ html:not(.js) .theme-toggle { display: none; }
   .readout__item { flex: none; opacity: 1; }
   .readout__item:not(:first-child), .meter { display: none; }
   .main { padding: 0 var(--pad) var(--pad); }
+  .portrait img { transform: translateX(calc(var(--portrait-x) - var(--portrait-nudge-s))); }
   .hero { padding-top: var(--s-4); }
   .stats, .offer__cols { grid-template-columns: 1fr; }
   /* Shelf bleeds to the screen edges; the next slide peeks in to show it swipes */
   .shelf { margin-inline: calc(var(--pad) * -1); }
   .shelf__head { padding-inline: var(--pad); }
   .shelf__step:not([hidden]) { display: none; } /* phones swipe; the next product peeks in */
-  .shelf__track { grid-auto-columns: 88%; scroll-padding-inline: var(--pad); }
+  .shelf__track { scroll-padding-inline: var(--pad); }
   .shelf__slide { padding-left: var(--pad); }
   .shelf__slide:last-child { padding-right: var(--pad); }
   .portfolio__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -561,7 +563,8 @@ html:not(.js) .theme-toggle { display: none; }
 }
 /* Mobile stats bar: the panel's readout and meter, pinned to the top once the panel has scrolled away.
    Shown only with JS (it follows the sections); hidden on desktop, where the panel itself is pinned. */
-.ticker { display: none; }
+.ticker, .ticker-call { display: none; }
+.ticker-call svg { width: var(--icon); height: var(--icon); fill: currentColor; }
 @media (max-width: 900px) {
   html.js .ticker {
     display: block; position: fixed; inset: 0 0 auto; z-index: 10;
@@ -575,7 +578,17 @@ html:not(.js) .theme-toggle { display: none; }
     display: flex; flex-direction: column; height: 400%;
     transition: transform var(--dur-reel) var(--ease-spring);
   }
-  .ticker__item { flex: 0 0 25%; display: flex; align-items: center; gap: var(--s-2); padding: 0 var(--pad); }
+  .ticker__item { flex: 0 0 25%; display: flex; align-items: center; gap: var(--s-2); padding: 0 calc(var(--pad) + var(--call-sq) + var(--s-1)) 0 var(--pad); }
+  /* Book a call rides in the bar once the panel (and its CTA) has scrolled away */
+  html.js .ticker-call {
+    display: inline-flex; position: fixed; z-index: 11;
+    top: calc((var(--ticker-h) - var(--call-sq)) / 2); right: var(--pad);
+    width: var(--call-sq); height: var(--call-sq); min-height: 0; padding: 0;
+    transform: translateY(calc(-1 * var(--ticker-h)));
+    transition: transform var(--dur-reel) var(--ease-out);
+  }
+  html.js .site[data-bar] .ticker-call { transform: none; }
+  html.js .site[data-bar] .ticker-call:active { transform: scale(var(--press-scale-touch)); }
   .ticker__fig { font: var(--w-semibold) var(--t-ticker) / 1 var(--font-text); letter-spacing: var(--tr-display); white-space: nowrap; }
   .ticker__name { font-family: var(--font-display); font-weight: var(--w-black); }
   .ticker__cap { max-width: var(--measure-ticker); font-size: var(--t-small); line-height: var(--lh-caption); color: var(--panel-ink-2); }

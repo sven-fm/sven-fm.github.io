@@ -11,7 +11,7 @@ Static site on Vercel. Every page uses the C3 Signal route. /styles.css and /mai
 - Do not animate width, height, top, left or margins. Only transform, opacity, clip-path and font-weight (variable axis).
 - Do not put hover effects outside `@media (hover: hover) and (pointer: fine)`. Do not ship any motion without its `prefers-reduced-motion` fallback.
 - Do not use any font other than Funnel Display (display roles, 600 to 800) and Host Grotesk (everything else, including all numbers). No monospace for figures. Never load fonts from the Google Fonts CDN or Adobe Fonts.
-- Do not add a second call to action. "Book a call" exists twice: panel and footer, each with the square LinkedIn icon button right next to it. No nav button, no section buttons, no stacked CTAs.
+- Do not add a second call to action. "Book a call" exists in the panel and the footer, each with the square LinkedIn icon button right next to it, plus on phones a square phone-icon button in the sticky stats bar (top right, only once the panel has scrolled away). No nav button, no section buttons, no stacked CTAs.
 - Do not publish an email address anywhere on the site (spam). Contact is Book a call, LinkedIn and the contact forms (home and /apps/), which send through /api/contact so the address stays in Vercel env vars.
 - Do not use the signal colour anywhere except the CTA fill, the progress meter, the "exit" marker and the /apps/ form submit.
 - Do not round corners, add shadows, gradients, glass, blobs, dot grids or mesh backgrounds. `--radius` is 0.

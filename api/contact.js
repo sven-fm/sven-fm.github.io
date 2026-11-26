@@ -1,4 +1,4 @@
-/* POST /api/contact · Vercel Function behind the form on /apps/.
+/* POST /api/contact: Vercel Function behind the forms on / (home) and /apps/.
    Sends the message through Resend to an address that never appears in the page.
 
    Env vars (Vercel project settings):
@@ -7,14 +7,18 @@
      CONTACT_FROM    verified sender, e.g. "Newconic Ventures <apps@sven.fm>" */
 
 const LIMITS = { name: 120, email: 200, app: 60, message: 5000 };
+// Where each form lives. Only these paths are used for the no-JS redirect back.
+const PAGES = { home: "/", apps: "/apps/" };
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 module.exports = async (req, res) => {
   const wantsJson = String(req.headers.accept || "").includes("application/json");
+  const body = typeof req.body === "object" && req.body ? req.body : {};
+  const source = Object.hasOwn(PAGES, body.source) ? body.source : "apps";
   const reply = (code, error) => {
     if (wantsJson) return res.status(code).json(error ? { error } : { ok: true });
     res.statusCode = 303;
-    res.setHeader("Location", "/apps/?sent=" + (error ? "0" : "1") + "#contact");
+    res.setHeader("Location", PAGES[source] + "?sent=" + (error ? "0" : "1") + "#contact");
     return res.end();
   };
 
@@ -23,11 +27,10 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const body = typeof req.body === "object" && req.body ? req.body : {};
   const field = (k) => String(body[k] || "").trim().slice(0, LIMITS[k]);
   const name = field("name");
   const email = field("email");
-  const app = field("app") || "Not specified";
+  const app = source === "home" ? "sven.fm" : field("app") || "Not specified";
   const message = field("message");
 
   // Honeypot filled: pretend success so bots learn nothing.
@@ -51,7 +54,7 @@ module.exports = async (req, res) => {
       to: [CONTACT_TO],
       reply_to: email,
       subject: `[${app}] Message from ${name}`.replace(/[\r\n]+/g, " "),
-      text: `App: ${app}\nName: ${name}\nEmail: ${email}\n\n${message}\n\n— sent from sven.fm/apps`,
+      text: `${source === "home" ? "" : `App: ${app}\n`}Name: ${name}\nEmail: ${email}\n\n${message}\n\nSent from sven.fm${PAGES[source]}`,
     }),
   });
 

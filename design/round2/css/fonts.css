@@ -1,0 +1,43 @@
+/* Self-hosted, subset, variable. 2 files, 33.5 KB total.
+   Built by tools/subset-fonts.sh from the Google Fonts sources (SIL OFL 1.1).
+   Fallback overrides measured against Arial metrics (Liberation Sans) on this
+   site's own copy, so the swap from fallback to web font causes no layout shift. */
+
+@font-face {
+  font-family: "Funnel Display";
+  src: url("/assets/fonts/funnel-display-latin-600-800.woff2") format("woff2");
+  font-weight: 600 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+2013, U+2018-201A, U+201C-201E, U+2026, U+20AC, U+2212;
+}
+
+@font-face {
+  font-family: "Host Grotesk";
+  src: url("/assets/fonts/host-grotesk-latin-300-700.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+2013, U+2018-201A, U+201C-201E, U+2026, U+20AC, U+2212;
+}
+
+/* Metric-matched fallbacks */
+@font-face {
+  font-family: "Funnel Display Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold");
+  font-weight: 600 800;
+  size-adjust: 102.07%;
+  ascent-override: 97.97%;
+  descent-override: 24.49%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Host Grotesk Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  font-weight: 300 700;
+  size-adjust: 104.41%;
+  ascent-override: 97.21%;
+  descent-override: 30.17%;
+  line-gap-override: 0%;
+}

@@ -1,0 +1,125 @@
+/* sven.fm design tokens, route C3 Signal.
+   Every component references these. No one-off values in components. */
+
+:root {
+  color-scheme: light dark;
+
+  /* Colour: light theme (default) */
+  --panel: #0F0F0E;          /* left control panel, both themes stay dark */
+  --panel-ink: #F3F1EC;      /* type on panel */
+  --panel-ink-2: #A9A7A0;    /* captions on panel, 8.0:1 */
+  --page: #F4F2ED;           /* right column ground */
+  --ink: #111110;            /* primary type */
+  --ink-2: #3B3A36;          /* secondary type, 10.6:1 */
+  --ink-3: #6B6A64;          /* tertiary type and resting logos, 4.8:1 */
+  --tint: #E8E5DD;           /* row and media highlight */
+  --signal: #FF4F2A;         /* CTA fill and progress meter ONLY */
+  --on-signal: #111110;      /* CTA label, 5.7:1 */
+  --signal-text: #B93216;    /* signal as small text on page ("exit" marker), 5.2:1 */
+
+  /* Type families */
+  --font-display: "Funnel Display", "Funnel Display Fallback", system-ui, sans-serif;
+  --font-text: "Host Grotesk", "Host Grotesk Fallback", system-ui, sans-serif;
+
+  /* Type scale (fluid between 390 and 1440 viewports) */
+  --t-name: clamp(64px, 7vw, 116px);       /* panel name, h1 */
+  --t-readout: clamp(72px, 8.4vw, 140px);  /* panel figures */
+  --t-hero: clamp(44px, 4.4vw, 72px);      /* fractional headline */
+  --t-h2: clamp(32px, 2.9vw, 46px);        /* section headings */
+  --t-h3: 24px;                            /* sub-headings, company names */
+  --t-fig: clamp(32px, 2.8vw, 44px);       /* hero stats */
+  --t-lead: clamp(19px, 1.45vw, 22px);
+  --t-body: 17px;
+  --t-small: 15px;
+  --t-micro: 12px;                         /* "exit" marker only */
+  --t-cta: 22px;
+  --t-wordmark: 20px;
+
+  /* Weights */
+  --w-light: 300;     /* inactive readout figure */
+  --w-regular: 400;
+  --w-medium: 500;
+  --w-semibold: 600;  /* figures, emphasis, active readout */
+  --w-bold: 700;      /* display: sub-headings, CTA */
+  --w-black: 800;     /* display: name, headlines */
+
+  /* Line heights */
+  --lh-name: 0.86;
+  --lh-display: 0.95;
+  --lh-heading: 1;
+  --lh-sub: 1.15;
+  --lh-caption: 1.35;
+  --lh-lead: 1.4;
+  --lh-body: 1.5;
+  --lh-fig: 0.95;
+  --lh-readout: 0.9;
+
+  /* Tracking */
+  --tr-display: -0.045em;
+  --tr-heading: -0.04em;
+  --tr-sub: -0.02em;
+  --tr-fig: -0.04em;
+
+  /* Spacing */
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 40px;
+  --s-5: 64px;
+  --s-6: clamp(64px, 7vw, 104px);
+  --s-7: clamp(104px, 11vw, 160px);
+  --pad: clamp(20px, 3vw, 48px);           /* outer padding, both columns */
+  --gutter-main: clamp(32px, 5vw, 88px);   /* gap between panel and content */
+
+  /* Layout */
+  --col-max: 760px;           /* right column measure */
+  --split: 5fr 7fr;           /* panel : content */
+  --nav-h: 80px;
+  --hero-top: 112px;          /* nav + s-4, aligns hero headline under the nav line */
+  --readout-win: clamp(260px, 24vw, 360px);
+  --touch: 44px;              /* minimum hit target */
+  --cta-h: 64px;
+  --meter-w: 4px;
+
+  /* Radii: none anywhere. Square corners are part of the route. */
+  --radius: 0;
+
+  /* Motion */
+  --dur-instant: 80ms;   /* press down */
+  --dur-fast: 160ms;     /* colour, highlight */
+  --dur-base: 240ms;     /* underline, lift, plate shift */
+  --dur-slow: 420ms;     /* press release */
+  --dur-reel: 680ms;     /* readout reel and meter */
+  --dur-fade: 520ms;     /* portrait exit opacity */
+  --dur-weight: 560ms;   /* readout weight flow */
+  --dur-revert: 1200ms;  /* "Copied" label hold */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* Spring with ~5% overshoot, settles by 62% of the duration */
+  --ease-spring: linear(0, 0.2 6%, 0.56 15%, 0.88 26%, 1.04 38%, 1.05 46%, 1.01 62%, 1);
+  --press-scale: 0.97;
+  --press-scale-touch: 0.95;
+  --lift: -2px;          /* logo hover rise */
+  --plate-shift: 5px;    /* max screenshot travel inside its frame */
+  --copied-shift: 6px;
+  --portrait-exit: -6%;
+}
+
+/* Dark theme: explicit choice wins, otherwise follow the OS */
+:root[data-theme="dark"] {
+  --page: #161615;
+  --ink: #F1EFEA;
+  --ink-2: #C3C1BA;
+  --ink-3: #95938C;
+  --tint: #23221F;
+  --signal-text: #FF6A48;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: #161615;
+    --ink: #F1EFEA;
+    --ink-2: #C3C1BA;
+    --ink-3: #95938C;
+    --tint: #23221F;
+    --signal-text: #FF6A48;
+  }
+}

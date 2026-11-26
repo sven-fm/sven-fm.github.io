@@ -7,6 +7,16 @@
       "permanent": false
     },
     {
+      "source": "/profile",
+      "destination": "/about/",
+      "statusCode": 301
+    },
+    {
+      "source": "/profile/:path*",
+      "destination": "/about/",
+      "statusCode": 301
+    },
+    {
       "source": "/:path*",
       "has": [
         {
